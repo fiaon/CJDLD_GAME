@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "64d76ea7-b0b6-4426-80eb-7a8ef17066bd",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "观看完视频才能获得奖励哦": {
+      "ver": "1.0.3",
+      "uuid": "b4d08662-c6ff-41ea-afc4-ec6cd88f4b13",
+      "rawTextureUuid": "64d76ea7-b0b6-4426-80eb-7a8ef17066bd",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 287,
+      "height": 24,
+      "rawWidth": 287,
+      "rawHeight": 24,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

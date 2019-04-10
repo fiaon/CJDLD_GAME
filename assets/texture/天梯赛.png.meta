@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "0eb43a0a-2fc3-4332-a971-e7834fdfedce",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "天梯赛": {
+      "ver": "1.0.3",
+      "uuid": "cd40a6cb-67aa-445e-b8a7-8a5f7d20c1be",
+      "rawTextureUuid": "0eb43a0a-2fc3-4332-a971-e7834fdfedce",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 248,
+      "height": 220,
+      "rawWidth": 248,
+      "rawHeight": 220,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
