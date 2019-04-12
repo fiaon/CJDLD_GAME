@@ -13,11 +13,11 @@ cc.Class({
 
     properties: {
         toggle:{
-            default:null,
+            default:[],
             type:cc.Toggle,
         },
         Background:{
-            default:null,
+            default:[],
             type:cc.Sprite,
         },
     },
@@ -27,15 +27,20 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        
     },
     onCheck(){
-       if(this.toggle.getComponent(cc.Toggle).isChecked){
-           this.Background.spriteFrame = new cc.SpriteFrame(cc.url.raw('resources/off.png'));
-       }else{
-        this.Background.spriteFrame = new cc.SpriteFrame(cc.url.raw('resources/on.png'));
-       }
+        for(var i =0;i<this.toggle.length;i++){
+            if(this.toggle[i].getComponent(cc.Toggle).isChecked){
+                this.Background[i].spriteFrame = new cc.SpriteFrame(cc.url.raw('resources/off.png'));
+            }else{
+             this.Background[i].spriteFrame = new cc.SpriteFrame(cc.url.raw('resources/on.png'));
+            }
+        }
+       
+    },
+    CloseView(){
+        this.node.destroy();
     }
-
     // update (dt) {},
 });

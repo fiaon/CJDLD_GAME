@@ -169,6 +169,7 @@ cc.Class({
                 //转盘停止跳出提示框
                 var pre = cc.instantiate(this.prefab);
                 this.node.addChild(pre);
+                
                 if(this.springback)
                 {
                     //倒转一个齿轮
