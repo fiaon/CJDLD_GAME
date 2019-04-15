@@ -53,10 +53,10 @@ cc.Class({
             default:true,
             tooltip:"旋转结束是否回弹"
         },
-        effectAudio:{
-            default:null,
-            url:cc.AudioClip,
-        },
+        // effectAudio:{
+        //     default:null,
+        //     url:cc.AudioClip,
+        // },
         prefab:{
             default:null,
             type:cc.Prefab,
