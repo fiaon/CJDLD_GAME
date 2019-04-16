@@ -16,7 +16,10 @@ cc.Class({
             default:null,
             type:require("Rocker"),
         },
-        
+        map:{
+            default:null,
+            type:cc.Node,
+        },
         speed:100,
     },
 
@@ -38,6 +41,16 @@ cc.Class({
 
         var sx = vx * dt;
         var sy = vy * dt;
+        //人物移动不能超过地图边界
+        if(this.node.x<0 && Math.abs(this.node.x + sx-this.node.width/2)>=(this.map.width/2)){
+            return;
+        }else if(this.node.x>0 && Math.abs(this.node.x + sx+this.node.width/2)>=(this.map.width/2)){
+            return;
+        }else if(this.node.y>0 && Math.abs(this.node.y + sy+this.node.height/2)>=(this.map.height/2)){
+            return;
+        }else if(this.node.y<0 && Math.abs(this.node.y + sy-this.node.height/2)>=(this.map.height/2)){
+            return;
+        }
         //移动
         this.node.x += sx;
         this.node.y += sy;
