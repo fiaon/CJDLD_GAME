@@ -27,7 +27,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        console.log("画布宽度 "+cc.winSize.width);
+        
     },
 
     update (dt) {

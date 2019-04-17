@@ -16,7 +16,17 @@ cc.Class({
             default:null,
             type:cc.Node,
         },
+        skill1:{
+            default:null,
+            type:cc.Node,
+        },
+        skill1_mask:{
+            default:null,
+            type:cc.Sprite,
+        },
         Max_r: 49,
+        skillCd:10,
+        is_Cd:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -67,7 +77,25 @@ cc.Class({
             this.Rocker.setPosition(cc.v2(0,0));
             this.dir = cc.v2(0, 0);
         },this);
+        this.skill1.on(cc.Node.EventType.TOUCH_START,function(e){
+            this.is_Cd = true;
+        },this);
     },
 
-    // update (dt) {},
+    update (dt) {
+        //如果技能没进入cd return
+        if(!this.is_Cd){
+            return;
+        }
+        //显示技能遮罩
+        if(Math.abs(this.skill1_mask.fillRange) < 1){
+            this.skill1_mask.node.active = true;
+            this.skill1_mask.fillRange += -(dt/this.skillCd);
+        }else{
+            this.is_Cd = false;
+            this.skill1_mask.node.active = false;
+            this.skill1_mask.fillRange =0;
+            console.log("冷却完成");
+        }
+    },
 });
