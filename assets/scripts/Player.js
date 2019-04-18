@@ -28,7 +28,8 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        //开启碰撞检测
+        cc.director.getCollisionManager().enabled = true;
     },
 
      update (dt) {
@@ -60,4 +61,25 @@ cc.Class({
         degree = 360 - degree + 90;
         this.node.rotation = degree;
      },
+     onCollisionEnter: function (other, self) {
+        //判断碰撞的类型
+        if(other.node.group == "gem"){
+            other.node.destroy();
+            console.log("增加经验值");
+        }else if(other.node.group == "item"){
+            other.node.destroy();
+            if(other.node.name == "item_dunPrefab"){
+                console.log("加盾");
+            }else if(other.node.name == "item_hpPrefab"){
+                console.log("加血");
+            }else if(other.node.name == "item_xiePrefab"){
+
+                this.speed = 200;
+                this.scheduleOnce(function() {
+                    this.speed = 100;
+                }, 3);
+            }
+        }
+        
+    },
 });
