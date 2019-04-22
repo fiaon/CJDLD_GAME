@@ -41,7 +41,6 @@ cc.Class({
         this.Rocker.on(cc.Node.EventType.TOUCH_START,function(e){
             var w_pos = e.getLocation();
             var pos = this.node.convertToNodeSpaceAR(w_pos);
-
             var len = pos.mag();//获取向量长度
             this.dir.x = pos.x / len;
             this.dir.y = pos.y / len;

@@ -19,6 +19,8 @@
       false,
       false,
       true,
+      true,
+      true,
       true
     ],
     [
@@ -26,7 +28,10 @@
       false,
       false,
       true,
-      false
+      false,
+      null,
+      true,
+      true
     ],
     [
       false,
@@ -34,6 +39,28 @@
       false,
       true,
       false,
+      false,
+      true,
+      true
+    ],
+    [
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true
+    ],
+    [
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
       false
     ]
   ],
@@ -58,7 +85,9 @@
     "map",
     "player",
     "gem",
-    "item"
+    "item",
+    "trigger",
+    "enemy"
   ],
   "last-module-event-record-time": 0,
   "simulator-orientation": false,
