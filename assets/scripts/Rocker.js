@@ -87,13 +87,13 @@ cc.Class({
             return;
         }
         //显示技能遮罩
-        if(Math.abs(this.skill1_mask.fillRange) < 1){
-            this.skill1_mask.node.active = true;
-            this.skill1_mask.fillRange += -(dt/this.skillCd);
+        if(this.skill1_mask.fillRange >= 0){
+            //this.skill1_mask.node.active = true;
+            this.skill1_mask.fillRange -= (dt/this.skillCd);
         }else{
             this.is_Cd = false;
-            this.skill1_mask.node.active = false;
-            this.skill1_mask.fillRange =0;
+            //this.skill1_mask.node.active = false;
+            this.skill1_mask.fillRange =1;
             console.log("冷却完成");
         }
     },

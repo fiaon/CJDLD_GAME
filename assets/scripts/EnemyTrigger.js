@@ -30,10 +30,11 @@ cc.Class({
 
     start () {
         this.dir = cc.v2(0,0);
+        
     },
 
     update (dt) {
-        if(this.is_trigger){
+        if(this.is_trigger && !Global.is_end){
             var vx = this.dir.x * this.speed;
             var vy = this.dir.y * this.speed;
 
@@ -46,7 +47,7 @@ cc.Class({
             var r = Math.atan2(this.dir.y,this.dir.x);
             var degree = r * 180/(Math.PI);
             degree = 360 - degree + 90;
-            this.enemy.rotation = degree;
+            this.enemy.getComponent("EnemyManager").player.rotation = degree;
             //人物移动不能超过地图边界
             if(this.enemy.x<0 && Math.abs(this.enemy.x -this.node.width/2)>=(this.map.width/2)){
                 this.is_trigger =false;
@@ -76,16 +77,11 @@ cc.Class({
     onCollisionStay: function (other, self) {
         
         if(other.node.group == "player"){
-            console.log("攻击玩家");
             this.ComputeDir(other.node.position)
-            
         }else{
             if(other.node.group == "gem"){
-                console.log("去吃宝石");
                 this.ComputeDir(other.node.position)
             }else if(other.node.group == "item"){
-                
-                console.log("去吃道具");
                 this.ComputeDir(other.node.position)
             }
         } 

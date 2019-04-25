@@ -20,11 +20,13 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        if(Global.is_Again){
-            cc.find("Canvas/DOYouLikeView").active =true;
-            Global.is_Again = false;
-        }
+
     },
+    GameAgain(){
+        //再来一局按钮线跳到首页出现推广窗口
+        Global.is_Again = true;
+        cc.director.loadScene("GameStart.fire");
+    }
 
     // update (dt) {},
 });

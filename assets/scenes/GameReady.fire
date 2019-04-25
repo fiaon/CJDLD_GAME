@@ -86,17 +86,17 @@
         "__id__": 154
       },
       {
-        "__id__": 161
+        "__id__": 162
       }
     ],
     "_active": true,
     "_level": 0,
     "_components": [
       {
-        "__id__": 170
+        "__id__": 171
       },
       {
-        "__id__": 171
+        "__id__": 172
       }
     ],
     "_prefab": null,
@@ -6953,7 +6953,11 @@
     "_enabled": true,
     "duration": 0.1,
     "zoomScale": 1.2,
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 161
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$transition": 2,
@@ -7014,6 +7018,16 @@
     "_id": "39C21qi8VA25VITM/5JJbT"
   },
   {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 2
+    },
+    "component": "",
+    "_componentId": "2f143GFuOFPg6qbBYDJ4Sj0",
+    "handler": "GtoScene",
+    "customEventData": "Game"
+  },
+  {
     "__type__": "cc.Node",
     "_name": "Matching",
     "_objFlags": 0,
@@ -7022,10 +7036,10 @@
     },
     "_children": [
       {
-        "__id__": 162
+        "__id__": 163
       },
       {
-        "__id__": 164
+        "__id__": 165
       }
     ],
     "_active": false,
@@ -7081,14 +7095,14 @@
     "_name": "Mask",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 161
+      "__id__": 162
     },
     "_children": [],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 163
+        "__id__": 164
       }
     ],
     "_prefab": null,
@@ -7141,7 +7155,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 162
+      "__id__": 163
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -7169,21 +7183,21 @@
     "_name": "Img",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 161
+      "__id__": 162
     },
     "_children": [
       {
-        "__id__": 165
+        "__id__": 166
       },
       {
-        "__id__": 167
+        "__id__": 168
       }
     ],
     "_active": true,
     "_level": 2,
     "_components": [
       {
-        "__id__": 169
+        "__id__": 170
       }
     ],
     "_prefab": null,
@@ -7236,14 +7250,14 @@
     "_name": "label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 164
+      "__id__": 165
     },
     "_children": [],
     "_active": true,
     "_level": 3,
     "_components": [
       {
-        "__id__": 166
+        "__id__": 167
       }
     ],
     "_prefab": null,
@@ -7296,7 +7310,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 165
+      "__id__": 166
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7321,14 +7335,14 @@
     "_name": "hook",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 164
+      "__id__": 165
     },
     "_children": [],
     "_active": false,
     "_level": 3,
     "_components": [
       {
-        "__id__": 168
+        "__id__": 169
       }
     ],
     "_prefab": null,
@@ -7381,7 +7395,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 167
+      "__id__": 168
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -7409,7 +7423,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 164
+      "__id__": 165
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -7457,6 +7471,7 @@
       "__id__": 2
     },
     "_enabled": true,
+    "tip_prefab": null,
     "_id": "aeT47uezVHPpwgvScLLxY1"
   }
 ]

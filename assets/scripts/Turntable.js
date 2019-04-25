@@ -65,7 +65,6 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.log("....onload");
         this.wheelState = 0;    
         this.curSpeed = 0;
         this.spinTime = 0;                   //减速前旋转时间
@@ -78,7 +77,6 @@ cc.Class({
         
         this.spinBtn.node.on(cc.Node.EventType.TOUCH_END,function(event)
         {
-            cc.log("begin spin");
             if(this.wheelState !== 0)
             {
                  return;

@@ -1,7 +1,7 @@
 window.Global = {
-    level: 46,
-    select_level: 1,
     ios: 1,
+    is_end:false,
+    is_Again:false,
 
     prefab_icon: null,
     prefab_gongxi: null,

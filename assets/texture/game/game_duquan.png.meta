@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "d9f17512-df12-4d81-8b74-f61ae38c9171",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "game_duquan": {
+      "ver": "1.0.3",
+      "uuid": "c58db7fa-eb0c-4c44-b1b5-5366d7182b5a",
+      "rawTextureUuid": "d9f17512-df12-4d81-8b74-f61ae38c9171",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 216,
+      "height": 37,
+      "rawWidth": 216,
+      "rawHeight": 37,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

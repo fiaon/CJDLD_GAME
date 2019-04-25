@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "134c4135-4acd-4b15-9f9c-ea10960828bc",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "game_peoplebg": {
+      "ver": "1.0.3",
+      "uuid": "769d2cf3-c14c-43f8-9367-a16be17ffc4c",
+      "rawTextureUuid": "134c4135-4acd-4b15-9f9c-ea10960828bc",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 121,
+      "height": 23,
+      "rawWidth": 123,
+      "rawHeight": 25,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
