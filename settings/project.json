@@ -2,7 +2,10 @@
   "assets-sort-type": "name",
   "collision-matrix": [
     [
-      false
+      false,
+      null,
+      null,
+      true
     ],
     [
       false,
@@ -14,7 +17,7 @@
       false
     ],
     [
-      false,
+      true,
       false,
       false,
       false,
@@ -101,7 +104,7 @@
     "enemy",
     "mapbg"
   ],
-  "last-module-event-record-time": 0,
+  "last-module-event-record-time": 1556262274291,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,

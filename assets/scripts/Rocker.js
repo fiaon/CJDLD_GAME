@@ -24,8 +24,15 @@ cc.Class({
             default:null,
             type:cc.Sprite,
         },
-        Max_r: 49,
-        skillCd:10,
+        attack:{
+            default:null,
+            type:cc.Node,
+        },
+        player:{
+            default:null,
+            type:cc.Node,
+        },
+        
         is_Cd:false,
     },
 
@@ -34,6 +41,8 @@ cc.Class({
     // onLoad () {},
 
     start () {
+        this.Max_r = 49;
+        this.skillCd = 1.5;
         this.Rocker.x = 0;
         this.Rocker.y = 0;
         this.dir = cc.v2(0,0);
@@ -77,10 +86,22 @@ cc.Class({
             this.dir = cc.v2(0, 0);
         },this);
         this.skill1.on(cc.Node.EventType.TOUCH_START,function(e){
-            this.is_Cd = true;
+            if(!this.is_Cd){
+                this.attack.getComponent(cc.Animation).play('attack');
+                this.playerAttack();
+                this.is_Cd = true;
+            }
         },this);
     },
-
+    //平A技能（往前撞击）
+    playerAttack(){
+        // 将角度转换为弧度
+        let radian  = cc.misc.degreesToRadians(this.player.getComponent("Player").player.rotation);
+        let comVec = cc.v2(0, 1);// 一个向上的对比向量
+        let dirVec = comVec.rotate(-radian);
+        this.player.x += dirVec.x*100;
+        this.player.y += dirVec.y*100;
+    },
     update (dt) {
         //如果技能没进入cd return
         if(!this.is_Cd){

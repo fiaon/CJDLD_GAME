@@ -12,23 +12,39 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        mask:{
+        tip_prefab:{
             default:null,
-            type:cc.Mask,
+            type:cc.Prefab,
         },
-        is_suodu:false,
-        time:10,
+        
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.mask._clearGraphics.rect(-20000, -20000, 60000 ,60000); 
-        this.mask._clearGraphics.fill();
+        this.node.getComponent(cc.Mask)._clearGraphics.rect(-20000, -20000, 60000 ,60000); 
+        this.node.getComponent(cc.Mask)._clearGraphics.fill();
+
     },
 
     start () {
-
+        //出现提示
+        this.is_suodu= false;
+        this.time=0;
+        this.scheduleOnce(function() {
+            let tip = cc.instantiate(this.tip_prefab);
+            if (tip) {
+                cc.find("Canvas").addChild(tip);
+                let src = tip.getComponent(require("TipShow"));
+                if (src) {
+                    src.label.string = "永夜还有10s后扩大笼罩范围";
+                }
+            }
+            this.time = 20;
+        }, 10);
+        this.scheduleOnce(function() {
+            this.is_suodu= true;
+        }, 20);
     },
 
      update (dt) {
@@ -36,13 +52,34 @@ cc.Class({
              return;
          }
          if(this.time>=0){
-            this.node.width -= dt*20;
-            this.node.height -= dt*20;
+            this.node.width -= dt*32;
+            this.node.height -= dt*32;
+            this.node.getComponent(cc.BoxCollider).size.width = this.node.width;
+            this.node.getComponent(cc.BoxCollider).size.height = this.node.height;
             this.time -=dt;
          }else{
             this.is_suodu = false;
-            this.time =10;
          }
          
      },
+     //开始触发
+     onCollisionEnter: function (other, self) {
+        if(other.node.group == "player"){
+            other.getComponent("Player").is_chidu = false;
+            console.log("英雄在安全区");
+        }
+    },
+    //持续触发
+    onCollisionStay: function (other, self) {
+        if(other.node.group == "player"){
+            other.getComponent("Player").is_chidu = false;
+        }
+    },
+    //触发结束
+    onCollisionExit: function (other, self) {
+        if(other.node.group == "player"){
+            other.getComponent("Player").is_chidu = true;
+            console.log("英雄在毒圈");
+        }
+    },
 });

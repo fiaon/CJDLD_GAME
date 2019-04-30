@@ -49,11 +49,14 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        cc.director.getPhysicsManager().enabled = true;
+    },
 
     start () {
         //开启碰撞检测
         cc.director.getCollisionManager().enabled = true;
+        
 
         //定义玩家信息
         this.curhp = 1;
@@ -63,11 +66,16 @@ cc.Class({
         this.skillNum =0;
         this.damage = 0;
         this.isDun = false;//是否有护盾
+        this.is_chidu = false;//是否吃毒
+        this.time = 3;
 
         this.Herolv.string = this.lv;
         this.Heroexp.fillRange =0;
         this.Herohp.progress = this.curhp/this.maxhp;
         //this.HeroDamage();
+
+        this.rigidbody = this.node.getComponent(cc.RigidBody);
+        
     },
 
      update (dt) {
@@ -93,70 +101,91 @@ cc.Class({
         //移动
         this.node.x += sx;
         this.node.y += sy;
+        //this.rigidbody.syncPosition(false);;
+        // console.log("节点位置 " + this.node.position);
         //方向计算
         var r = Math.atan2(this.Rocker.dir.y,this.Rocker.dir.x);
         var degree = r * 180/(Math.PI);
         degree = 360 - degree + 90;
         this.player.rotation = degree;
+        //如果吃毒
+        if(!this.is_chidu){
+            return;
+        }
+        if(this.time>=0){
+            this.time -=dt;
+            this.HeroDamage();
+         }else{
+            this.time =3;
+         }
      },
      onCollisionEnter: function (other, self) {
         //判断碰撞的类型
-        if(other.node.group == "gem"){
-            other.node.destroy();
-            
-            this.exp +=1;
-            this.Herolv.string = this.lv;
-            if(this.Herolv.string <=5){
-                this.Heroexp.fillRange = this.exp /(-18);
-            }else if(this.Herolv.string <=10){
-                this.Heroexp.fillRange = this.exp /(-36);
-            }else if(this.Herolv.string <=15){
-                this.Heroexp.fillRange = this.exp /(-54);
+        if(self.tag == 0 ){
+            if(other.node.group == "gem"){
+                other.node.destroy();
+                
+                this.exp +=1;
+                this.Herolv.string = this.lv;
+                if(this.Herolv.string <=5){
+                    this.Heroexp.fillRange = this.exp /(-18);
+                }else if(this.Herolv.string <=10){
+                    this.Heroexp.fillRange = this.exp /(-36);
+                }else if(this.Herolv.string <=15){
+                    this.Heroexp.fillRange = this.exp /(-54);
+                }
+    
+                if(this.exp == 18 && this.lv<=5){
+                    this.lv +=1;
+                    this.exp =0;
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.Herohp.progress = this.curhp/this.maxhp;
+                    }
+                    this.HeroLvUp();
+                }else if(this.exp == 36 && this.lv<=10){
+                    this.lv +=1;
+                    this.exp =0;
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.Herohp.progress = this.curhp/this.maxhp;
+                    }
+                    this.HeroLvUp();
+                }else if(this.exp == 54 && this.lv<=15){
+                    this.lv +=1;
+                    this.exp =0;
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.Herohp.progress = this.curhp/this.maxhp;
+                    }
+                    this.HeroLvUp();
+                }
+            }else if(other.node.group == "item"){
+                other.node.destroy();
+                if(other.node.name == "item_dunPrefab"){
+                    console.log("加盾");
+                }else if(other.node.name == "item_hpPrefab"){
+    
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.Herohp.progress = this.curhp/this.maxhp;
+                    }
+                }else if(other.node.name == "item_xiePrefab"){
+    
+                    this.speed = 200;
+                    this.scheduleOnce(function() {
+                        this.speed = 100;
+                    }, 3);
+                }
             }
-
-            if(this.exp == 18 && this.lv<=5){
-                this.lv +=1;
-                this.exp =0;
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.Herohp.progress = this.curhp/this.maxhp;
-                }
-                this.HeroLvUp();
-            }else if(this.exp == 36 && this.lv<=10){
-                this.lv +=1;
-                this.exp =0;
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.Herohp.progress = this.curhp/this.maxhp;
-                }
-                this.HeroLvUp();
-            }else if(this.exp == 54 && this.lv<=15){
-                this.lv +=1;
-                this.exp =0;
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.Herohp.progress = this.curhp/this.maxhp;
-                }
-                this.HeroLvUp();
-            }
-        }else if(other.node.group == "item"){
-            other.node.destroy();
-            if(other.node.name == "item_dunPrefab"){
-                console.log("加盾");
-            }else if(other.node.name == "item_hpPrefab"){
-
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.Herohp.progress = this.curhp/this.maxhp;
-                }
-            }else if(other.node.name == "item_xiePrefab"){
-
-                this.speed = 200;
-                this.scheduleOnce(function() {
-                    this.speed = 100;
-                }, 3);
+        }else if(self.tag ==1 && other.tag ==0){
+            if(other.node.group == "enemy"){
+                other.getComponent("EnemyManager").EnemyDamage();
+                var hp =  other.node.getComponent("EnemyManager").curhp;
+                console.log("hp "+hp);
             }
         }
+        
     },
     HeroDead(){
         if(this.curhp <=0){
@@ -175,14 +204,15 @@ cc.Class({
     //攻击
     HeroAttack(){
         this.damage +=1;//造成伤害+1
+        if(this.Rocker.is_Cd){
+
+        }
     },
     //受伤
     HeroDamage(){
-        
         this.curhp -=1;
         this.Herohp.progress = this.curhp/this.maxhp;
         this.HeroDead();
-        
         
     },
     HeroLvUp(){

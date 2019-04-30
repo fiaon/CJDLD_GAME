@@ -57,6 +57,7 @@ cc.Class({
             cc.find("Canvas/GameOverView/smallgameView/bg/clickBtn").getComponent(cc.Button).interactable =false;
             var pre = cc.instantiate(this.RewardView);
             cc.find("Bg/Video",pre).active = false;
+            cc.find("Bg/CloseBtn",pre).active = false;
             cc.find("Bg/Number",pre).getComponent(cc.Label).string = "x" + this.goldnumber.string;
             cc.find("Bg/ConfirmBtn",pre).y = -95;
             cc.find("Bg/ConfirmBtn/textImg",pre).getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(cc.url.raw('resources/confirm.png'));

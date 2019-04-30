@@ -12,18 +12,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        mapCamera:{
-            default:null,
-            type:cc.Camera,
-        },
-        sprite: {
-            default: null,
-            type: cc.Sprite
-        },
-        target:{
-            default:null,
-            type:cc.Node,
-        },
+        
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,18 +20,10 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        let texture = new cc.RenderTexture();
-        texture.initWithSize(100, 100);
 
-        let spriteFrame = new cc.SpriteFrame();
-        spriteFrame.setTexture(texture)
-        this.sprite.spriteFrame = spriteFrame;
-        
-        this.mapCamera.targetTexture = texture;
     },
-
-    update (dt) {
-        this.node.x = this.target.x;
-        this.node.y = this.target.y;
+    onAnimAttackcallblack(){
+        this.node.getComponent(cc.Sprite).spriteFrame = null;
     },
+    // update (dt) {},
 });

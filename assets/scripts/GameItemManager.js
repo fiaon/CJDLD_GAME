@@ -31,17 +31,17 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        for(var i=0;i<100;i++){
+        for(var i=0;i<200;i++){
             this.CreateGem();
         }
-        for(var i=0;i<20;i++){
+        for(var i=0;i<40;i++){
             this.CreateItem();
         }
     },
     CreateGem(){
         var x = Math.random()*(this.map.width/2 - (this.map.width/-2)) + (this.map.width/-2);
         var y = Math.random()*(this.map.height/2 - (this.map.height/-2)) + (this.map.height/-2);
-        var str = Math.ceil(Math.random()*4);
+        var str = Math.round(Math.random()*4);
         var item =  cc.instantiate(this.gemPrefab[str]);
         item.x = x;
         item.y = y;
@@ -51,7 +51,7 @@ cc.Class({
     CreateItem(){
         var x = Math.random()*(this.map.width/2 - (this.map.width/-2)) + (this.map.width/-2);
         var y = Math.random()*(this.map.height/2 - (this.map.height/-2)) + (this.map.height/-2);
-        var str = Math.ceil(Math.random()*2);
+        var str = Math.round(Math.random()*2);
         var item =  cc.instantiate(this.ItemPrefab[str]);
         item.x = x;
         item.y = y;

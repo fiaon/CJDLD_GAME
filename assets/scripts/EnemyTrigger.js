@@ -72,24 +72,39 @@ cc.Class({
     
     onCollisionEnter: function (other, self) {
         //判断碰撞的类型
-        this.ComputeDir(other.node.position)
+        this.ComputeDir(other.node.position);
+        if(other.node.group == "player"){
+            this.playerAttack(other.node.position);
+        }
     },
     onCollisionStay: function (other, self) {
         
-        if(other.node.group == "player"){
+        
+        if(other.node.group == "gem"){
             this.ComputeDir(other.node.position)
-        }else{
-            if(other.node.group == "gem"){
-                this.ComputeDir(other.node.position)
-            }else if(other.node.group == "item"){
-                this.ComputeDir(other.node.position)
-            }
-        } 
+        }else if(other.node.group == "item"){
+            this.ComputeDir(other.node.position)
+        }
+        
     },
-    // onCollisionExit: function (other, self) {
-    //     if(other.node.group == "player"){
-    //         console.log("enemyPos "+ this.enemy.position);
-    //         this.is_trigger = false;
-    //     }
-    // }
+    //平A技能（往前撞击）
+    playerAttack(otherpos){
+        this.pos = otherpos.sub(this.enemy.position);
+        var len = this.pos.mag();
+        this.dir.x = this.pos.x / len;
+        this.dir.y = this.pos.y / len;
+        //方向计算
+        var r = Math.atan2(this.dir.y,this.dir.x);
+        var degree = r * 180/(Math.PI);
+        degree = 360 - degree + 90;
+        //播放特效
+        this.enemy.getComponent("EnemyManager").player.getChildByName("attack").getComponent(cc.Animation).play('attack');
+        // 将角度转换为弧度
+        let radian  = cc.misc.degreesToRadians(degree);
+        let comVec = cc.v2(0, 1);// 一个向上的对比向量
+        let dirVec = comVec.rotate(-radian);
+        this.enemy.x += dirVec.x*80;
+        this.enemy.y += dirVec.y*80;
+    },
+    
 });

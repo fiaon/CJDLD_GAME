@@ -40,6 +40,18 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        mubei:{
+            default:null,
+            type:cc.Prefab,
+        },
+        gemPrefab:{
+            default:[],
+            type:cc.Prefab,
+        },
+        ItemPrefab:{
+            default:[],
+            type:cc.Prefab,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -49,6 +61,7 @@ cc.Class({
     start () {
         //开启碰撞检测
         cc.director.getCollisionManager().enabled = true;
+        cc.director.getPhysicsManager().enabled = true;
         this.ismove = false;
 
         //定义玩家信息
@@ -121,70 +134,73 @@ cc.Class({
     },
     onCollisionEnter: function (other, self) {
         //判断碰撞的类型
-        if(other.node.group == "gem"){
-            other.node.destroy();
-            this.exp +=1;
-            this.enemylv.string = this.lv;
-            if(this.enemylv.string <=5){
-                this.enemyexp.fillRange = this.exp /(-18);
-            }else if(this.enemylv.string <=10){
-                this.enemyexp.fillRange = this.exp /(-36);
-            }else if(this.enemylv.string <=15){
-                this.enemyexp.fillRange = this.exp /(-54);
+        if(self.tag == 0 ){
+            if(other.node.group == "gem"){
+                other.node.destroy();
+                this.exp +=1;
+                this.enemylv.string = this.lv;
+                if(this.enemylv.string <=5){
+                    this.enemyexp.fillRange = this.exp /(-18);
+                }else if(this.enemylv.string <=10){
+                    this.enemyexp.fillRange = this.exp /(-36);
+                }else if(this.enemylv.string <=15){
+                    this.enemyexp.fillRange = this.exp /(-54);
+                }
+    
+                if(this.exp == 18 && this.lv<=5){
+                    this.lv +=1;
+                    this.exp =0;
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.enemyhp.progress = this.curhp/this.maxhp;
+                    }
+                    this.enemylvUp();
+                }else if(this.exp == 36 && this.lv<=10){
+                    this.lv +=1;
+                    this.exp =0;
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.enemyhp.progress = this.curhp/this.maxhp;
+                    }
+                    this.enemylvUp();
+                }else if(this.exp == 54 && this.lv<=15){
+                    this.lv +=1;
+                    this.exp =0;
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.enemyhp.progress = this.curhp/this.maxhp;
+                    }
+                    this.enemylvUp();
+                }
+            }else if(other.node.group == "item"){
+                other.node.destroy();
+                if(other.node.name == "item_dunPrefab"){
+                    console.log("机器人加盾");
+                }else if(other.node.name == "item_hpPrefab"){
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.enemyhp.progress = this.curhp/this.maxhp;
+                    }
+                }else if(other.node.name == "item_xiePrefab"){
+    
+                    this.trigger.speed = 200;
+                    this.scheduleOnce(function() {
+                        this.trigger.speed = 100;
+                    }, 3);
+                }
+            }else if(self.tag ==1 && other.tag ==0){
+                if(other.node.group == "player"){
+                    other.getComponent("Player").HeroDamage();
+                    var hp =  other.node.getComponent("Player").curhp;
+                    console.log("hp "+hp);
+                }
             }
-
-            if(this.exp == 18 && this.lv<=5){
-                this.lv +=1;
-                this.exp =0;
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.enemyhp.progress = this.curhp/this.maxhp;
-                }
-                this.enemylvUp();
-            }else if(this.exp == 36 && this.lv<=10){
-                this.lv +=1;
-                this.exp =0;
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.enemyhp.progress = this.curhp/this.maxhp;
-                }
-                this.enemylvUp();
-            }else if(this.exp == 54 && this.lv<=15){
-                this.lv +=1;
-                this.exp =0;
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.enemyhp.progress = this.curhp/this.maxhp;
-                }
-                this.enemylvUp();
-            }
-        }else if(other.node.group == "item"){
-            other.node.destroy();
-            if(other.node.name == "item_dunPrefab"){
-                console.log("机器人加盾");
-            }else if(other.node.name == "item_hpPrefab"){
-                if(this.curhp < this.maxhp){
-                    this.curhp +=1;
-                    this.enemyhp.progress = this.curhp/this.maxhp;
-                }
-            }else if(other.node.name == "item_xiePrefab"){
-
-                this.trigger.speed = 200;
-                this.scheduleOnce(function() {
-                    this.trigger.speed = 100;
-                }, 3);
-            }
-        }else if(other.node.group == "player"){
-            console.log("机器人攻击玩家");
-            other.node.getComponent("Player").HeroDamage();
         }
+        
     },
     onCollisionExit: function (other, self) {
         
-        console.log("enemyPos "+ self.node.position);
         this.trigger.is_trigger = false;
-        
-        
     },
     enemylvUp(){
         this.lvUp.active = true;
@@ -195,19 +211,69 @@ cc.Class({
     },
     //受伤
     EnemyDamage(){
-        if(this.curhp!=0){
-            this.curhp -=1;
-            this.enemyhp.progress = this.curhp/this.maxhp;
-        }else if(this.curhp <=0){
-            this.EnemyDead();
-        }
+        
+        this.curhp -=1;
+        this.enemyhp.progress = this.curhp/this.maxhp;
+    
+        this.EnemyDead();
+        
         
     },
     EnemyDead(){
         if(this.curhp <=0){
             //死亡动画
+            var img =  cc.instantiate(this.mubei);
+            img.x = this.node.x;
+            img.y = this.node.y;
+            cc.find("Canvas").addChild(img);
+            img.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
+                img.destroy();
+            },this)));
+            this.node.destroy();
+            //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
+            this.DropItem();
 
-            //掉装备
         }
+    },
+    //掉落装备
+    DropItem(){
+        var gemnum = Math.round(Math.random()*2) +1;
+        for(var i=0;i<gemnum;i++){
+            this.CreateGem();
+            console.log("1");
+        }
+        var itemnum = Math.round(Math.random()*2);
+        for(var j=0;j<itemnum;j++){
+            this.CreateItem();
+            console.log("2");
+        }
+    },
+    //随机生成宝石
+    CreateGem(){
+        var str = Math.round(Math.random()*4);
+        var item =  cc.instantiate(this.gemPrefab[str]);
+        item.x = this.node.x;
+        item.y = this.node.y;
+        cc.find("Canvas").addChild(item);
+        let radian  = cc.misc.degreesToRadians(Math.round(Math.random()*360));
+        let comVec = cc.v2(0, 1);// 一个向上的对比向量
+        let dirVec = comVec.rotate(-radian);
+        cc.tween(item)
+        .to(1, { position: cc.v2(this.node.x+dirVec.x*80,this.node.y+dirVec.y*80) })
+        .start()
+    },
+    //随机生成道具
+    CreateItem(){
+        var str = Math.round(Math.random()*2);
+        var item =  cc.instantiate(this.ItemPrefab[str]);
+        item.x = this.node.x;
+        item.y = this.node.y;
+        cc.find("Canvas").addChild(item);
+        let radian  = cc.misc.degreesToRadians(Math.round(Math.random()*360));
+        let comVec = cc.v2(0, 1);// 一个向上的对比向量
+        let dirVec = comVec.rotate(-radian);
+        cc.tween(item)
+        .to(1, { position: cc.v2(this.node.x+dirVec.x*80,this.node.y+dirVec.y*80) })
+        .start()
     },
 });
