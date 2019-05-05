@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "b18f59c1-7cf4-4c6f-b0d3-8e202b83dc7c",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "hero priest healFx_19": {
+      "ver": "1.0.3",
+      "uuid": "fee0e427-fa3c-4f0b-b6e4-ec2cece3f218",
+      "rawTextureUuid": "b18f59c1-7cf4-4c6f-b0d3-8e202b83dc7c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 60,
+      "height": 76,
+      "rawWidth": 60,
+      "rawHeight": 76,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

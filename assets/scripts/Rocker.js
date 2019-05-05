@@ -24,6 +24,14 @@ cc.Class({
             default:null,
             type:cc.Sprite,
         },
+        skill2:{
+            default:null,
+            type:cc.Node,
+        },
+        skill2_mask:{
+            default:null,
+            type:cc.Sprite,
+        },
         attack:{
             default:null,
             type:cc.Node,
@@ -32,8 +40,11 @@ cc.Class({
             default:null,
             type:cc.Node,
         },
+        bullet:{
+            default:null,
+            type:cc.Prefab,
+        },
         
-        is_Cd:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -43,9 +54,14 @@ cc.Class({
     start () {
         this.Max_r = 49;
         this.skillCd = 1.5;
+        this.is_Cd = false;
         this.Rocker.x = 0;
         this.Rocker.y = 0;
         this.dir = cc.v2(0,0);
+        this.skill2cd = 3;
+        this.skill2_Cd = false;
+        this.skill_bullet = cc.find("Canvas/skill_bullet");
+        //console.log(this.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame.name);
 
         this.Rocker.on(cc.Node.EventType.TOUCH_START,function(e){
             var w_pos = e.getLocation();
@@ -89,7 +105,13 @@ cc.Class({
             if(!this.is_Cd){
                 this.attack.getComponent(cc.Animation).play('attack');
                 this.playerAttack();
-                this.is_Cd = true;
+                this.is_Cd = true;  
+            }
+        },this);
+        this.skill2.on(cc.Node.EventType.TOUCH_START,function(e){
+            if(!this.skill2_Cd){
+                this.SkillForLuBan();
+                this.skill2_Cd = true;  
             }
         },this);
     },
@@ -102,20 +124,60 @@ cc.Class({
         this.player.x += dirVec.x*100;
         this.player.y += dirVec.y*100;
     },
+    //鲁班技能
+    SkillForLuBan(){
+        //生成子弹预设体
+        var bullet = cc.instantiate(this.bullet);
+        this.skill_bullet.position = this.player.position;
+        this.skill_bullet.addChild(bullet);
+        // 将角度转换为弧度
+        bullet.rotation = this.player.getComponent("Player").player.rotation+90;
+        let radian  = cc.misc.degreesToRadians(this.player.getComponent("Player").player.rotation);
+        let comVec = cc.v2(0, 1);// 一个向上的对比向量
+        let dirVec = comVec.rotate(-radian);
+        var posx = bullet.x + dirVec.x*100;
+        var posy = bullet.y + dirVec.y*100;
+        cc.tween(bullet)
+        .to(1, { position: cc.v2(posx,posy) })
+        .start()
+        this.schedule(function() {
+           bullet.getComponent(cc.Animation).play('skill_boom');
+        }, 0, 0,1);
+    },
+    //队长技能
+    SkillForDuiZhang(){
+
+    },
+    //提莫技能
+    SkillForTiMo(){
+
+    },
     update (dt) {
         //如果技能没进入cd return
-        if(!this.is_Cd){
-            return;
+        if(this.is_Cd){
+            //显示技能遮罩
+            if(this.skill1_mask.fillRange >= 0){
+                //this.skill1_mask.node.active = true;
+                this.skill1_mask.fillRange -= (dt/this.skillCd);
+            }else{
+                this.is_Cd = false;
+                //this.skill1_mask.node.active = false;
+                this.skill1_mask.fillRange =1;
+                console.log("冷却完成");
+            }
         }
-        //显示技能遮罩
-        if(this.skill1_mask.fillRange >= 0){
-            //this.skill1_mask.node.active = true;
-            this.skill1_mask.fillRange -= (dt/this.skillCd);
-        }else{
-            this.is_Cd = false;
-            //this.skill1_mask.node.active = false;
-            this.skill1_mask.fillRange =1;
-            console.log("冷却完成");
+        if(this.skill2_Cd){
+            //显示技能遮罩
+            if(this.skill2_mask.fillRange >= 0){
+                //this.skill1_mask.node.active = true;
+                this.skill2_mask.fillRange -= (dt/this.skill2cd);
+            }else{
+                this.skill2_Cd = false;
+                //this.skill1_mask.node.active = false;
+                this.skill2_mask.fillRange =1;
+                console.log("冷却完成");
+            }
         }
+        
     },
 });

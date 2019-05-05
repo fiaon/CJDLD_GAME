@@ -37,7 +37,7 @@ cc.Class({
                 cc.find("Canvas").addChild(tip);
                 let src = tip.getComponent(require("TipShow"));
                 if (src) {
-                    src.label.string = "永夜还有10s后扩大笼罩范围";
+                    src.label.string = "海水还有10s后扩大笼罩范围";
                 }
             }
             this.time = 20;

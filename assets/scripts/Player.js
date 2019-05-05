@@ -20,10 +20,6 @@ cc.Class({
             default:null,
             type:cc.Node,
         },
-        player:{
-            default:null,
-            type:cc.Node,
-        },
         Heroexp:{
             default:null,
             type:cc.Sprite,
@@ -67,6 +63,7 @@ cc.Class({
         this.damage = 0;
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
+        this.behit = false;//是否被攻击（被攻击是不能移动）
         this.time = 3;
 
         this.Herolv.string = this.lv;
@@ -75,6 +72,9 @@ cc.Class({
         //this.HeroDamage();
 
         this.rigidbody = this.node.getComponent(cc.RigidBody);
+        this.player = this.node.getChildByName("playerImg");
+
+        
         
     },
 
@@ -82,42 +82,44 @@ cc.Class({
         if(this.Rocker.dir.mag()<0.5){
             return;
         }
-        
-        var vx = this.Rocker.dir.x * this.speed;
-        var vy = this.Rocker.dir.y * this.speed;
+        if(!this.behit){
+            var vx = this.Rocker.dir.x * this.speed;
+            var vy = this.Rocker.dir.y * this.speed;
 
-        var sx = vx * dt;
-        var sy = vy * dt;
-        //人物移动不能超过地图边界
-        if(this.node.x<0 && Math.abs(this.node.x + sx-this.node.width/2)>=(this.map.width/2)){
-            return;
-        }else if(this.node.x>0 && Math.abs(this.node.x + sx+this.node.width/2)>=(this.map.width/2)){
-            return;
-        }else if(this.node.y>0 && Math.abs(this.node.y + sy+this.node.height/2)>=(this.map.height/2)){
-            return;
-        }else if(this.node.y<0 && Math.abs(this.node.y + sy-this.node.height/2)>=(this.map.height/2)){
-            return;
+            var sx = vx * dt;
+            var sy = vy * dt;
+            //人物移动不能超过地图边界
+            if(this.node.x<0 && Math.abs(this.node.x + sx-this.node.width/2)>=(this.map.width/2)){
+                return;
+            }else if(this.node.x>0 && Math.abs(this.node.x + sx+this.node.width/2)>=(this.map.width/2)){
+                return;
+            }else if(this.node.y>0 && Math.abs(this.node.y + sy+this.node.height/2)>=(this.map.height/2)){
+                return;
+            }else if(this.node.y<0 && Math.abs(this.node.y + sy-this.node.height/2)>=(this.map.height/2)){
+                return;
+            }
+            //移动
+            this.node.x += sx;
+            this.node.y += sy;
+            //this.rigidbody.syncPosition(false);;
+            // console.log("节点位置 " + this.node.position);
+            //方向计算
+            var r = Math.atan2(this.Rocker.dir.y,this.Rocker.dir.x);
+            var degree = r * 180/(Math.PI);
+            degree = 360 - degree + 90;
+            this.player.rotation = degree;
         }
-        //移动
-        this.node.x += sx;
-        this.node.y += sy;
-        //this.rigidbody.syncPosition(false);;
-        // console.log("节点位置 " + this.node.position);
-        //方向计算
-        var r = Math.atan2(this.Rocker.dir.y,this.Rocker.dir.x);
-        var degree = r * 180/(Math.PI);
-        degree = 360 - degree + 90;
-        this.player.rotation = degree;
+        
         //如果吃毒
-        if(!this.is_chidu){
-            return;
+        if(this.is_chidu){
+            if(this.time>0){
+                this.time -=dt;
+             }else{
+                 this.HeroDamage();
+                 this.time =3;
+             }
         }
-        if(this.time>=0){
-            this.time -=dt;
-            this.HeroDamage();
-         }else{
-            this.time =3;
-         }
+        
      },
      onCollisionEnter: function (other, self) {
         //判断碰撞的类型
@@ -163,12 +165,13 @@ cc.Class({
             }else if(other.node.group == "item"){
                 other.node.destroy();
                 if(other.node.name == "item_dunPrefab"){
-                    console.log("加盾");
+                    this.AddDun();
                 }else if(other.node.name == "item_hpPrefab"){
     
                     if(this.curhp < this.maxhp){
                         this.curhp +=1;
                         this.Herohp.progress = this.curhp/this.maxhp;
+                        this.player.getChildByName("addHp").getComponent(cc.Animation).play('AddHp');
                     }
                 }else if(other.node.name == "item_xiePrefab"){
     
@@ -178,11 +181,9 @@ cc.Class({
                     }, 3);
                 }
             }
-        }else if(self.tag ==1 && other.tag ==0){
+        }else if(self.tag ==1 && other.tag ==0&&this.Rocker.is_Cd){
             if(other.node.group == "enemy"){
                 other.getComponent("EnemyManager").EnemyDamage();
-                var hp =  other.node.getComponent("EnemyManager").curhp;
-                console.log("hp "+hp);
             }
         }
         
@@ -208,12 +209,31 @@ cc.Class({
 
         }
     },
+    AddDun(){
+        if(!this.isDun){
+            this.isDun = true;
+            this.player.getChildByName("dun").active = true;
+        }
+    },
     //受伤
     HeroDamage(){
-        this.curhp -=1;
-        this.Herohp.progress = this.curhp/this.maxhp;
-        this.HeroDead();
-        
+        if(this.isDun){
+            this.player.getChildByName("dun").active = false;
+            this.isDun = false;
+        }else{
+            this.curhp -=1;
+            this.Herohp.progress = this.curhp/this.maxhp;
+            //实现闪烁效果。播放眩晕动画
+            this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
+            //闪烁
+            this.node.runAction(cc.blink(3, 3));
+            //被击中状态不能进行移动等操作（机器人也不能动）
+            this.behit = true;
+            this.scheduleOnce(function() {
+                this.behit = false;
+            }, 3);
+            this.HeroDead();
+        }
     },
     HeroLvUp(){
         this.lvUp.active = true;

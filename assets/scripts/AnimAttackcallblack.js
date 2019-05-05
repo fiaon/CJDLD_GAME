@@ -25,5 +25,8 @@ cc.Class({
     onAnimAttackcallblack(){
         this.node.getComponent(cc.Sprite).spriteFrame = null;
     },
+    onBoomDestroy(){
+        this.node.destroy();
+    }
     // update (dt) {},
 });

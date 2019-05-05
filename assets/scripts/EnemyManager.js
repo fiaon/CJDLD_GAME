@@ -80,7 +80,7 @@ cc.Class({
     },
     
     update (dt) {
-        if(!this.trigger.is_trigger && this.trigger.dir!= null){
+        if(!this.trigger.is_trigger && this.trigger.dir!= null &&this.trigger.behit){
             if(this.ismove){
                 var vx = this.trigger.dir.x * this.trigger.speed;
                 var vy = this.trigger.dir.y * this.trigger.speed;
@@ -175,11 +175,12 @@ cc.Class({
             }else if(other.node.group == "item"){
                 other.node.destroy();
                 if(other.node.name == "item_dunPrefab"){
-                    console.log("机器人加盾");
+                    this.AddDun();
                 }else if(other.node.name == "item_hpPrefab"){
                     if(this.curhp < this.maxhp){
                         this.curhp +=1;
                         this.enemyhp.progress = this.curhp/this.maxhp;
+                        this.player.getChildByName("addHp").getComponent(cc.Animation).play('AddHp');
                     }
                 }else if(other.node.name == "item_xiePrefab"){
     
@@ -188,11 +189,9 @@ cc.Class({
                         this.trigger.speed = 100;
                     }, 3);
                 }
-            }else if(self.tag ==1 && other.tag ==0){
+            }else if(self.tag ==0 && other.tag ==0&&this.trigger.cd){
                 if(other.node.group == "player"){
                     other.getComponent("Player").HeroDamage();
-                    var hp =  other.node.getComponent("Player").curhp;
-                    console.log("hp "+hp);
                 }
             }
         }
@@ -209,15 +208,33 @@ cc.Class({
             this.lvUp.active = false;
         },this)));
     },
+    //加盾
+    AddDun(){
+        if(!this.isDun){
+            this.isDun = true;
+            this.player.getChildByName("dun").active = true;
+        }
+    },
     //受伤
     EnemyDamage(){
-        
-        this.curhp -=1;
-        this.enemyhp.progress = this.curhp/this.maxhp;
-    
-        this.EnemyDead();
-        
-        
+        if(this.isDun){
+            this.player.getChildByName("dun").active = false;
+            this.isDun = false;
+        }else{
+            this.curhp -=1;
+            this.enemyhp.progress = this.curhp/this.maxhp;
+            //实现闪烁效果。播放眩晕动画
+            this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
+            //闪烁
+            this.node.runAction(cc.blink(3, 3));
+            //被击中状态不能进行移动等操作（机器人也不能动）
+            this.trigger.behit = false;
+            this.scheduleOnce(function() {
+                this.trigger.behit= true;
+            }, 3);
+
+            this.EnemyDead();
+        } 
     },
     EnemyDead(){
         if(this.curhp <=0){
@@ -226,9 +243,9 @@ cc.Class({
             img.x = this.node.x;
             img.y = this.node.y;
             cc.find("Canvas").addChild(img);
-            img.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
-                img.destroy();
-            },this)));
+            // img.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
+            //     img.destroy();
+            // },this)));
             this.node.destroy();
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();

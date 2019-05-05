@@ -30,11 +30,12 @@ cc.Class({
 
     start () {
         this.dir = cc.v2(0,0);
-        
+        this.behit = true;
+        this.cd = false;
     },
 
     update (dt) {
-        if(this.is_trigger && !Global.is_end){
+        if(this.is_trigger && !Global.is_end && this.behit){
             var vx = this.dir.x * this.speed;
             var vy = this.dir.y * this.speed;
 
@@ -105,6 +106,10 @@ cc.Class({
         let dirVec = comVec.rotate(-radian);
         this.enemy.x += dirVec.x*80;
         this.enemy.y += dirVec.y*80;
+        this.cd = true;
+        this.scheduleOnce(function() {
+            this.cd = false;
+        }, 1.5);
     },
     
 });
