@@ -1,0 +1,115 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "skill_Mogu",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.85,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "a1065612-fdd9-4878-8763-0d88f45d80a8"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "f4d3dda5-c084-4659-8eaa-9a602e533793"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "70c397fd-47b3-4df3-88e4-c61eadaa7325"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "10969072-cbc5-4162-b584-7e2ca71a4979"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "e8aae4bb-f3fd-4f98-a600-f39bedf10842"
+            }
+          },
+          {
+            "frame": 0.8333333333333334,
+            "value": {
+              "__uuid__": "e5f3f1c1-d7fe-43f0-b16f-09d04d0861d5"
+            }
+          }
+        ]
+      }
+    },
+    "props": {
+      "width": [
+        {
+          "frame": 0,
+          "value": 80
+        },
+        {
+          "frame": 0.16666666666666666,
+          "value": 80
+        },
+        {
+          "frame": 0.3333333333333333,
+          "value": 80
+        },
+        {
+          "frame": 0.5,
+          "value": 80
+        },
+        {
+          "frame": 0.6666666666666666,
+          "value": 80
+        },
+        {
+          "frame": 0.8333333333333334,
+          "value": 80
+        }
+      ],
+      "height": [
+        {
+          "frame": 0,
+          "value": 60
+        },
+        {
+          "frame": 0.16666666666666666,
+          "value": 60
+        },
+        {
+          "frame": 0.3333333333333333,
+          "value": 60
+        },
+        {
+          "frame": 0.5,
+          "value": 60
+        },
+        {
+          "frame": 0.6666666666666666,
+          "value": 60
+        },
+        {
+          "frame": 0.8333333333333334,
+          "value": 60
+        }
+      ]
+    }
+  },
+  "events": [
+    {
+      "frame": 0.85,
+      "func": "onBoomDestroy",
+      "params": []
+    }
+  ]
+}

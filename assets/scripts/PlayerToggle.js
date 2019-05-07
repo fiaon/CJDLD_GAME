@@ -38,6 +38,21 @@ cc.Class({
             this.view[1].active =true;
         }
      },
+     onHeroCheck(){
+        if(this.toggle[0].getComponent(cc.Toggle).isChecked){
+            this.view[0].active =true;
+            this.view[1].active =false;
+            this.view[2].active =false;
+        }else if(this.toggle[1].getComponent(cc.Toggle).isChecked){
+            this.view[0].active =false;
+            this.view[1].active =true;
+            this.view[2].active =false;
+        }else if(this.toggle[2].getComponent(cc.Toggle).isChecked){
+            this.view[0].active =false;
+            this.view[1].active =false;
+            this.view[2].active =true;
+        }
+     },
 
     // update (dt) {},
 });

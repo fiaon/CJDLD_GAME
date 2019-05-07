@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.8802083333333334,
-      "y": 0.8802083333333334,
+      "x": 0.8805555555555555,
+      "y": 0.8805555555555555,
       "z": 1
     },
     "_quat": {
@@ -87,10 +87,10 @@
     "_level": 0,
     "_components": [
       {
-        "__id__": 383
+        "__id__": 382
       },
       {
-        "__id__": 384
+        "__id__": 383
       }
     ],
     "_prefab": null,
@@ -13752,10 +13752,10 @@
     "_level": 1,
     "_components": [
       {
-        "__id__": 380
+        "__id__": 379
       },
       {
-        "__id__": 382
+        "__id__": 381
       }
     ],
     "_prefab": null,
@@ -14802,20 +14802,8 @@
     "checkMark": {
       "__id__": 377
     },
-    "checkEvents": [
-      {
-        "__id__": 379
-      }
-    ],
+    "checkEvents": [],
     "_id": "f2pAvoyL1LgpH61RDeZzyt"
-  },
-  {
-    "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "",
-    "_componentId": "e25afxvdVJMQqx4h5P0eP0x",
-    "handler": "onCheck",
-    "customEventData": ""
   },
   {
     "__type__": "cc.ToggleContainer",
@@ -14828,7 +14816,7 @@
     "allowSwitchOff": false,
     "checkEvents": [
       {
-        "__id__": 381
+        "__id__": 380
       }
     ],
     "_id": "3bZe+SmGhAMbCWKolqa9bL"
@@ -14894,6 +14882,7 @@
       "__id__": 2
     },
     "_enabled": true,
+    "tip_prefab": null,
     "_id": "c4jrq9PK5GL4T4bGACSuBS"
   }
 ]

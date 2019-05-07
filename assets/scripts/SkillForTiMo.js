@@ -20,10 +20,19 @@ cc.Class({
     // onLoad () {},
 
     start () {
+        this.col = true;
 
     },
-    onAnimAttackcallblack(){
-        this.node.getComponent(cc.Sprite).spriteFrame = null;
+    onBoomDestroy(){
+        this.node.destroy();
     },
     // update (dt) {},
+    onCollisionEnter: function (other, self) {
+        if(other.node.group == "enemy"&&this.col){
+            this.col = false;
+            this.node.getComponent(cc.Animation).play('skill_Mogu');
+            other.getComponent("EnemyManager").EnemyDamage();
+            console.log("击中敌人");
+        }
+    },
 });

@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+var peopleNumber = require("peopleNumber");
 
 cc.Class({
     extends: cc.Component,
@@ -55,7 +56,7 @@ cc.Class({
         
 
         //定义玩家信息
-        this.curhp = 1;
+        this.curhp = 3;
         this.maxhp = 3;
         this.lv = 1;
         this.exp = 0;
@@ -74,7 +75,7 @@ cc.Class({
         this.rigidbody = this.node.getComponent(cc.RigidBody);
         this.player = this.node.getChildByName("playerImg");
 
-        
+        this.NodePool = cc.find("Canvas/GameController").getComponent("GameItemManager");
         
     },
 
@@ -125,8 +126,8 @@ cc.Class({
         //判断碰撞的类型
         if(self.tag == 0 ){
             if(other.node.group == "gem"){
-                other.node.destroy();
-                
+                //other.node.destroy();
+                this.NodePool.onGemKilled(other.node);
                 this.exp +=1;
                 this.Herolv.string = this.lv;
                 if(this.Herolv.string <=5){
@@ -163,7 +164,8 @@ cc.Class({
                     this.HeroLvUp();
                 }
             }else if(other.node.group == "item"){
-                other.node.destroy();
+                //other.node.destroy();
+                this.NodePool.onItemKilled(other.node);
                 if(other.node.name == "item_dunPrefab"){
                     this.AddDun();
                 }else if(other.node.name == "item_hpPrefab"){
@@ -183,7 +185,9 @@ cc.Class({
             }
         }else if(self.tag ==1 && other.tag ==0&&this.Rocker.is_Cd){
             if(other.node.group == "enemy"){
-                other.getComponent("EnemyManager").EnemyDamage();
+                if(other.getComponent("EnemyManager").trigger.behit){
+                    other.getComponent("EnemyManager").EnemyDamage();
+                }
             }
         }
         

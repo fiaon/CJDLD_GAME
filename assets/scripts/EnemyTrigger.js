@@ -16,22 +16,21 @@ cc.Class({
             default:null,
             type:cc.Node,
         },
-        map:{
-            default:null,
-            type:cc.Node,
-        },
         speed:100,
         is_trigger:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start () {
+    onLoad () {
         this.dir = cc.v2(0,0);
         this.behit = true;
         this.cd = false;
+        this.map =  cc.find("Canvas/bg001");
+    },
+
+    start () {
+        
     },
 
     update (dt) {
@@ -65,10 +64,12 @@ cc.Class({
     
         this.pos = otherpos.sub(this.enemy.position);
         var len = this.pos.mag();
-        this.dir.x = this.pos.x / len;
-        this.dir.y = this.pos.y / len;
+        if(len !=0 ){
+            this.dir.x = this.pos.x / len;
+            this.dir.y = this.pos.y / len;
+            this.is_trigger =true;
+        }
 
-        this.is_trigger =true;
     },
     
     onCollisionEnter: function (other, self) {

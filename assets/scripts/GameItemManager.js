@@ -28,7 +28,20 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        this.GemPool = new cc.NodePool();
+        this.ItemPool = new cc.NodePool();
+        for(var i=0;i<200;i++){
+            var str = Math.round(Math.random()*4);
+            var item =  cc.instantiate(this.gemPrefab[str]);
+            this.GemPool.put(item);
+        }
+        for(var i=0;i<40;i++){
+            var str = Math.round(Math.random()*2);
+            var item =  cc.instantiate(this.ItemPrefab[str]);
+            this.ItemPool.put(item);
+        }
+    },
 
     start () {
         for(var i=0;i<200;i++){
@@ -41,21 +54,41 @@ cc.Class({
     CreateGem(){
         var x = Math.random()*(this.map.width/2 - (this.map.width/-2)) + (this.map.width/-2);
         var y = Math.random()*(this.map.height/2 - (this.map.height/-2)) + (this.map.height/-2);
-        var str = Math.round(Math.random()*4);
-        var item =  cc.instantiate(this.gemPrefab[str]);
+        // var str = Math.round(Math.random()*4);
+        // var item =  cc.instantiate(this.gemPrefab[str]);
+        let item = null;
+        if (this.GemPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
+            item = this.GemPool.get();
+        } else { // 如果没有空闲对象，也就是对象池中备用对象不够时，我们就用 cc.instantiate 重新创建
+            item = cc.instantiate(this.gemPrefab[Math.round(Math.random()*4)]);
+        }
         item.x = x;
         item.y = y;
-        //item.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(cc.url.raw(str));
-        this.node.addChild(item);
+        item.parent = this.node;
+        //this.node.addChild(item);
     },
     CreateItem(){
         var x = Math.random()*(this.map.width/2 - (this.map.width/-2)) + (this.map.width/-2);
         var y = Math.random()*(this.map.height/2 - (this.map.height/-2)) + (this.map.height/-2);
-        var str = Math.round(Math.random()*2);
-        var item =  cc.instantiate(this.ItemPrefab[str]);
+        // var str = Math.round(Math.random()*2);
+        // var item =  cc.instantiate(this.ItemPrefab[str]);
+        let item = null;
+        if (this.ItemPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
+            item = this.ItemPool.get();
+        } else { // 如果没有空闲对象，也就是对象池中备用对象不够时，我们就用 cc.instantiate 重新创建
+            item = cc.instantiate(this.ItemPrefab[Math.round(Math.random()*2)]);
+        }
         item.x = x;
         item.y = y;
-        this.node.addChild(item);
-    }
+        item.parent = this.node;
+        //this.node.addChild(item);
+    },
+    onGemKilled: function (gem) {
+        // gem 应该是一个 cc.Node
+        this.GemPool.put(gem); // 和初始化时的方法一样，将节点放进对象池，这个方法会同时调用节点的 removeFromParent
+    },
+    onItemKilled: function (item) {
+        this.ItemPool.put(item); 
+    },
     // update (dt) {},
 });

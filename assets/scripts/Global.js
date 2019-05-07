@@ -2,6 +2,7 @@ window.Global = {
     ios: 1,
     is_end:false,
     is_Again:false,
+    enemynumber:0,
 
     prefab_icon: null,
     prefab_gongxi: null,

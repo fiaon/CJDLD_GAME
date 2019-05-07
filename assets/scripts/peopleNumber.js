@@ -8,22 +8,30 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-cc.Class({
-    extends: cc.Component,
+var peopleNumber = cc.Class({
+    // 成员变量
+    people : 0,
+    dienumber : 0,
 
-    properties: {
-        
+    ctor () {
+        this.people = Global.enemynumber+1;
+        this.dienumber = 0;
     },
 
-    // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start () {
-
+    changeNumber(){
+        this.people -= 1;
+        this.dienumber +=1;
+        cc.game.emit('change',this.people,this.dienumber);
     },
-    onAnimAttackcallblack(){
-        this.node.getComponent(cc.Sprite).spriteFrame = null;
-    },
-    // update (dt) {},
 });
+
+peopleNumber._instance = null;
+peopleNumber.getInstance = function () {
+    if(!peopleNumber._instance){
+        peopleNumber._instance = new peopleNumber();
+    }
+    return peopleNumber._instance;
+}
+
+module.exports = peopleNumber;

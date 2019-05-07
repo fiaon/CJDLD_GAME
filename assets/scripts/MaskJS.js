@@ -67,12 +67,16 @@ cc.Class({
         if(other.node.group == "player"){
             other.getComponent("Player").is_chidu = false;
             console.log("英雄在安全区");
+        }else if(other.node.group == "enemy"){
+            other.getComponent("EnemyManager").is_chidu = false;
         }
     },
     //持续触发
     onCollisionStay: function (other, self) {
         if(other.node.group == "player"){
             other.getComponent("Player").is_chidu = false;
+        }else if(other.node.group == "enemy"){
+            other.getComponent("EnemyManager").is_chidu = false;
         }
     },
     //触发结束
@@ -80,6 +84,8 @@ cc.Class({
         if(other.node.group == "player"){
             other.getComponent("Player").is_chidu = true;
             console.log("英雄在毒圈");
+        }else if(other.node.group == "enemy"){
+            other.getComponent("EnemyManager").is_chidu = true;
         }
     },
 });

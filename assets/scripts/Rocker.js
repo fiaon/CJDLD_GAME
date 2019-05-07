@@ -44,6 +44,10 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
+        mogu:{
+            default:null,
+            type:cc.Prefab,
+        },
         
     },
 
@@ -110,7 +114,21 @@ cc.Class({
         },this);
         this.skill2.on(cc.Node.EventType.TOUCH_START,function(e){
             if(!this.skill2_Cd){
-                this.SkillForLuBan();
+                switch(this.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame.name)
+                {
+                case "skill_1":
+                    this.SkillForLuBan();
+                    break;
+                case "skill_2":
+                    this.SkillForDuiZhang();
+                break;
+                case "skill_3":
+                    this.SkillForTiMo();
+                break;
+                default:
+                break;
+                }
+                
                 this.skill2_Cd = true;  
             }
         },this);
@@ -131,26 +149,32 @@ cc.Class({
         this.skill_bullet.position = this.player.position;
         this.skill_bullet.addChild(bullet);
         // 将角度转换为弧度
-        bullet.rotation = this.player.getComponent("Player").player.rotation+90;
-        let radian  = cc.misc.degreesToRadians(this.player.getComponent("Player").player.rotation);
-        let comVec = cc.v2(0, 1);// 一个向上的对比向量
-        let dirVec = comVec.rotate(-radian);
-        var posx = bullet.x + dirVec.x*100;
-        var posy = bullet.y + dirVec.y*100;
-        cc.tween(bullet)
-        .to(1, { position: cc.v2(posx,posy) })
-        .start()
-        this.schedule(function() {
-           bullet.getComponent(cc.Animation).play('skill_boom');
-        }, 0, 0,1);
+        // bullet.rotation = this.player.getComponent("Player").player.rotation+90;
+        // let radian  = cc.misc.degreesToRadians(this.player.getComponent("Player").player.rotation);
+        // let comVec = cc.v2(0, 1);// 一个向上的对比向量
+        // let dirVec = comVec.rotate(-radian);
+        // var posx = bullet.x + dirVec.x*100;
+        // var posy = bullet.y + dirVec.y*100;
+        // cc.tween(bullet)
+        // .to(1, { position: cc.v2(posx,posy) })
+        // .start()
+        // this.schedule(function() {
+        //    bullet.getComponent(cc.Animation).play('skill_boom');
+        // }, 0, 0,1);
     },
     //队长技能
     SkillForDuiZhang(){
-
+        this.player.getComponent("Player").AddDun();
     },
     //提莫技能
     SkillForTiMo(){
-
+        var mogu = cc.instantiate(this.mogu);
+        let radian  = cc.misc.degreesToRadians(this.player.getComponent("Player").player.rotation);
+        let comVec = cc.v2(0, 1);// 一个向上的对比向量
+        let dirVec = comVec.rotate(-radian);
+        mogu.x = this.player.x +dirVec.x*30;
+        mogu.y = this.player.y +dirVec.y*30;
+        cc.find("Canvas").addChild(mogu);
     },
     update (dt) {
         //如果技能没进入cd return

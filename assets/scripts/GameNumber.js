@@ -12,7 +12,14 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        
+        people:{
+            default:null,
+            type:cc.Label,
+        },
+        dienumber:{
+            default:null,
+            type:cc.Label,
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -20,10 +27,16 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
-    },
-    onAnimAttackcallblack(){
-        this.node.getComponent(cc.Sprite).spriteFrame = null;
+        //注册监听事件
+        cc.game.on('change',function (people,dienumber){
+        
+            console.log("p: "+ people+"d: "+dienumber);
+            this.people.string = people;
+            this.dienumber.string = dienumber;
+            },this);
     },
     // update (dt) {},
+    onDestroy(){
+        cc.game.off('change');
+    }
 });

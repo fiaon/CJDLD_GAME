@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+var peopleNumber = require("peopleNumber");
 
 cc.Class({
     extends: cc.Component,
@@ -15,10 +16,6 @@ cc.Class({
         trigger:{
             default:null,
             type:require("EnemyTrigger"),
-        },
-        map:{
-            default:null,
-            type:cc.Node,
         },
         enemyexp:{
             default:null,
@@ -56,9 +53,7 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start () {
+    onLoad () {
         //开启碰撞检测
         cc.director.getCollisionManager().enabled = true;
         cc.director.getPhysicsManager().enabled = true;
@@ -71,12 +66,21 @@ cc.Class({
         this.exp = 0;
         this.skillNum =0;
         this.isDun = false;//是否有护盾
+        this.is_chidu = false;//是否吃毒
+        this.time = 3;
 
         this.enemylv.string = this.lv;
         this.enemyexp.fillRange =0;
         this.enemyhp.progress = this.curhp/this.maxhp;
 
         this.player = this.node.getChildByName("playerImg");
+        this.NodePool = cc.find("Canvas/GameController").getComponent("GameItemManager");
+        this.enemyPool = cc.find("Canvas/EnemyController").getComponent("EnemyController");
+        this.map =  cc.find("Canvas/bg001");
+    },
+
+    start () {
+        
     },
     
     update (dt) {
@@ -127,16 +131,24 @@ cc.Class({
                 }else if(this.node.y<0 && Math.abs(this.node.y + sy-this.node.height/2)>=(this.map.height/2)){
                     this.ismove = true;
                 }
-            }
-            
-            
+            }  
+        }
+        //如果吃毒
+        if(this.is_chidu){
+            if(this.time>0){
+                this.time -=dt;
+             }else{
+                 this.EnemyDamage();
+                 this.time =3;
+             }
         }
     },
     onCollisionEnter: function (other, self) {
         //判断碰撞的类型
         if(self.tag == 0 ){
             if(other.node.group == "gem"){
-                other.node.destroy();
+                //other.node.destroy();
+                this.NodePool.onGemKilled(other.node);
                 this.exp +=1;
                 this.enemylv.string = this.lv;
                 if(this.enemylv.string <=5){
@@ -173,7 +185,8 @@ cc.Class({
                     this.enemylvUp();
                 }
             }else if(other.node.group == "item"){
-                other.node.destroy();
+                //other.node.destroy();
+                this.NodePool.onItemKilled(other.node);
                 if(other.node.name == "item_dunPrefab"){
                     this.AddDun();
                 }else if(other.node.name == "item_hpPrefab"){
@@ -191,7 +204,10 @@ cc.Class({
                 }
             }else if(self.tag ==0 && other.tag ==0&&this.trigger.cd){
                 if(other.node.group == "player"){
-                    other.getComponent("Player").HeroDamage();
+                    //眩晕状态无敌。不会给重复攻击
+                    if(!other.getComponent("Player").behit){
+                        other.getComponent("Player").HeroDamage();
+                    }
                 }
             }
         }
@@ -246,10 +262,11 @@ cc.Class({
             // img.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
             //     img.destroy();
             // },this)));
-            this.node.destroy();
+            //this.node.destroy();
+            this.enemyPool.onEnemyKilled(this.node);
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();
-
+            peopleNumber.getInstance().changeNumber();
         }
     },
     //掉落装备
@@ -257,12 +274,10 @@ cc.Class({
         var gemnum = Math.round(Math.random()*2) +1;
         for(var i=0;i<gemnum;i++){
             this.CreateGem();
-            console.log("1");
         }
         var itemnum = Math.round(Math.random()*2);
         for(var j=0;j<itemnum;j++){
             this.CreateItem();
-            console.log("2");
         }
     },
     //随机生成宝石
