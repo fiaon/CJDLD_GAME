@@ -21,7 +21,7 @@ cc.Class({
 
     start () {
         this.col = true;
-
+        this.player =  cc.find("Canvas/player").getComponent("Player");
     },
     onBoomDestroy(){
         this.node.destroy();
@@ -32,7 +32,8 @@ cc.Class({
             this.col = false;
             this.node.getComponent(cc.Animation).play('skill_Mogu');
             other.getComponent("EnemyManager").EnemyDamage();
-            console.log("击中敌人");
+            other.getComponent("EnemyManager").killername = this.player.Heroname.string;
+            console.log("敌人踩到蘑菇");
         }
     },
 });

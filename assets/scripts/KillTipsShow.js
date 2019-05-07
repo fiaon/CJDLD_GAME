@@ -12,14 +12,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        people:{
+        Richlabel:{
             default:null,
-            type:cc.Label,
-        },
-        dienumber:{
-            default:null,
-            type:cc.Label,
-        },
+            type:cc.RichText,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -27,14 +23,15 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        //注册监听事件
-        cc.game.on('change',function (people,dienumber){
-            this.people.string = people;
-            this.dienumber.string = dienumber;
-            },this);
+
     },
-    // update (dt) {},
-    onDestroy(){
-        cc.game.off('change');
+    Show(name_1,name_2){
+        this.node.active = true;
+        this.Richlabel.string = "<color=#00ff00>"+name_1+"</c>"+"击杀了"+"<color=#FF0000>"+name_2+"</color>";
+        this.node.runAction(cc.sequence(cc.delayTime(2.0), cc.fadeOut(1.0), cc.callFunc(()=>{
+            this.node.opacity = 255;
+            this.node.active = false;
+        },this)));
     }
+    // update (dt) {},
 });

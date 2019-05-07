@@ -68,6 +68,7 @@ cc.Class({
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
         this.time = 3;
+        this.killername = "";//杀我的人
 
         this.enemylv.string = this.lv;
         this.enemyexp.fillRange =0;
@@ -219,6 +220,7 @@ cc.Class({
     },
     enemylvUp(){
         this.lvUp.active = true;
+        this.enemylv.string = this.lv;
         this.lvUp.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
             this.lvUp.opacity = 255;
             this.lvUp.active = false;
@@ -267,6 +269,7 @@ cc.Class({
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();
             peopleNumber.getInstance().changeNumber();
+            cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show(this.killername,this.enemyname.string);
         }
     },
     //掉落装备

@@ -51,7 +51,8 @@ cc.Class({
             this.col = false;
             this.node.getComponent(cc.Animation).play('skill_boom');
             other.getComponent("EnemyManager").EnemyDamage();
-            console.log("击中敌人");
+            other.getComponent("EnemyManager").killername = this.player.Heroname.string;
+            console.log("炮弹击中敌人");
         }
     },
 });

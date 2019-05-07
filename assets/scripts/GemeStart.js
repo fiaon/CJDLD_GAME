@@ -12,7 +12,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        
+    
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -24,6 +24,15 @@ cc.Class({
             cc.find("Canvas/DOYouLikeView").active =true;
             Global.is_Again = false;
         }
+        //微信的头像和名字
+        var imgurl = Global.avatarUrl +"?aaa=aa.jpg";
+        cc.loader.load({url:imgurl, type: 'jpg'},function(err, texture){
+            if(texture){ 
+                var spriteFrame = new cc.SpriteFrame(texture);
+                cc.find("Canvas/Player/headBG/head").getComponent(cc.Sprite).spriteFrame = spriteFrame;
+            }
+        });
+        cc.find("Canvas/Player/name").getComponent(cc.Label).string = Global.name;
     },
 
     // update (dt) {},
