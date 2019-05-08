@@ -23,7 +23,7 @@ cc.Class({
 
     onLoad () {
         this.enemyPool = new cc.NodePool();
-        Global.enemynumber = 10;
+        Global.enemynumber = 35;
         for(let i = 0; i < Global.enemynumber; ++i){
             let enemy = cc.instantiate(this.enemyPrefab); // 创建节点
             this.enemyPool.put(enemy); // 通过 put 接口放入对象池
@@ -32,7 +32,7 @@ cc.Class({
 
     start () {
         this.map =  cc.find("Canvas/bg001");
-        for(let i = 0; i < 10; ++i){
+        for(let i = 0; i < Global.enemynumber; ++i){
             this.createEnemy();
         }
         let p = peopleNumber.getInstance().people;
@@ -49,6 +49,11 @@ cc.Class({
         var x = Math.random()*(this.map.width/2 - (this.map.width/-2) - enemy.width) + (this.map.width/-2+enemy.width/2);
         var y = Math.random()*(this.map.height/2 - (this.map.height/-2)- enemy.height) + (this.map.height/-2+enemy.height/2);
         enemy.position = cc.v2(x,y);
+        let imgurl = "hero/hero_" + Math.round(Math.random()*2+1);
+
+        cc.loader.loadRes(imgurl, cc.SpriteFrame, function (err, spriteFrame) {
+            cc.find("playerImg/heroImg",enemy).getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
         enemy.parent = this.node; // 将生成的敌人加入节点树
     },
     // update (dt) {},

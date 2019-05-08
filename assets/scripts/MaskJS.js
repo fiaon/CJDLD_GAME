@@ -45,6 +45,28 @@ cc.Class({
         this.scheduleOnce(function() {
             this.is_suodu= true;
         }, 20);
+        this.scheduleOnce(function() {
+            let tip = cc.instantiate(this.tip_prefab);
+            if (tip) {
+                cc.find("Canvas").addChild(tip);
+                let src = tip.getComponent(require("TipShow"));
+                if (src) {
+                    src.label.string = "海水还有10s后扩大笼罩范围";
+                }
+            }
+            this.time = 20;
+        }, 80);
+        this.scheduleOnce(function() {
+            let tip = cc.instantiate(this.tip_prefab);
+            if (tip) {
+                cc.find("Canvas").addChild(tip);
+                let src = tip.getComponent(require("TipShow"));
+                if (src) {
+                    src.label.string = "海水还有10s后扩大笼罩范围";
+                }
+            }
+            this.time = 15;
+        }, 150);
     },
 
      update (dt) {
@@ -68,7 +90,7 @@ cc.Class({
             other.getComponent("Player").is_chidu = false;
             console.log("英雄在安全区");
         }else if(other.node.group == "enemy"){
-            other.getComponent("EnemyManager").is_chidu = false;
+            cc.game.emit('ChiDU',false);
         }
     },
     //持续触发
@@ -85,7 +107,8 @@ cc.Class({
             other.getComponent("Player").is_chidu = true;
             console.log("英雄在毒圈");
         }else if(other.node.group == "enemy"){
-            other.getComponent("EnemyManager").is_chidu = true;
+            cc.game.emit('ChiDU',true);
+            console.log("enemy在毒圈");
         }
     },
 });

@@ -90,5 +90,17 @@ cc.Class({
     onItemKilled: function (item) {
         this.ItemPool.put(item); 
     },
-    // update (dt) {},
+    update (dt) {
+        //当宝石给吃了50个的时候在创建一些宝石
+        if(this.GemPool.size() >50){
+            for(var i=0;i<this.GemPool.size();i++){
+                this.CreateGem();
+            }
+        }
+        if(this.ItemPool.size() >15){
+            for(var i=0;i<this.ItemPool.size();i++){
+                this.CreateItem();
+            }
+        }
+    },
 });

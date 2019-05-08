@@ -187,7 +187,6 @@ cc.Class({
                 this.is_Cd = false;
                 //this.skill1_mask.node.active = false;
                 this.skill1_mask.fillRange =1;
-                console.log("冷却完成");
             }
         }
         if(this.skill2_Cd){
@@ -199,7 +198,6 @@ cc.Class({
                 this.skill2_Cd = false;
                 //this.skill1_mask.node.active = false;
                 this.skill2_mask.fillRange =1;
-                console.log("冷却完成");
             }
         }
         

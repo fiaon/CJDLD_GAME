@@ -62,17 +62,17 @@ cc.Class({
         this.exp = 0;
         this.skillNum =0;
         this.damage = 0;
+        this.enemynumber = 0;
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
         this.behit = false;//是否被攻击（被攻击是不能移动）
         this.time = 3;
-        this.killername = "";//杀我的人
+        this.killername = null;//杀我的人
 
         this.Herolv.string = this.lv;
         this.Heroexp.fillRange =0;
         this.Herohp.progress = this.curhp/this.maxhp;
         this.Heroname.string = Global.name;
-        //this.HeroDamage();
 
         this.rigidbody = this.node.getComponent(cc.RigidBody);
         this.player = this.node.getChildByName("playerImg");
@@ -189,7 +189,7 @@ cc.Class({
             if(other.node.group == "enemy"){
                 if(other.getComponent("EnemyManager").trigger.behit){
                     other.getComponent("EnemyManager").EnemyDamage();
-                    other.getComponent("EnemyManager").killername = this.Heroname.string;//杀我的人
+                    other.getComponent("EnemyManager").killername = this.Heroname.string;
                 }
             }
         }

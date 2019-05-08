@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
+//玩家总数和死亡数
 var peopleNumber = cc.Class({
     // 成员变量
     people : 0,
@@ -19,9 +19,11 @@ var peopleNumber = cc.Class({
     },
 
 
-    changeNumber(){
+    changeNumber(isplayer){
+        if(isplayer){
+            this.dienumber +=1;
+        }
         this.people -= 1;
-        this.dienumber +=1;
         cc.game.emit('change',this.people,this.dienumber);
     },
 });

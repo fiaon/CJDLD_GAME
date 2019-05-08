@@ -41,6 +41,10 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
+        tip_prefab:{
+            default:null,
+            type:cc.Prefab,
+        },
         gemPrefab:{
             default:[],
             type:cc.Prefab,
@@ -68,7 +72,7 @@ cc.Class({
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
         this.time = 3;
-        this.killername = "";//杀我的人
+        this.killername = null;//杀我的人
 
         this.enemylv.string = this.lv;
         this.enemyexp.fillRange =0;
@@ -81,7 +85,9 @@ cc.Class({
     },
 
     start () {
-        
+        cc.game.on('ChiDU',function (event){
+            this.is_chidu = event;
+            },this);
     },
     
     update (dt) {
@@ -268,8 +274,52 @@ cc.Class({
             this.enemyPool.onEnemyKilled(this.node);
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();
-            peopleNumber.getInstance().changeNumber();
-            cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show(this.killername,this.enemyname.string);
+            let text = "";
+            if(this.killername != null){
+                cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show(this.killername,this.enemyname.string);
+                peopleNumber.getInstance().changeNumber(true);
+                    switch(peopleNumber.getInstance().dienumber){
+                        case 1:
+                        text = " 拿到了一血";
+                        this.ShowKill(text);
+                        break;
+                        case 3:
+                        text = " 正在大杀特杀";
+                        this.ShowKill(text);
+                        break;
+                        case 4:
+                        text = " 正在暴走";
+                        this.ShowKill(text);
+                        break;
+                        case 5:
+                        text = " 已经无人能挡";
+                        this.ShowKill(text);
+                        break;
+                        case 6:
+                        text = " 已经接近神了";
+                        this.ShowKill(text);
+                        break;
+                        case 7:
+                        text = " 已经超神了";
+                        this.ShowKill(text);
+                        break;
+                        default:
+                        break;
+                    }
+            }else{
+                cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show_2(this.enemyname.string);
+                peopleNumber.getInstance().changeNumber(false);
+            }
+        }
+    },
+    ShowKill(text){
+        var tip = cc.instantiate(this.tip_prefab);
+        if (tip) {
+            cc.find("Canvas").addChild(tip);
+            let src = tip.getComponent(require("TipShow"));
+            if (src) {
+                src.label.string = this.killername+text;
+            }
         }
     },
     //掉落装备
