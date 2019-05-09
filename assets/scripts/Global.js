@@ -2,7 +2,7 @@ window.Global = {
     ios: 1,
     is_end:false,
     is_Again:false,
-    enemynumber:0,
+    enemynumber:35,
     dienumber:0,
     name:null,
     avatarUrl:null,

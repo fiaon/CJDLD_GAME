@@ -52,6 +52,7 @@ cc.Class({
     countDownShow(temp){
         if(temp <= 0){
             //倒计时结束
+            this.node.active = false;
             this.unschedule(this.doCountdownTime);
             //关闭按钮点击
             cc.find("Canvas/GameOverView/smallgameView/bg/clickBtn").getComponent(cc.Button).interactable =false;
@@ -64,7 +65,6 @@ cc.Class({
             cc.find("Bg/ConfirmBtn/textImg",pre).width = 30;
             cc.find("Bg/ConfirmBtn/textImg",pre).height = 15;
             cc.find("Bg/ConfirmBtn",pre).on(cc.Node.EventType.TOUCH_START,function(e){
-                this.node.active = false;
                 var name = pre.name;
                 cc.find("Canvas/"+name).destroy();
                 cc.find("Canvas/GameOver_2View_danren").active = true;

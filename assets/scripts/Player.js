@@ -42,7 +42,7 @@ cc.Class({
             type: cc.Node,
         },
         speed:100,
-        gameuuid:-1,
+        gameuuid:"-1",
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -73,14 +73,13 @@ cc.Class({
         this.Herolv.string = this.lv;
         this.Heroexp.fillRange =0;
         this.Herohp.progress = this.curhp/this.maxhp;
-        this.Heroname.string = Global.name;
+        //this.Heroname.string = Global.name;
 
         this.rigidbody = this.node.getComponent(cc.RigidBody);
         this.player = this.node.getChildByName("playerImg");
 
         this.NodePool = cc.find("Canvas/GameController").getComponent("GameItemManager");
-        cc.sys.localStorage.setItem(this.gameuuid,0);
-        
+        cc.sys.localStorage.setItem(this.gameuuid,"0");
     },
 
      update (dt) {

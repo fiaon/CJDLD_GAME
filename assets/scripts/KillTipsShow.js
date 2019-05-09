@@ -26,19 +26,15 @@ cc.Class({
 
     },
     Show(name_1,name_2){
-        this.node.active = true;
         this.Richlabel.string = "<color=#00ff00>"+name_1+"</c>"+"击杀了"+"<color=#FF0000>"+name_2+"</color>";
         this.node.runAction(cc.sequence(cc.delayTime(2.0), cc.fadeOut(1.0), cc.callFunc(()=>{
-            this.node.opacity = 255;
-            this.node.active = false;
+            this.node.destroy();
         },this)));
     },
     Show_2(name_1){
-        this.node.active = true;
         this.Richlabel.string = "<color=#00ff00>"+name_1+"</c>"+"<color=#FF0000>被毒死了</color>";
         this.node.runAction(cc.sequence(cc.delayTime(2.0), cc.fadeOut(1.0), cc.callFunc(()=>{
-            this.node.opacity = 255;
-            this.node.active = false;
+            this.node.destroy();
         },this)));
     },
     // update (dt) {},

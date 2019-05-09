@@ -102,5 +102,9 @@ cc.Class({
                 this.CreateItem();
             }
         }
+        if(Global.dienumber == Global.enemynumber&&Global.is_end ==false){
+            cc.find("Canvas/GameOverView").active = true;
+            Global.is_end = true;
+        }
     },
 });

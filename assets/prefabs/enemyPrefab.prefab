@@ -1968,6 +1968,9 @@
     "tip_prefab": {
       "__uuid__": "34453b4a-a558-4943-bdd2-45b8d6c9f5e6"
     },
+    "tip2_prefab": {
+      "__uuid__": "f5198a3b-78ae-4fff-914d-2290a73698ec"
+    },
     "gemPrefab": [
       {
         "__uuid__": "d0d445b7-f92b-440b-9bd4-96d3c14bcb8f"
@@ -1996,7 +1999,7 @@
         "__uuid__": "39f26bf8-dbf9-4995-bb3e-a11d4dbde48c"
       }
     ],
-    "gameuuid": 0,
+    "gameuuid": "",
     "_id": ""
   },
   {

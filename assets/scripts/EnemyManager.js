@@ -45,6 +45,10 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
+        tip2_prefab:{
+            default:null,
+            type:cc.Prefab,
+        },
         gemPrefab:{
             default:[],
             type:cc.Prefab,
@@ -53,7 +57,7 @@ cc.Class({
             default:[],
             type:cc.Prefab,
         },
-        gameuuid: 0,
+        gameuuid: "",
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -75,7 +79,7 @@ cc.Class({
         this.time = 3;
         this.killername = null;//杀我的人
         this.killsnumber = 0;//杀敌数
-        this.killsuuid = 0;
+        this.killsuuid = "";
 
         this.enemylv.string = this.lv;
         this.enemyexp.fillRange =0;
@@ -91,7 +95,7 @@ cc.Class({
         // cc.game.on('ChiDU',function (event){
         //     this.is_chidu = event;
         //     },this);
-        cc.sys.localStorage.setItem(this.gameuuid,0);
+        cc.sys.localStorage.setItem(this.gameuuid,"0");
     },
     
     update (dt) {
@@ -283,11 +287,11 @@ cc.Class({
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();
             var kills =  parseInt(cc.sys.localStorage.getItem(this.killsuuid)) +1;
-            cc.sys.localStorage.setItem(this.killsuuid,kills);
+            cc.sys.localStorage.setItem(this.killsuuid,kills.toString());
             peopleNumber.getInstance().changeNumber();
             let text = "";
             if(this.killername != null){
-                cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show(this.killername,this.enemyname.string);
+                this.ShowKill_2(this.killername,this.enemyname.string);
                     if(Global.dienumber == 1){
                         text = " 拿到了一血";
                         this.ShowKill(text);
@@ -317,7 +321,7 @@ cc.Class({
                         break;
                     }
             }else{
-                cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show_2(this.enemyname.string);
+                this.ShowKill_3(this.enemyname.string);
             }
         }
     },
@@ -328,6 +332,26 @@ cc.Class({
             let src = tip.getComponent(require("TipShow"));
             if (src) {
                 src.label.string = this.killername+text;
+            }
+        }
+    },
+    ShowKill_2(text1,text2){
+        var tip = cc.instantiate(this.tip2_prefab);
+        if (tip) {
+            cc.find("Canvas/map/peopleNumber/content").addChild(tip);
+            let src = tip.getComponent(require("KillTipsShow"));
+            if (src) {
+                src.Show(text1,text2);
+            }
+        }
+    },
+    ShowKill_3(text1){
+        var tip = cc.instantiate(this.tip2_prefab);
+        if (tip) {
+            cc.find("Canvas/map/peopleNumber/content").addChild(tip);
+            let src = tip.getComponent(require("KillTipsShow"));
+            if (src) {
+                src.Show_2(text1);
             }
         }
     },

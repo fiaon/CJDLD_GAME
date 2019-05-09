@@ -10,12 +10,14 @@
 //玩家总数和死亡数
 var peopleNumber = cc.Class({
     // 成员变量
-    people : 0,
+    people: 0,
 
     ctor () {
+        
+    },
+    init(){
         this.people = Global.enemynumber+1;
     },
-
 
     changeNumber(name){
         this.people -= 1;
