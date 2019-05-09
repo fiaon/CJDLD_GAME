@@ -33,13 +33,12 @@ cc.Class({
     start () {
         this.map =  cc.find("Canvas/bg001");
         for(let i = 0; i < Global.enemynumber; ++i){
-            this.createEnemy();
+            this.createEnemy(i);
         }
         let p = peopleNumber.getInstance().people;
-        let d = peopleNumber.getInstance().dienumber;
-        cc.game.emit('change',p,d);
+        cc.game.emit('change',p);
     },
-    createEnemy: function () {
+    createEnemy: function (i) {
         let enemy = null;
         if (this.enemyPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
             enemy = this.enemyPool.get();
@@ -50,10 +49,10 @@ cc.Class({
         var y = Math.random()*(this.map.height/2 - (this.map.height/-2)- enemy.height) + (this.map.height/-2+enemy.height/2);
         enemy.position = cc.v2(x,y);
         let imgurl = "hero/hero_" + Math.round(Math.random()*2+1);
-
         cc.loader.loadRes(imgurl, cc.SpriteFrame, function (err, spriteFrame) {
             cc.find("playerImg/heroImg",enemy).getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
+        enemy.getComponent("EnemyManager").gameuuid = i;
         enemy.parent = this.node; // 将生成的敌人加入节点树
     },
     // update (dt) {},

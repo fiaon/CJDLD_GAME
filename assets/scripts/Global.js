@@ -3,6 +3,7 @@ window.Global = {
     is_end:false,
     is_Again:false,
     enemynumber:0,
+    dienumber:0,
     name:null,
     avatarUrl:null,
 

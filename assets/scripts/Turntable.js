@@ -166,7 +166,7 @@ cc.Class({
                 this.wheelSp.node.rotation = this.finalAngle;
                 //转盘停止跳出提示框
                 var pre = cc.instantiate(this.prefab);
-                this.node.addChild(pre);
+                cc.find("Canvas").addChild(pre);
                 
                 if(this.springback)
                 {

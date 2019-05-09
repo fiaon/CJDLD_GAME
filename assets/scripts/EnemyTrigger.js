@@ -27,6 +27,7 @@ cc.Class({
         this.behit = true;
         this.cd = false;
         this.map =  cc.find("Canvas/bg001");
+        this.gameuuid = this.enemy.getComponent("EnemyManager").gameuuid;
     },
 
     start () {
@@ -74,9 +75,14 @@ cc.Class({
     
     onCollisionEnter: function (other, self) {
         //判断碰撞的类型
-        this.ComputeDir(other.node.position);
         if(other.node.group == "player"){
             this.playerAttack(other.node.position);
+        }else if(other.node.group == "enemy" && other.getComponent("EnemyManager").gameuuid != this.gameuuid){
+            this.playerAttack(other.node.position);
+        }else if(other.node.group == "gem"){
+            this.ComputeDir(other.node.position)
+        }else if(other.node.group == "item"){
+            this.ComputeDir(other.node.position)
         }
     },
     onCollisionStay: function (other, self) {

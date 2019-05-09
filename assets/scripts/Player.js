@@ -42,6 +42,7 @@ cc.Class({
             type: cc.Node,
         },
         speed:100,
+        gameuuid:-1,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -62,7 +63,7 @@ cc.Class({
         this.exp = 0;
         this.skillNum =0;
         this.damage = 0;
-        this.enemynumber = 0;
+        this.killsnumber = 0;
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
         this.behit = false;//是否被攻击（被攻击是不能移动）
@@ -78,6 +79,7 @@ cc.Class({
         this.player = this.node.getChildByName("playerImg");
 
         this.NodePool = cc.find("Canvas/GameController").getComponent("GameItemManager");
+        cc.sys.localStorage.setItem(this.gameuuid,0);
         
     },
 

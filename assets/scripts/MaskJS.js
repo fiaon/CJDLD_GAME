@@ -57,6 +57,9 @@ cc.Class({
             this.time = 20;
         }, 80);
         this.scheduleOnce(function() {
+            this.is_suodu= true;
+        }, 90);
+        this.scheduleOnce(function() {
             let tip = cc.instantiate(this.tip_prefab);
             if (tip) {
                 cc.find("Canvas").addChild(tip);
@@ -67,6 +70,9 @@ cc.Class({
             }
             this.time = 15;
         }, 150);
+        this.scheduleOnce(function() {
+            this.is_suodu= true;
+        }, 160);
     },
 
      update (dt) {
@@ -90,7 +96,7 @@ cc.Class({
             other.getComponent("Player").is_chidu = false;
             console.log("英雄在安全区");
         }else if(other.node.group == "enemy"){
-            cc.game.emit('ChiDU',false);
+            other.getComponent("EnemyManager").is_chidu = false;
         }
     },
     //持续触发
@@ -107,7 +113,7 @@ cc.Class({
             other.getComponent("Player").is_chidu = true;
             console.log("英雄在毒圈");
         }else if(other.node.group == "enemy"){
-            cc.game.emit('ChiDU',true);
+            other.getComponent("EnemyManager").is_chidu = true;
             console.log("enemy在毒圈");
         }
     },

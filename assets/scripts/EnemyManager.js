@@ -52,7 +52,8 @@ cc.Class({
         ItemPrefab:{
             default:[],
             type:cc.Prefab,
-        }
+        },
+        gameuuid: 0,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -73,6 +74,8 @@ cc.Class({
         this.is_chidu = false;//是否吃毒
         this.time = 3;
         this.killername = null;//杀我的人
+        this.killsnumber = 0;//杀敌数
+        this.killsuuid = 0;
 
         this.enemylv.string = this.lv;
         this.enemyexp.fillRange =0;
@@ -85,9 +88,10 @@ cc.Class({
     },
 
     start () {
-        cc.game.on('ChiDU',function (event){
-            this.is_chidu = event;
-            },this);
+        // cc.game.on('ChiDU',function (event){
+        //     this.is_chidu = event;
+        //     },this);
+        cc.sys.localStorage.setItem(this.gameuuid,0);
     },
     
     update (dt) {
@@ -214,6 +218,13 @@ cc.Class({
                     //眩晕状态无敌。不会给重复攻击
                     if(!other.getComponent("Player").behit){
                         other.getComponent("Player").HeroDamage();
+                        this.killsuuid = other.getComponent("Player").gameuuid;
+                    }
+                }else if(other.node.group == "enemy"){
+                    if(other.getComponent("EnemyManager").trigger.behit){
+                        other.getComponent("EnemyManager").EnemyDamage();
+                        other.getComponent("EnemyManager").killername = this.enemyname.string;
+                        this.killsuuid = other.getComponent("EnemyManager").gameuuid;
                     }
                 }
             }
@@ -263,26 +274,25 @@ cc.Class({
     EnemyDead(){
         if(this.curhp <=0){
             //死亡动画
+            Global.dienumber += 1;
             var img =  cc.instantiate(this.mubei);
             img.x = this.node.x;
             img.y = this.node.y;
             cc.find("Canvas").addChild(img);
-            // img.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
-            //     img.destroy();
-            // },this)));
-            //this.node.destroy();
             this.enemyPool.onEnemyKilled(this.node);
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();
+            var kills =  parseInt(cc.sys.localStorage.getItem(this.killsuuid)) +1;
+            cc.sys.localStorage.setItem(this.killsuuid,kills);
+            peopleNumber.getInstance().changeNumber();
             let text = "";
             if(this.killername != null){
                 cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show(this.killername,this.enemyname.string);
-                peopleNumber.getInstance().changeNumber(true);
-                    switch(peopleNumber.getInstance().dienumber){
-                        case 1:
+                    if(Global.dienumber == 1){
                         text = " 拿到了一血";
                         this.ShowKill(text);
-                        break;
+                    }
+                switch(kills){
                         case 3:
                         text = " 正在大杀特杀";
                         this.ShowKill(text);
@@ -308,7 +318,6 @@ cc.Class({
                     }
             }else{
                 cc.find("Canvas/map/peopleNumber/killtips").getComponent(require("KillTipsShow")).Show_2(this.enemyname.string);
-                peopleNumber.getInstance().changeNumber(false);
             }
         }
     },

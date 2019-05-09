@@ -11,20 +11,15 @@
 var peopleNumber = cc.Class({
     // 成员变量
     people : 0,
-    dienumber : 0,
 
     ctor () {
         this.people = Global.enemynumber+1;
-        this.dienumber = 0;
     },
 
 
-    changeNumber(isplayer){
-        if(isplayer){
-            this.dienumber +=1;
-        }
+    changeNumber(name){
         this.people -= 1;
-        cc.game.emit('change',this.people,this.dienumber);
+        cc.game.emit('change',this.people);
     },
 });
 
