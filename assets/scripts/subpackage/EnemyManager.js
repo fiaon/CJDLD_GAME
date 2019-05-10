@@ -79,7 +79,7 @@ cc.Class({
         this.time = 3;
         this.killername = null;//杀我的人
         this.killsnumber = 0;//杀敌数
-        this.killsuuid = "";
+        this.killsuuid = null;
 
         this.enemylv.string = this.lv;
         this.enemyexp.fillRange =0;
@@ -95,7 +95,7 @@ cc.Class({
         // cc.game.on('ChiDU',function (event){
         //     this.is_chidu = event;
         //     },this);
-        cc.sys.localStorage.setItem(this.gameuuid,"0");
+        
     },
     
     update (dt) {
@@ -282,12 +282,13 @@ cc.Class({
             var img =  cc.instantiate(this.mubei);
             img.x = this.node.x;
             img.y = this.node.y;
+            img.getChildByName("name").getComponent(cc.Label).string = this.enemyname.string;
             cc.find("Canvas").addChild(img);
             this.enemyPool.onEnemyKilled(this.node);
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();
-            var kills =  parseInt(cc.sys.localStorage.getItem(this.killsuuid)) +1;
-            cc.sys.localStorage.setItem(this.killsuuid,kills.toString());
+            //var kills =  parseInt(cc.sys.localStorage.getItem(this.killsuuid)) +1;
+            //cc.sys.localStorage.setItem(this.killsuuid,kills.toString());
             peopleNumber.getInstance().changeNumber();
             let text = "";
             if(this.killername != null){
@@ -296,30 +297,30 @@ cc.Class({
                         text = " 拿到了一血";
                         this.ShowKill(text);
                     }
-                switch(kills){
-                        case 3:
-                        text = " 正在大杀特杀";
-                        this.ShowKill(text);
-                        break;
-                        case 4:
-                        text = " 正在暴走";
-                        this.ShowKill(text);
-                        break;
-                        case 5:
-                        text = " 已经无人能挡";
-                        this.ShowKill(text);
-                        break;
-                        case 6:
-                        text = " 已经接近神了";
-                        this.ShowKill(text);
-                        break;
-                        case 7:
-                        text = " 已经超神了";
-                        this.ShowKill(text);
-                        break;
-                        default:
-                        break;
-                    }
+                // switch(kills){
+                //         case 3:
+                //         text = " 正在大杀特杀";
+                //         this.ShowKill(text);
+                //         break;
+                //         case 4:
+                //         text = " 正在暴走";
+                //         this.ShowKill(text);
+                //         break;
+                //         case 5:
+                //         text = " 已经无人能挡";
+                //         this.ShowKill(text);
+                //         break;
+                //         case 6:
+                //         text = " 已经接近神了";
+                //         this.ShowKill(text);
+                //         break;
+                //         case 7:
+                //         text = " 已经超神了";
+                //         this.ShowKill(text);
+                //         break;
+                //         default:
+                //         break;
+                //     }
             }else{
                 this.ShowKill_3(this.enemyname.string);
             }

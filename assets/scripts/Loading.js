@@ -44,14 +44,18 @@ cc.Class({
         this.resource = null;
         this.progressBar.progress = 0;
  
+        
         this._clearAll();
- 
-        cc.loader.load(this._urls, this._progressCallback.bind(this), this._completeCallback.bind(this));
         Global.Login();
+        //cc.loader.load(this._urls, this._progressCallback.bind(this), this._completeCallback.bind(this));
     },
  
     start () {
- 
+        this.progressBar.node.active = false;
+        this.loadtext.node.active =false;
+        this.text.node.active =false;
+        this.startBtn.node.active =true;
+        this.enabled = false;
     },
  
     _clearAll: function() {

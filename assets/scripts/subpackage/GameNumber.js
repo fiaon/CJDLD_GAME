@@ -30,7 +30,7 @@ cc.Class({
         //注册监听事件
         cc.game.on('change',function (people){
              this.people.string = people.toString();
-             this.dienumber.string = cc.sys.localStorage.getItem("-1");
+             //this.dienumber.string = cc.sys.localStorage.getItem("-1");
             },this);
     },
     // update (dt) {},

@@ -79,7 +79,7 @@ cc.Class({
         this.player = this.node.getChildByName("playerImg");
 
         this.NodePool = cc.find("Canvas/GameController").getComponent("GameItemManager");
-        cc.sys.localStorage.setItem(this.gameuuid,"0");
+        //cc.sys.localStorage.setItem(this.gameuuid,"0");
     },
 
      update (dt) {

@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1.3346726432883236,
-      "y": 1.3346726432883236,
+      "x": 0.7652431064181857,
+      "y": 0.7652431064181857,
       "z": 1
     },
     "_quat": {
@@ -53,7 +53,7 @@
       "w": 1
     },
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "ecfa7643-80f1-4637-9b0f-6fbdc0db4376"
   },
   {
@@ -258,7 +258,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
+      "width": 700,
       "height": 360
     },
     "_anchorPoint": {
