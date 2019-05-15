@@ -57,6 +57,7 @@ cc.Class({
             cc.find("playerImg/heroImg",enemy).getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
         enemy.getComponent("EnemyManager").gameuuid = i.toString();
+        enemy.name = enemy.getComponent("EnemyManager").gameuuid;
         //cc.sys.localStorage.setItem(i.toString(),"0");
         enemy.parent = this.node; // 将生成的敌人加入节点树
     },

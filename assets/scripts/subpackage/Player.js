@@ -74,7 +74,7 @@ cc.Class({
         this.Herolv.string = this.lv;
         this.Heroexp.fillRange =0;
         this.Herohp.progress = this.curhp/this.maxhp;
-        //this.Heroname.string = Global.name;
+        this.Heroname.string = Global.name;
 
         this.rigidbody = this.node.getComponent(cc.RigidBody);
         this.player = this.node.getChildByName("playerImg");
@@ -93,7 +93,7 @@ cc.Class({
                  this.time =3;
              }
         }
-        
+
         if(this.Rocker.dir.mag()<0.5){
             return;
         }

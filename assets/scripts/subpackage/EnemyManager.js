@@ -90,6 +90,7 @@ cc.Class({
         this.NodePool = cc.find("Canvas/GameController").getComponent("GameItemManager");
         this.enemyPool = cc.find("Canvas/EnemyController").getComponent("EnemyController");
         this.map =  cc.find("Canvas/bg001");
+        this.hero = cc.find("Canvas/player").getComponent("Player");
     },
 
     start () {
@@ -298,17 +299,58 @@ cc.Class({
            
             peopleNumber.getInstance().changeNumber();
             let text = "";
+            let others = null;
+            if(this.killsuuid && this.killsuuid>0){
+               others = cc.find("Canvas/EnemyController/"+this.killsuuid).getComponent("EnemyManager");
+            }
             if(this.killername != null){
-                //this.ShowKill_2(this.killername,this.enemyname.string);
-                    if(Global.dienumber == 1){
-                        text = " 拿到了一血";
-                        this.ShowKill(text);
+                this.ShowKill_2(this.killername,this.enemyname.string);
+                if(Global.dienumber == 1){
+                    text = " 拿到了一血";
+                    this.ShowKill(text);
+                }
+                if(this.killername == this.hero.Heroname.string){
+                    this.hero.killsnumber +=1;
+                    this.KillsText(this.hero.killsnumber);
+                }else{
+                    if(others &&this.killsuuid == others.gameuuid){
+                        others.killsnumber += 1;
+                        this.KillsText(others.killsnumber);
                     }
+                }
+                    
                 
             }else{
-                //this.ShowKill_3(this.enemyname.string);
+                this.ShowKill_3(this.enemyname.string);
             }
         }
+    },
+    KillsText(number){
+        let text = "";
+        switch(number){
+                case 3:
+                text = " 正在大杀特杀";
+                this.ShowKill(text);
+                break;
+                case 4:
+                text = " 正在暴走";
+                this.ShowKill(text);
+                break;
+                case 5:
+                text = " 已经无人能挡";
+                this.ShowKill(text);
+                break;
+                case 6:
+                text = " 已经接近神了";
+                this.ShowKill(text);
+                break;
+                case 7:
+                text = " 已经超神了";
+                this.ShowKill(text);
+                break;
+                default:
+                break;
+            }
     },
     ShowKill(text){
         var tip = cc.instantiate(this.tip_prefab);
