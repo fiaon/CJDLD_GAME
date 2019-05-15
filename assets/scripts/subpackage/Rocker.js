@@ -65,6 +65,7 @@ cc.Class({
         this.skill2cd = 3;
         this.skill2_Cd = false;
         this.skill_bullet = cc.find("Canvas/skill_bullet");
+        this.map =  cc.find("Canvas/bg001");
         //console.log(this.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame.name);
 
         this.Rocker.on(cc.Node.EventType.TOUCH_START,function(e){
@@ -135,12 +136,30 @@ cc.Class({
     },
     //平A技能（往前撞击）
     playerAttack(){
+        this.player.getComponent("Player").isattack = true;
+        this.player.getComponent("Player").behit = true;
         // 将角度转换为弧度
         let radian  = cc.misc.degreesToRadians(this.player.getComponent("Player").player.rotation);
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);
-        this.player.x += dirVec.x*100;
-        this.player.y += dirVec.y*100;
+        // this.player.x += dirVec.x*100;
+        // this.player.y += dirVec.y*100;
+        let x = this.player.x+dirVec.x*200;
+        let y =this.player.y+dirVec.y*200;
+        var top = this.map.height / 2;
+        var bottom = -top;
+        var left = - this.map.width / 2;
+        var right = -left;
+        var outScreen = x < left || x > right || y < bottom || y > top;
+        if(!outScreen){
+            cc.tween(this.player)
+            .to(1, { position: cc.v2(x,y) })
+            .start()
+        }
+        this.scheduleOnce(function() {
+            this.player.getComponent("Player").behit = false;
+            this.player.getComponent("Player").isattack = false;
+        }, 1);
     },
     //鲁班技能
     SkillForLuBan(){

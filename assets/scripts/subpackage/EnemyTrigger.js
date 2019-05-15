@@ -79,24 +79,26 @@ cc.Class({
             this.playerAttack(other.node.position);
         }else if(other.node.group == "enemy" && other.getComponent("EnemyManager").gameuuid != this.gameuuid){
             this.playerAttack(other.node.position);
-        }else if(other.node.group == "gem"){
+        }else if(other.node.group == "gem" &&this.behit){
             this.ComputeDir(other.node.position)
-        }else if(other.node.group == "item"){
+        }else if(other.node.group == "item"&&this.behit){
             this.ComputeDir(other.node.position)
         }
     },
     onCollisionStay: function (other, self) {
         
         
-        if(other.node.group == "gem"){
+        if(other.node.group == "gem"&&this.behit){
             this.ComputeDir(other.node.position)
-        }else if(other.node.group == "item"){
+        }else if(other.node.group == "item"&&this.behit){
             this.ComputeDir(other.node.position)
         }
         
     },
     //平A技能（往前撞击）
     playerAttack(otherpos){
+        this.behit = false;
+        this.enemy.getComponent("EnemyManager").isattack = true;
         this.pos = otherpos.sub(this.enemy.position);
         var len = this.pos.mag();
         this.dir.x = this.pos.x / len;
@@ -105,18 +107,22 @@ cc.Class({
         var r = Math.atan2(this.dir.y,this.dir.x);
         var degree = r * 180/(Math.PI);
         degree = 360 - degree + 90;
+        this.enemy.getComponent("EnemyManager").player.rotation = degree;
         //播放特效
         this.enemy.getComponent("EnemyManager").player.getChildByName("attack").getComponent(cc.Animation).play('attack');
         // 将角度转换为弧度
         let radian  = cc.misc.degreesToRadians(degree);
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);
-        this.enemy.x += dirVec.x*80;
-        this.enemy.y += dirVec.y*80;
         this.cd = true;
         this.scheduleOnce(function() {
             this.cd = false;
-        }, 1.5);
+            this.behit = true;
+            this.enemy.getComponent("EnemyManager").isattack = false;
+        }, 1);
+        cc.tween(this.enemy)
+        .to(1, { position: cc.v2(this.enemy.x+dirVec.x*80,this.enemy.y+dirVec.y*80) })
+        .start()
     },
     
 });

@@ -76,6 +76,7 @@ cc.Class({
         this.skillNum =0;
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
+        this.isattack = false;
         this.time = 3;
         this.killername = null;//杀我的人
         this.killsnumber = 0;//杀敌数
@@ -220,12 +221,12 @@ cc.Class({
             }else if(self.tag ==0 && other.tag ==0&&this.trigger.cd){
                 if(other.node.group == "player"){
                     //眩晕状态无敌。不会给重复攻击
-                    if(!other.getComponent("Player").behit){
+                    if(!other.getComponent("Player").behit&&this.isattack){
                         other.getComponent("Player").HeroDamage();
                         this.killsuuid = other.getComponent("Player").gameuuid;
                     }
                 }else if(other.node.group == "enemy"){
-                    if(other.getComponent("EnemyManager").trigger.behit){
+                    if(other.getComponent("EnemyManager").trigger.behit&&this.isattack){
                         other.getComponent("EnemyManager").EnemyDamage();
                         other.getComponent("EnemyManager").killername = this.enemyname.string;
                         this.killsuuid = other.getComponent("EnemyManager").gameuuid;
@@ -260,18 +261,22 @@ cc.Class({
             this.player.getChildByName("dun").active = false;
             this.isDun = false;
         }else{
-            this.curhp -=1;
-            this.enemyhp.progress = this.curhp/this.maxhp;
-            //实现闪烁效果。播放眩晕动画
-            this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
-            //闪烁
-            this.node.runAction(cc.blink(3, 3));
-            //被击中状态不能进行移动等操作（机器人也不能动）
-            this.trigger.behit = false;
-            this.scheduleOnce(function() {
-                this.trigger.behit= true;
-            }, 3);
-
+            if(this.is_chidu){
+                this.curhp -=1;
+                this.enemyhp.progress = this.curhp/this.maxhp;
+            }else{
+                this.curhp -=1;
+                this.enemyhp.progress = this.curhp/this.maxhp;
+                //实现闪烁效果。播放眩晕动画
+                this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
+                //闪烁
+                this.node.runAction(cc.blink(3, 3));
+                //被击中状态不能进行移动等操作（机器人也不能动）
+                this.trigger.behit = false;
+                this.scheduleOnce(function() {
+                    this.trigger.behit= true;
+                }, 3);
+            }
             this.EnemyDead();
         } 
     },
@@ -283,46 +288,25 @@ cc.Class({
             img.x = this.node.x;
             img.y = this.node.y;
             img.getChildByName("name").getComponent(cc.Label).string = this.enemyname.string;
-            cc.find("Canvas").addChild(img);
+            cc.find("Canvas/EnemyController").addChild(img);
+            img.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
+                img.destroy();
+            },this)));
             this.enemyPool.onEnemyKilled(this.node);
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
             this.DropItem();
-            //var kills =  parseInt(cc.sys.localStorage.getItem(this.killsuuid)) +1;
-            //cc.sys.localStorage.setItem(this.killsuuid,kills.toString());
+           
             peopleNumber.getInstance().changeNumber();
             let text = "";
             if(this.killername != null){
-                this.ShowKill_2(this.killername,this.enemyname.string);
+                //this.ShowKill_2(this.killername,this.enemyname.string);
                     if(Global.dienumber == 1){
                         text = " 拿到了一血";
                         this.ShowKill(text);
                     }
-                // switch(kills){
-                //         case 3:
-                //         text = " 正在大杀特杀";
-                //         this.ShowKill(text);
-                //         break;
-                //         case 4:
-                //         text = " 正在暴走";
-                //         this.ShowKill(text);
-                //         break;
-                //         case 5:
-                //         text = " 已经无人能挡";
-                //         this.ShowKill(text);
-                //         break;
-                //         case 6:
-                //         text = " 已经接近神了";
-                //         this.ShowKill(text);
-                //         break;
-                //         case 7:
-                //         text = " 已经超神了";
-                //         this.ShowKill(text);
-                //         break;
-                //         default:
-                //         break;
-                //     }
+                
             }else{
-                this.ShowKill_3(this.enemyname.string);
+                //this.ShowKill_3(this.enemyname.string);
             }
         }
     },
@@ -369,11 +353,15 @@ cc.Class({
     },
     //随机生成宝石
     CreateGem(){
-        var str = Math.round(Math.random()*4);
-        var item =  cc.instantiate(this.gemPrefab[str]);
-        item.x = this.node.x;
-        item.y = this.node.y;
-        cc.find("Canvas").addChild(item);
+        //从对象池里面取
+        let item = null;
+        if (this.NodePool.GemPool.size() > 0) { 
+            item = this.NodePool.GemPool.get();
+        } else { 
+            item = cc.instantiate(this.NodePool.gemPrefab[Math.round(Math.random()*4)]);
+        }
+        item.position = this.node.position;
+        item.parent = cc.find("Canvas/GameController");
         let radian  = cc.misc.degreesToRadians(Math.round(Math.random()*360));
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);
@@ -383,11 +371,15 @@ cc.Class({
     },
     //随机生成道具
     CreateItem(){
-        var str = Math.round(Math.random()*2);
-        var item =  cc.instantiate(this.ItemPrefab[str]);
-        item.x = this.node.x;
-        item.y = this.node.y;
-        cc.find("Canvas").addChild(item);
+        //从对象池里面取
+        let item = null;
+        if (this.NodePool.ItemPool.size() > 0) { 
+            item = this.NodePool.ItemPool.get();
+        } else { 
+            item = cc.instantiate(this.NodePool.ItemPrefab[Math.round(Math.random()*2)]);
+        }
+        item.position = this.node.position;
+        item.parent = cc.find("Canvas/GameController");
         let radian  = cc.misc.degreesToRadians(Math.round(Math.random()*360));
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);

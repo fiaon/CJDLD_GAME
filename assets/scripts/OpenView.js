@@ -53,7 +53,7 @@ cc.Class({
                 if (err) {
                     return console.error(err);
                 }
-                console.log('load subpackage successfully.');
+                console.log('加载游戏代码分包');
                 cc.director.loadScene(customEventData+".fire");
             });
         }else{

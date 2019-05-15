@@ -66,6 +66,7 @@ cc.Class({
         this.killsnumber = 0;
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
+        this.isattack = false;//是否普攻
         this.behit = false;//是否被攻击（被攻击是不能移动）
         this.time = 3;
         this.killername = null;//杀我的人
@@ -83,6 +84,16 @@ cc.Class({
     },
 
      update (dt) {
+        //如果吃毒
+        if(this.is_chidu){
+            if(this.time>0){
+                this.time -=dt;
+             }else{
+                 this.HeroDamage();
+                 this.time =3;
+             }
+        }
+        
         if(this.Rocker.dir.mag()<0.5){
             return;
         }
@@ -112,18 +123,7 @@ cc.Class({
             var degree = r * 180/(Math.PI);
             degree = 360 - degree + 90;
             this.player.rotation = degree;
-        }
-        
-        //如果吃毒
-        if(this.is_chidu){
-            if(this.time>0){
-                this.time -=dt;
-             }else{
-                 this.HeroDamage();
-                 this.time =3;
-             }
-        }
-        
+        }  
      },
      onCollisionEnter: function (other, self) {
         //判断碰撞的类型
@@ -188,7 +188,7 @@ cc.Class({
             }
         }else if(self.tag ==1 && other.tag ==0&&this.Rocker.is_Cd){
             if(other.node.group == "enemy"){
-                if(other.getComponent("EnemyManager").trigger.behit){
+                if(other.getComponent("EnemyManager").trigger.behit && this.isattack){
                     other.getComponent("EnemyManager").EnemyDamage();
                     other.getComponent("EnemyManager").killername = this.Heroname.string;
                 }
@@ -198,15 +198,8 @@ cc.Class({
     },
     HeroDead(){
         if(this.curhp <=0){
-            //死亡动画
-
             //跳出结算界面
-            //this.node.destroy();
             cc.find("Canvas/GameOverView").active = true;
-            //cc.find("Canvas/UI Camera").active = false;
-            //cc.find("Canvas/Main Camera").getComponent(cc.Camera).cullingMask |= 1<<1;
-            //cc.find("Canvas/GameOverView").x = cc.find("Canvas/Main Camera").x;
-            //cc.find("Canvas/GameOverView").y = cc.find("Canvas/Main Camera").y;
             Global.is_end = true;
         }
     },
@@ -229,17 +222,22 @@ cc.Class({
             this.player.getChildByName("dun").active = false;
             this.isDun = false;
         }else{
-            this.curhp -=1;
-            this.Herohp.progress = this.curhp/this.maxhp;
-            //实现闪烁效果。播放眩晕动画
-            this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
-            //闪烁
-            this.node.runAction(cc.blink(3, 3));
-            //被击中状态不能进行移动等操作（机器人也不能动）
-            this.behit = true;
-            this.scheduleOnce(function() {
-                this.behit = false;
-            }, 3);
+            if(this.is_chidu){
+                this.curhp -=1;
+                this.Herohp.progress = this.curhp/this.maxhp;
+            }else{
+                this.curhp -=1;
+                this.Herohp.progress = this.curhp/this.maxhp;
+                //实现闪烁效果。播放眩晕动画
+                this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
+                //闪烁
+                this.node.runAction(cc.blink(3, 3));
+                //被击中状态不能进行移动等操作（机器人也不能动）
+                this.behit = true;
+                this.scheduleOnce(function() {
+                    this.behit = false;
+                }, 3);
+            }   
             this.HeroDead();
         }
     },
