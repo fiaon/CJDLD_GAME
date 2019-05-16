@@ -1,11 +1,16 @@
 window.Global = {
     ios: 1,
+    appid:"wx039e71b55cba9869",
+    Introuid:0,
+    sessionId:null,
     is_end:false,
     is_Again:false,
     enemynumber:35,
     dienumber:0,
     name:null,
     avatarUrl:null,
+    gold:null,
+    diamond:null,
 
 
     prefab_icon: null,
@@ -25,12 +30,44 @@ window.Global = {
 
     jumpinfo_callback: null,
 
+    url_UserLogin: "http://wx.zaohegame.com:8099/game/UserLogin",
     data: {
         level_current: 1,
         tip_current: 0,
         
     },
-    
+
+    UserLogin(parme){
+        let self = this;
+        this.Post(this.url_UserLogin,parme,(res)=>{
+            self.sessionId = res.result.sessionId;
+        });
+    },
+    Post(url,parme,callback){
+        var self = this;
+        if (CC_WECHATGAME) {
+            wx.request({
+                url:url,
+                method:'post',
+                data:parme,
+                header:{
+                    'content-type': 'application/json'
+                },
+                success(res){
+                    if(callback){
+                        callback(res.data);
+                    }
+                    console.log("请求成功 "+url,res.data);
+                },
+                failed(res){
+                    console.log("请求失败 "+url,res.data);
+                },
+                complete(res){
+                    console.log("请求完成 "+url,res.data);
+                },
+            });
+        }
+    },
     writeData: function () {
         if (CC_WECHATGAME) {
             wx.setStorageSync("data", this.data);
@@ -78,6 +115,21 @@ window.Global = {
         }
     },
     Login(){
+        wx.login({
+            success(res) {
+                console.log("登录成功 == ", res);
+                self.code = res.code;
+                let parme = {
+                    appid: Global.appid,
+                    code: self.code,
+                    introuid: Global.Introuid,
+                };
+                // Global.Post(url, parme);
+                Global.UserLogin(parme);
+            }
+        });
+    },
+    ShouQuan(){
         if (CC_WECHATGAME) {
             let exportJson = {};
             let sysInfo = wx.getSystemInfoSync();

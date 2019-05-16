@@ -49,6 +49,8 @@ cc.Class({
 
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
+        var draw = cc.PhysicsManager.DrawBits;
+        cc.director.getPhysicsManager().debugDrawFlags = draw.e_shapeBit|draw.e_jointBit;
     },
 
     start () {
@@ -74,13 +76,16 @@ cc.Class({
         this.Herolv.string = this.lv;
         this.Heroexp.fillRange =0;
         this.Herohp.progress = this.curhp/this.maxhp;
-        this.Heroname.string = Global.name;
+        //this.Heroname.string = Global.name;
 
         this.rigidbody = this.node.getComponent(cc.RigidBody);
         this.player = this.node.getChildByName("playerImg");
 
         this.NodePool = cc.find("Canvas/GameController").getComponent("GameItemManager");
         //cc.sys.localStorage.setItem(this.gameuuid,"0");
+        peopleNumber.getInstance().init();
+        let p = peopleNumber.getInstance().people;
+        cc.game.emit('change',p);
     },
 
      update (dt) {

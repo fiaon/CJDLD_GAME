@@ -300,7 +300,7 @@ cc.Class({
             peopleNumber.getInstance().changeNumber();
             let text = "";
             let others = null;
-            if(this.killsuuid && this.killsuuid>0){
+            if(this.killsuuid && this.killsuuid>0&&cc.find("Canvas/EnemyController/"+this.killsuuid)){
                others = cc.find("Canvas/EnemyController/"+this.killsuuid).getComponent("EnemyManager");
             }
             if(this.killername != null){

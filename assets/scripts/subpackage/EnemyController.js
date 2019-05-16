@@ -7,7 +7,6 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-var peopleNumber = require("peopleNumber");
 
 cc.Class({
     extends: cc.Component,
@@ -34,9 +33,6 @@ cc.Class({
         for(let i = 0; i < Global.enemynumber; ++i){
             this.createEnemy(i);
         }
-        peopleNumber.getInstance().init();
-        let p = peopleNumber.getInstance().people;
-        cc.game.emit('change',p);
         if(Global.is_end){
             Global.is_end = false;
             Global.dienumber = 0;

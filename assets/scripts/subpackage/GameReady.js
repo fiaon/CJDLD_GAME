@@ -12,17 +12,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        mapCamera:{
+        timeDown:{
             default:null,
-            type:cc.Camera,
-        },
-        sprite: {
-            default: null,
-            type: cc.Sprite
-        },
-        target:{
-            default:null,
-            type:cc.Node,
+            type:cc.Label,
         },
     },
 
@@ -31,18 +23,27 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        let texture = new cc.RenderTexture();
-        texture.initWithSize(100, 100);
-
-        let spriteFrame = new cc.SpriteFrame();
-        spriteFrame.setTexture(texture)
-        this.sprite.spriteFrame = spriteFrame;
-        
-        this.mapCamera.targetTexture = texture;
+        this.time = 10;
+        this.timeDown.string = this.time +"s";
+        this.schedule(this.doCountdownTime,1);
     },
-
-    // update (dt) {
-    //     this.node.x = this.target.x;
-    //     this.node.y = this.target.y;
-    // },
+    doCountdownTime(){
+        //每秒更新显示信息
+        if (this.time > 0 ) {
+            this.time -= 1;
+            this.timeDown.string = this.time+"s";
+            this.countDownShow(this.time);
+        }
+    },
+    countDownShow(temp){
+        if(temp <= 0){
+            //倒计时结束
+            this.node.active = false;
+            this.unschedule(this.doCountdownTime);
+            cc.find("Canvas/GameController").active= true;
+            cc.find("Canvas/EnemyController").active= true;
+            cc.find("Canvas/mask").active= true;
+        }
+    },
+    // update (dt) {},
 });

@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
+var HttpMsg = require("HttpMsg");
 cc.Class({
     extends: cc.Component,
 
@@ -105,7 +105,8 @@ cc.Class({
  
     },
     onTouchBtn(){
-        cc.director.loadScene("GameStart.fire");
+        //HttpMsg.getInstance().HttpPost("UserLogin");
+        //cc.director.loadScene("GameStart.fire");
     }
 
 });

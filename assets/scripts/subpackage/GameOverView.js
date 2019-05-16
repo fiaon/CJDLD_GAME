@@ -35,6 +35,8 @@ cc.Class({
         this.number =0;
         this.timeDown.string = this.time;
         this.goldnumber.string = this.number;
+
+        cc.find("Canvas/mask").active= false;
         
         //赋值结算页面的信息
 

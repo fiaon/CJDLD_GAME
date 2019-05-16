@@ -31,6 +31,7 @@ cc.Class({
         //出现提示
         this.is_suodu= false;
         this.time=0;
+        this.speed = 0;
         this.scheduleOnce(function() {
             let tip = cc.instantiate(this.tip_prefab);
             if (tip) {
@@ -41,6 +42,7 @@ cc.Class({
                 }
             }
             this.time = 20;
+            this.speed = 80;
         }, 10);
         this.scheduleOnce(function() {
             this.is_suodu= true;
@@ -55,6 +57,7 @@ cc.Class({
                 }
             }
             this.time = 20;
+            this.speed = 40;
         }, 80);
         this.scheduleOnce(function() {
             this.is_suodu= true;
@@ -69,6 +72,7 @@ cc.Class({
                 }
             }
             this.time = 15;
+            this.speed = 40;
         }, 150);
         this.scheduleOnce(function() {
             this.is_suodu= true;
@@ -76,12 +80,17 @@ cc.Class({
     },
 
      update (dt) {
+         if(this.node.width<=0){
+            cc.find("Canvas/GameOverView").active = true;
+            Global.is_end = true;
+            return
+         }
          if(!this.is_suodu){
              return;
          }
          if(this.time>=0){
-            this.node.width -= dt*32;
-            this.node.height -= dt*32;
+            this.node.width -= dt*this.speed;
+            this.node.height -= dt*this.speed;
             this.node.getComponent(cc.BoxCollider).size.width = this.node.width;
             this.node.getComponent(cc.BoxCollider).size.height = this.node.height;
             this.time -=dt;
