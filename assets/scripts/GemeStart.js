@@ -33,6 +33,17 @@ cc.Class({
             }
         });
         cc.find("Canvas/Player/name").getComponent(cc.Label).string = Global.name;
+        for(let i =0;i<Global.SeaonLvl.length;i++){
+            if(Global.userlvl == Global.SeaonLvl[i].id){
+                Global.duntext = Global.SeaonLvl[i].name;
+                cc.find("Canvas/Player/lvname").getComponent(cc.Label).string = Global.duntext;
+                let url = Global.SeaonLvl[i].id+'.png';
+                cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+                    cc.find("Canvas/Player/Lv").getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                });
+                
+            }
+        }
     },
 
     // update (dt) {},

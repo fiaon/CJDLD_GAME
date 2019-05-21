@@ -105,8 +105,9 @@ cc.Class({
  
     },
     onTouchBtn(){
-        //HttpMsg.getInstance().HttpPost("UserLogin");
-        //cc.director.loadScene("GameStart.fire");
+        Global.GetUesrInfo();
+        Global.GetSeaonLvl();
+        Global.GetAllHeros();
     }
 
 });

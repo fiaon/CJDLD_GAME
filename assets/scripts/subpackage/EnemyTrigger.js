@@ -75,23 +75,26 @@ cc.Class({
     
     onCollisionEnter: function (other, self) {
         //判断碰撞的类型
-        if(other.node.group == "player"){
-            this.playerAttack(other.node.position);
-        }else if(other.node.group == "enemy" && other.getComponent("EnemyManager").gameuuid != this.gameuuid){
-            this.playerAttack(other.node.position);
-        }else if(other.node.group == "gem" &&this.behit){
-            this.ComputeDir(other.node.position)
-        }else if(other.node.group == "item"&&this.behit){
-            this.ComputeDir(other.node.position)
+        if(this.behit){
+            if(other.node.group == "player"){
+                this.playerAttack(other.node.position);
+            }else if(other.node.group == "enemy" && other.getComponent("EnemyManager").gameuuid != this.gameuuid){
+                this.playerAttack(other.node.position);
+            }else if(other.node.group == "gem"){
+                this.ComputeDir(other.node.position);
+            }else if(other.node.group == "item"){
+                this.ComputeDir(other.node.position);
+            }
         }
+        
     },
     onCollisionStay: function (other, self) {
         
         
         if(other.node.group == "gem"&&this.behit){
-            this.ComputeDir(other.node.position)
+            this.ComputeDir(other.node.position);
         }else if(other.node.group == "item"&&this.behit){
-            this.ComputeDir(other.node.position)
+            this.ComputeDir(other.node.position);
         }
         
     },

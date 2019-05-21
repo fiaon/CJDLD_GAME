@@ -577,9 +577,7 @@
       "__id__": 12
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "604e06fa-4f93-4461-bf26-37e4248f365e"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -794,7 +792,7 @@
     },
     "component": "",
     "_componentId": "29af5oTrMRKOYXCKeMR7DBz",
-    "handler": "onCheck",
+    "handler": "onCheckMusic",
     "customEventData": ""
   },
   {
@@ -1121,9 +1119,7 @@
       "__id__": 27
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "604e06fa-4f93-4461-bf26-37e4248f365e"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -1338,7 +1334,7 @@
     },
     "component": "",
     "_componentId": "29af5oTrMRKOYXCKeMR7DBz",
-    "handler": "onCheck",
+    "handler": "onCheckSound",
     "customEventData": ""
   },
   {

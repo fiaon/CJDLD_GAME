@@ -23,7 +23,8 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        cc.find("Bg/number",this.node).getComponent(cc.Label).string = Global.gold;
+        cc.find("Bg2/number",this.node).getComponent(cc.Label).string = Global.diamond;
     },
     //按钮点击功能（创建预设体）
     onOpen: function (event, customEventData) {

@@ -5,13 +5,21 @@ window.Global = {
     sessionId:null,
     is_end:false,
     is_Again:false,
-    enemynumber:35,
-    dienumber:0,
-    name:null,
-    avatarUrl:null,
-    gold:null,
-    diamond:null,
-
+    enemynumber:35,     //机器人数量
+    dienumber:0,        //死亡数
+    name:null,          //昵称
+    avatarUrl:null,     //头像url
+    gold:null,          //金币
+    diamond:null,       //钻石
+    userlvl:null,       //段位
+    playcount:null,     //总玩次数
+    wincount:null,      //赢次数
+    losecount:null,     //输次数
+    bestkill:null,      //最高击杀
+    score:null,         //积分
+    heroid:null,        //专属英雄id
+    SeaonLvl:null,       //段位信息
+    duntext:null,
 
     prefab_icon: null,
     prefab_gongxi: null,
@@ -30,7 +38,10 @@ window.Global = {
 
     jumpinfo_callback: null,
 
-    url_UserLogin: "http://wx.zaohegame.com:8099/game/UserLogin",
+    //linkUrl:"https://wx.zaohegame.com/",
+    linkUrl:"http://wx.zaohegame.com:8099/",
+    url_UserLogin: "game/UserLogin",
+    url_UserAuth: "game/UserAuth",
     data: {
         level_current: 1,
         tip_current: 0,
@@ -39,19 +50,20 @@ window.Global = {
 
     UserLogin(parme){
         let self = this;
-        this.Post(this.url_UserLogin,parme,(res)=>{
-            self.sessionId = res.result.sessionId;
+        this.Post(self.url_UserLogin,parme,(res)=>{
+            self.sessionId = res.result.sessionid;
+            Global.ShouQuan();
         });
     },
     Post(url,parme,callback){
         var self = this;
         if (CC_WECHATGAME) {
             wx.request({
-                url:url,
+                url:self.linkUrl+url,
                 method:'post',
                 data:parme,
                 header:{
-                    'content-type': 'application/json'
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
                 success(res){
                     if(callback){
@@ -63,56 +75,56 @@ window.Global = {
                     console.log("请求失败 "+url,res.data);
                 },
                 complete(res){
-                    console.log("请求完成 "+url,res.data);
+                    
                 },
             });
-        }
-    },
-    writeData: function () {
-        if (CC_WECHATGAME) {
-            wx.setStorageSync("data", this.data);
-        }
-        else {
-            cc.log(JSON.stringify(this.data));
-            cc.sys.localStorage.setItem("data", JSON.stringify(this.data));
-        }
-    },
-
-    readData: function () {
-        if (CC_WECHATGAME) {
-            let data = wx.getStorageSync("data")
-            if (typeof data != typeof this.data) {
-                wx.setStorageSync("data", this.data);
-                this.data.video = new Array(100)
-                    for (let i = 0; i < this.data.video.length; i++) {
-                        this.data.video[i] = 0;
-                    }
-            }
-            else {
-                this.data = data;
-                if (this.data.tip_current == null) {
-                    this.data.tip_current = 0;
-                    this.writeData();
-                }
-                if (this.data.video == null) {
-                    this.data.video = new Array(100)
-                    for (let i = 0; i < this.data.video.length; i++) {
-                        this.data.video[i] = 0;
+        }else {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        var response = xhr.responseText;
+                        if (response) {
+                            var responseJson = JSON.parse(response);
+                            callback(responseJson);
+                        } else {
+                            console.log("返回数据不存在")
+                            callback(null);
+                        }
+                    } else {
+                        console.log("请求失败")
+                        callback(null);
                     }
                 }
-            }
-
+            };
+            xhr.open("POST", url, true);
+            xhr.send();
         }
-        else {
-            cc.sys.localStorage.removeItem("data");
-            let resstr = cc.sys.localStorage.getItem("data");
-            if (resstr == null) {
-                cc.sys.localStorage.setItem("data", JSON.stringify(this.data));
-            }
-            else {
-                this.data = JSON.parse(resstr);
-            }
+    },
+    GetUesrInfo(){
+        let parme = {
+            sessionId:this.sessionId
         }
+        this.Post("gun/getuserinfo",parme,(res)=>{
+            this.gold = res.result.Obj.gold;
+            this.diamond= res.result.Obj.diamonds;
+            this.userlvl = res.result.Obj.userlvl;
+            this.playcount = res.result.Obj.playcount;
+            this.wincount = res.result.Obj.wincount;
+            this.losecount = res.result.Obj.losecount;
+            this.bestkill = res.result.Obj.bestkill;
+            this.score = res.result.Obj.score;
+            this.heroid = res.result.Obj.heroid;
+            cc.director.loadScene("GameStart.fire");
+        });
+    },
+    GetSeaonLvl(){
+        this.Post("gun/GetSeaonLvl",null,(res)=>{
+            this.SeaonLvl = res.result.Obj;
+        });
+    },
+    GetAllHeros(){
+        this.Post("gun/GetAllHeros");
     },
     Login(){
         wx.login({
@@ -144,6 +156,7 @@ window.Global = {
                         window.wx.getUserInfo({
                             success(res){
                                 console.log(res);
+                                Global.UserAuthPost(res, Global.sessionId, () => {});
                                 exportJson.userInfo = res.userInfo;
                                 //此时可进行登录操作
                                 Global.name = res.userInfo.nickName; //用户昵称
@@ -170,6 +183,7 @@ window.Global = {
                         button.onTap((res) => {
                             if (res.userInfo) {
                                 console.log("用户授权:", res);
+                                Global.UserAuthPost(res, Global.sessionId, () => {});
                                 exportJson.userInfo = res.userInfo;
                                 //此时可进行登录操作
                                 Global.name = res.userInfo.nickName; //用户昵称
@@ -183,6 +197,33 @@ window.Global = {
                 }
             })
         }
+    },
+    /**
+     * 授权接口
+     * @param {*} res 参数
+     * @param {*} sessionId sessionId
+     */
+    UserAuthPost(res, sessionId, callback) {
+        this.sessionId = sessionId;
+        this.rawData = res.rawData;
+        this.compareSignature = res.signature;
+        this.encryptedData = res.encryptedData;
+        this.iv = res.iv;
+        let parme = {
+            appid: this.appid,
+            sessionId: this.sessionId,
+            rawData: this.rawData,
+            compareSignature: this.compareSignature,
+            encryptedData: this.encryptedData,
+            iv: this.iv,
+        };
+        this.Post(this.url_UserAuth, parme, (res) => {
+            if (res.resultcode == 500) {
+                this.UserAuthPost(this.res, this.sessionId, callback);
+                console.log("需要重新授权");
+                this.GetUserData();
+            }
+        });
     },
     TiaoZhanFriend() {
         if (CC_WECHATGAME) {
