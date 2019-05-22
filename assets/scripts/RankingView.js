@@ -45,10 +45,28 @@ cc.Class({
                 duntext:Global.duntext,
                 id:Global.userlvl,
             });
-        } else {
-            cc.log("提交得分: x1 : " + score)
         }
     },
+    groupFriendButtonFunc: function (event) {
+        if (CC_WECHATGAME) {
+            window.wx.shareAppMessage({
+                success: (res) => {
+                    console.log("shareAppMessage: "+res);
+                    if (res.shareTickets != undefined && res.shareTickets.length > 0) {
+                        window.wx.postMessage({
+                            messageType: 5,
+                            score: Global.score,
+                            maxkill:Global.bestkill,
+                            duntext:Global.duntext,
+                            id:Global.userlvl,
+                            shareTicket: res.shareTickets[0]
+                        });
+                    }
+                }
+            });
+        }
+    },
+
     _updaetSubDomainCanvas () {
         if (!this.tex) {
             return;

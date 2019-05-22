@@ -12,7 +12,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-    
+        rankPrefab:cc.Prefab,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -44,6 +44,27 @@ cc.Class({
                 
             }
         }
+        Global.GetAllRank((res)=>{
+            if(res.result.Obj.length>0){
+                if(res.result.Obj.length>=3){
+                    for(let i=0;i<3;i++){
+                        var imgurl = res.result.Obj[i].headurl +"?aaa=aa.jpg";
+                        var pos = "Canvas/RankingList/bg";
+                        var rank = cc.instantiate(this.rankPrefab);
+                        rank.getComponent("RankHeraPrefab").init(i,imgurl);
+                        cc.find(pos).addChild(rank);
+                    }
+                }else{
+                    for(let i=0;i<res.result.Obj.length;i++){
+                        var imgurl = res.result.Obj[i].headurl +"?aaa=aa.jpg";
+                        var pos = "Canvas/RankingList/bg";
+                        var rank = cc.instantiate(this.rankPrefab);
+                        rank.getComponent("RankHeraPrefab").init(i,imgurl);
+                        cc.find(pos).addChild(rank);
+                    }
+                }
+            }
+        });
     },
 
     // update (dt) {},

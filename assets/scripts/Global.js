@@ -126,6 +126,15 @@ window.Global = {
     GetAllHeros(){
         this.Post("gun/GetAllHeros");
     },
+    GetUserHeros(callback){
+        let parme = {
+            sessionId:this.sessionId
+        }
+        this.Post("gun/GetUserHeros",parme,callback);
+    },
+    GetAllRank(callback){
+        this.Post("gun/GetAllRank",null,callback);
+    },
     Login(){
         wx.login({
             success(res) {
