@@ -10,6 +10,7 @@
 
 cc.Class({
     extends: cc.Component,
+
     properties: {
         avatarImgSprite: cc.Sprite,
         nickLabel: cc.Label,
@@ -21,60 +22,66 @@ cc.Class({
         ranknumber_1:cc.Sprite,
         ranknumber_2:cc.Sprite,
     },
-    start() {
+
+    // LIFE-CYCLE CALLBACKS:
+
+    // onLoad () {},
+
+    start () {
 
     },
-
-    init: function (rank, data) {
-        let avatarUrl = data.headurl;
+    init: function (data) {
+        let avatarUrl = Global.avatarUrl;
         // let nick = data.nickname.length <= 10 ? data.nickname : data.nickname.substr(0, 10) + "...";
-        let nick = data.nick;
+        let nick = Global.name;
         
 
         this.createImage(avatarUrl);
         this.nickLabel.string = nick;
         this.maxkill.string = data.bestkill.toString();
         this.score.string = data.score.toString();
-        this.duntext.string = data.thelvlname;
+        this.duntext.string = Global.duntext;
         let url = data.thelvl+'.png';
         let self = this;
         cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
             self.dun.spriteFrame = spriteFrame;
         });
-        if(rank == 0){
-            cc.loader.loadRes('NO1.png', cc.SpriteFrame, function (err, spriteFrame) {
-                self.rankImg.spriteFrame = spriteFrame;
-            });
-        }else if(rank == 1){
-            cc.loader.loadRes('NO2.png', cc.SpriteFrame, function (err, spriteFrame) {
-                self.rankImg.spriteFrame = spriteFrame;
-            });
-        }else if(rank == 2){
-            cc.loader.loadRes('NO3.png', cc.SpriteFrame, function (err, spriteFrame) {
-                self.rankImg.spriteFrame = spriteFrame;
-            });
-        }else if(rank <9){
-            this.rankImg.active = false;
-            let rankurl = 'number_'+(rank +1)+'.png';
-            cc.loader.loadRes(rankurl, cc.SpriteFrame, function (err, spriteFrame) {
-                self.ranknumber_1.spriteFrame = spriteFrame;
-            });
-        }else{
-            this.rankImg.active = false;
-            this.ranknumber_2.active = true;
-            let n = rank+1;
-            let n_1 = parseInt(n/10);
-            let n_2 = n%10;
-            let rankurl = 'number_'+n_1+'.png';
-            cc.loader.loadRes(rankurl, cc.SpriteFrame, function (err, spriteFrame) {
-                self.ranknumber_1.spriteFrame = spriteFrame;
-            });
-            let rankurl_2 = 'number_'+n_2+'.png';
-            cc.loader.loadRes(rankurl_2, cc.SpriteFrame, function (err, spriteFrame) {
-                self.ranknumber_2.spriteFrame = spriteFrame;
-            });
+        if(data.sort<=50){
+            this.node.getChildByName("rankingImg").active = true;
+            this.node.getChildByName("notlisted").active = false;
+            if(data.sort == 1){
+                cc.loader.loadRes('NO1.png', cc.SpriteFrame, function (err, spriteFrame) {
+                    self.rankImg.spriteFrame = spriteFrame;
+                });
+            }else if(data.sort == 2){
+                cc.loader.loadRes('NO2.png', cc.SpriteFrame, function (err, spriteFrame) {
+                    self.rankImg.spriteFrame = spriteFrame;
+                });
+            }else if(data.sort == 3){
+                cc.loader.loadRes('NO3.png', cc.SpriteFrame, function (err, spriteFrame) {
+                    self.rankImg.spriteFrame = spriteFrame;
+                });
+            }else if(data.sort <10){
+                this.rankImg.active = false;
+                let rankurl = 'number_'+data.sort+'.png';
+                cc.loader.loadRes(rankurl, cc.SpriteFrame, function (err, spriteFrame) {
+                    self.ranknumber.spriteFrame = spriteFrame;
+                });
+            }else{
+                this.rankImg.active = false;
+                this.ranknumber_2.active = true;
+                let n_1 = parseInt(data.sort/10);
+                let n_2 = data.sort%10;
+                let rankurl = 'number_'+n_1+'.png';
+                cc.loader.loadRes(rankurl, cc.SpriteFrame, function (err, spriteFrame) {
+                    self.ranknumber_1.spriteFrame = spriteFrame;
+                });
+                let rankurl_2 = 'number_'+n_2+'.png';
+                cc.loader.loadRes(rankurl_2, cc.SpriteFrame, function (err, spriteFrame) {
+                    self.ranknumber_2.spriteFrame = spriteFrame;
+                });
+            }
         }
-           
     },
     createImage(avatarUrl) {
         if (CC_WECHATGAME) {
@@ -110,4 +117,5 @@ cc.Class({
         }
     }
 
+    // update (dt) {},
 });

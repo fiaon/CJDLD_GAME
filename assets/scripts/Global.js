@@ -107,22 +107,22 @@ window.Global = {
             sessionId:this.sessionId
         }
         this.Post("gun/getuserinfo",parme,(res)=>{
-            this.gold = res.result.Obj.gold;
-            this.diamond= res.result.Obj.diamonds;
-            this.userlvl = res.result.Obj.userlvl;
-            this.playcount = res.result.Obj.playcount;
-            this.wincount = res.result.Obj.wincount;
-            this.losecount = res.result.Obj.losecount;
-            this.bestkill = res.result.Obj.bestkill;
-            this.score = res.result.Obj.score;
-            this.heroid = res.result.Obj.heroid;
+            this.gold = res.result.gold;
+            this.diamond= res.result.diamonds;
+            this.userlvl = res.result.userlvl;
+            this.playcount = res.result.playcount;
+            this.wincount = res.result.wincount;
+            this.losecount = res.result.losecount;
+            this.bestkill = res.result.bestkill;
+            this.score = res.result.score;
+            this.heroid = res.result.heroid;
             cc.director.loadScene("GameStart.fire");
         });
     },
     //获取段位信息
     GetSeaonLvl(){
         this.Post("gun/GetSeaonLvl",null,(res)=>{
-            this.SeaonLvl = res.result.Obj;
+            this.SeaonLvl = res.result;
         });
     },
     //获取所有英雄信息
@@ -160,6 +160,14 @@ window.Global = {
             change :0,  //数量
         }
         this.Post("gun/UserChange",data);
+    },
+    //购买英雄
+    BuyHeros(id,callback){
+        let data = {
+            sessionId:this.sessionId,
+            hid:id,
+        }
+        this.Post("gun/BuyHeros",data,callback);
     },
     //登陆
     Login(){

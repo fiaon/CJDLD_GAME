@@ -25,21 +25,21 @@ cc.Class({
     start () {
         let self = this;
         Global.GetUserHeros((res)=>{
-            if(res.result.Obj.length!=0){
-                for(let i=0;i<res.result.Obj.length;i++){
-                    if(res.result.Obj[i].type == 1){
+            if(res.result.length!=0){
+                for(let i=0;i<res.result.length;i++){
+                    if(res.result[i].type == 1){
                         cc.loader.loadRes('have.png', cc.SpriteFrame, function (err, spriteFrame) {
-                            self.heroPrefab[res.result.Obj[i].heroid-1].getChildByName("type").getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                            self.heroPrefab[res.result[i].heroid-1].getChildByName("type").getComponent(cc.Sprite).spriteFrame = spriteFrame;
                         });
                     }else{
-                        if(res.result.Obj[i].trialscount>0){
+                        if(res.result[i].trialscount>0){
                             cc.loader.loadRes('surplus.png', cc.SpriteFrame, function (err, spriteFrame) {
-                                self.heroPrefab[res.result.Obj[i].heroid-1].getChildByName("type").getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                                self.heroPrefab[res.result[i].heroid-1].getChildByName("type").getComponent(cc.Sprite).spriteFrame = spriteFrame;
                             });
-                            cc.find("tpye/number",self.heroPrefab[res.result.Obj[i].heroid-1]).active = true;
-                            let imgurl = 'number_'+res.result.Obj[i].trialscount+'.png';
+                            cc.find("tpye/number",self.heroPrefab[res.result[i].heroid-1]).active = true;
+                            let imgurl = 'number_'+res.result[i].trialscount+'.png';
                             cc.loader.loadRes(imgurl, cc.SpriteFrame, function (err, spriteFrame) {
-                                cc.find("tpye/number",self.heroPrefab[res.result.Obj[i].heroid-1]).getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                                cc.find("tpye/number",self.heroPrefab[res.result[i].heroid-1]).getComponent(cc.Sprite).spriteFrame = spriteFrame;
                             });
                         }
                     }

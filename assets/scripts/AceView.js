@@ -13,6 +13,7 @@ cc.Class({
 
     properties: {
         rankPrefab:cc.Prefab,
+        userPrefab:cc.Prefab,
         content:{
             default:null,
             type:cc.Node,
@@ -25,14 +26,16 @@ cc.Class({
 
     start () {
         Global.GetAllRank((res)=>{
-            if(res.result.Obj.length>0){
-                for(let i=0;i<res.result.Obj.length;i++){
+            if(res.result.rank.length>0){
+                for(let i=0;i<res.result.rank.length;i++){
                     var rank = cc.instantiate(this.rankPrefab);
-                    rank.getComponent("RankItem").init(i,res.result.Obj[i]);
+                    rank.getComponent("RankItem").init(i,res.result.rank[i]);
                     this.content.addChild(rank);
                 }
-                
             }
+            var user = cc.instantiate(this.userPrefab);
+            user.getComponent("UserRank").init(res.result.user);
+            this.node.addChild(user);
         });
     },
 
