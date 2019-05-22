@@ -18,8 +18,8 @@ window.Global = {
     bestkill:null,      //最高击杀
     score:null,         //积分
     heroid:null,        //专属英雄id
-    SeaonLvl:null,       //段位信息
-    duntext:null,
+    SeaonLvl:null,      //段位信息
+    duntext:null,       //当前段位
 
     prefab_icon: null,
     prefab_gongxi: null,
@@ -39,7 +39,7 @@ window.Global = {
     jumpinfo_callback: null,
 
     //linkUrl:"https://wx.zaohegame.com/",
-    linkUrl:"http://wx.zaohegame.com:8099/",
+    linkUrl:"http://wx.zaohegame.com:8099/",//测试地址
     url_UserLogin: "game/UserLogin",
     url_UserAuth: "game/UserAuth",
     data: {
@@ -101,6 +101,7 @@ window.Global = {
             xhr.send();
         }
     },
+    //获取玩家信息
     GetUesrInfo(){
         let parme = {
             sessionId:this.sessionId
@@ -118,23 +119,49 @@ window.Global = {
             cc.director.loadScene("GameStart.fire");
         });
     },
+    //获取段位信息
     GetSeaonLvl(){
         this.Post("gun/GetSeaonLvl",null,(res)=>{
             this.SeaonLvl = res.result.Obj;
         });
     },
+    //获取所有英雄信息
     GetAllHeros(){
         this.Post("gun/GetAllHeros");
     },
+    //获取玩家身上的英雄信息
     GetUserHeros(callback){
         let parme = {
             sessionId:this.sessionId
         }
         this.Post("gun/GetUserHeros",parme,callback);
     },
+    //获取高手榜的信息
     GetAllRank(callback){
-        this.Post("gun/GetAllRank",null,callback);
+        let parme = {
+            sessionId:this.sessionId
+        }
+        this.Post("gun/GetAllRank",parme,callback);
     },
+    //获取玩家赛季信息
+    GetUserSeaon(callback){
+        let parme = {
+            sessionId:this.sessionId
+        }
+        this.Post("gun/GetUserSeaon",parme,callback);
+    },
+    //数值变化请求
+    UserChange(){
+        let data = {
+            sessionId:this.sessionId,
+            type:1,     //1：钻石 2：金币 3：积分
+            app:1,      //1：系统 2：兑换 3：充值
+            remark:"",  //说明
+            change :0,  //数量
+        }
+        this.Post("gun/UserChange",data);
+    },
+    //登陆
     Login(){
         wx.login({
             success(res) {
