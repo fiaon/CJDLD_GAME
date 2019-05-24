@@ -20,6 +20,7 @@ cc.Class({
         maxkill:cc.Label,
         win:cc.Label,
         heroimg:cc.Sprite,
+        idText:cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -55,6 +56,7 @@ cc.Class({
                 self.heroimg.spriteFrame = spriteFrame;
             });
         }
+        this.idText.string = "ID:"+Global.userkey;
     },
 
     // update (dt) {},

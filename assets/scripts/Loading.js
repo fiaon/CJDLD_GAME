@@ -107,7 +107,6 @@ cc.Class({
     onTouchBtn(){
         Global.GetUesrInfo();
         Global.GetSeaonLvl();
-        //Global.GetAllHeros();
     }
 
 });

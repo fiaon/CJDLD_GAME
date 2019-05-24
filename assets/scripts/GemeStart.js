@@ -48,7 +48,7 @@ cc.Class({
             if(res.result.rank.length>0){
                 if(res.result.rank.length>=3){
                     for(let i=0;i<3;i++){
-                        var imgurl = res.result.rank[i].headurl +"?aaa=aa.jpg";
+                        var imgurl = res.result.rank[i].headurl;
                         var pos = "Canvas/RankingList/bg";
                         var rank = cc.instantiate(this.rankPrefab);
                         rank.getComponent("RankHeraPrefab").init(i,imgurl);
@@ -56,7 +56,7 @@ cc.Class({
                     }
                 }else{
                     for(let i=0;i<res.result.rank.length;i++){
-                        var imgurl = res.result.rank[i].headurl +"?aaa=aa.jpg";
+                        var imgurl = res.result.rank[i].headurl;
                         var pos = "Canvas/RankingList/bg";
                         var rank = cc.instantiate(this.rankPrefab);
                         rank.getComponent("RankHeraPrefab").init(i,imgurl);
@@ -65,6 +65,7 @@ cc.Class({
                 }
             }
         });
+        
     },
 
     // update (dt) {},

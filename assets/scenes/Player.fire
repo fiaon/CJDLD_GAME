@@ -2514,6 +2514,12 @@
         "__uuid__": "b8129601-53eb-407e-bc06-f775493400c8"
       }
     ],
+    "goldtext": {
+      "__id__": 29
+    },
+    "diamondtext": {
+      "__id__": 38
+    },
     "_id": "7dCGTb1IhHAov5QmjMLwsz"
   },
   {
@@ -5363,8 +5369,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 2,
-    "transition": 2,
+    "_N$transition": 0,
+    "transition": 0,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 230,
@@ -6105,6 +6111,9 @@
     },
     "heroimg": {
       "__id__": 102
+    },
+    "idText": {
+      "__id__": 122
     },
     "_id": "998JU+jFxAv7scybDA+Rot"
   },

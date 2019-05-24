@@ -15,7 +15,9 @@ cc.Class({
         prefab:{
             default:[],
             type:cc.Prefab,
-        }
+        },
+        goldtext:cc.Label,
+        diamondtext:cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -23,8 +25,14 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        cc.find("Bg/number",this.node).getComponent(cc.Label).string = Global.gold;
-        cc.find("Bg2/number",this.node).getComponent(cc.Label).string = Global.diamond;
+        let self = this;
+        this.goldtext.string = Global.gold;
+        this.diamondtext.string = Global.diamond;
+        //监听刚改变金币或者钻石时发送
+        cc.game.on('UserChang',function(){
+            self.goldtext.string = Global.gold;
+            self.diamondtext.string = Global.diamond;
+        },this)
     },
     //按钮点击功能（创建预设体）
     onOpen: function (event, customEventData) {

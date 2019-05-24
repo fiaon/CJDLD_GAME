@@ -20,6 +20,8 @@ window.Global = {
     heroid:null,        //专属英雄id
     SeaonLvl:null,      //段位信息
     duntext:null,       //当前段位
+    defhid:null,        //当前英雄
+    userkey:null,       //玩家ID
 
     prefab_icon: null,
     prefab_gongxi: null,
@@ -116,6 +118,8 @@ window.Global = {
             this.bestkill = res.result.bestkill;
             this.score = res.result.score;
             this.heroid = res.result.heroid;
+            this.defhid = res.result.defhid;
+            this.userkey = res.result.userkey;
             cc.director.loadScene("GameStart.fire");
         });
     },
@@ -151,15 +155,15 @@ window.Global = {
         this.Post("gun/GetUserSeaon",parme,callback);
     },
     //数值变化请求
-    UserChange(){
+    UserChange(type,app,remark,change,callback){
         let data = {
             sessionId:this.sessionId,
-            type:1,     //1：钻石 2：金币 3：积分
-            app:1,      //1：系统 2：兑换 3：充值
-            remark:"",  //说明
-            change :0,  //数量
+            type:type,     //1：钻石 2：金币 3：积分
+            app:app,      //1：系统 2：兑换 3：充值
+            remark:remark,  //说明
+            change :change,  //数量
         }
-        this.Post("gun/UserChange",data);
+        this.Post("gun/UserChange",data,callback);
     },
     //购买英雄
     BuyHeros(id,callback){
@@ -168,6 +172,64 @@ window.Global = {
             hid:id,
         }
         this.Post("gun/BuyHeros",data,callback);
+    },
+    //获取任务
+    GetMission(callback){
+        let data = {
+            sessionId:this.sessionId,
+            appid:this.appid,
+        }
+        this.Post("game/GetMission",data,callback);
+    },
+    //购买技能，升级技能
+    BuySkill(heroid,skill,callback){
+        let data = {
+            sessionId:this.sessionId,
+            hid:heroid,
+            skill:skill,
+        }
+        this.Post("gun/BuySkill",data,callback);
+    },
+    //修改当前英雄
+    SetDefaultHeros(heroid){
+        let data = {
+            sessionId:this.sessionId,
+            hid:heroid,
+        }
+        this.Post("gun/SetDefaultHeros",data);
+    },
+    //获取签到信息
+    GetUserSignInfo(callback){
+        let data = {
+            sessionId:this.sessionId,
+            appid:this.appid,
+        }
+        this.Post("game/GetUserSignInfo",data,callback);
+    },
+    //签到
+    UserSign(type,callback){
+        let data = {
+            sessionId:this.sessionId,
+            appid:this.appid,
+            type:type,
+        }
+        this.Post("game/UserSign",data,callback);
+    },
+    //转盘抽奖结果
+    RunZhuanPan(callback){
+        let data = {
+            sessionId:this.sessionId,
+            appid:this.appid,
+        }
+        this.Post("game/RunZhuanPan",data,callback);
+    },
+    //获取转盘获奖信息
+    GetZhuanPanLog(callback){
+        let data = {
+            sessionId:this.sessionId,
+            appid:this.appid,
+        }
+        this.Post("game/GetZhuanPanLog",data,callback);
     },
     //登陆
     Login(){

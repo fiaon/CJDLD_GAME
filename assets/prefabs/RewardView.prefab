@@ -862,9 +862,9 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "2f143GFuOFPg6qbBYDJ4Sj0",
-    "handler": "DestroyView",
-    "customEventData": "RewardView"
+    "_componentId": "36b05Djl4FJhp6zoBBe0/SK",
+    "handler": "OnClose",
+    "customEventData": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1625,7 +1625,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "fe222de2-edc6-4c76-babb-ae6e5f455bcd"
+      "__uuid__": "a10a2a31-c1d7-48e6-bf7a-37b21e411ca3"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -2054,14 +2054,25 @@
     "sync": false
   },
   {
-    "__type__": "2f143GFuOFPg6qbBYDJ4Sj0",
+    "__type__": "36b05Djl4FJhp6zoBBe0/SK",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "tip_prefab": null,
+    "img": {
+      "__id__": 25
+    },
+    "btn": {
+      "__id__": 46
+    },
+    "text": {
+      "__id__": 30
+    },
+    "number": {
+      "__id__": 28
+    },
     "_id": ""
   },
   {

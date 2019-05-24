@@ -60,6 +60,10 @@ cc.Class({
         prefab:{
             default:null,
             type:cc.Prefab,
+        },
+        tipPrefab:{
+            default:null,
+            type:cc.Prefab,
         }
     },
 
@@ -77,19 +81,44 @@ cc.Class({
         
         this.spinBtn.node.on(cc.Node.EventType.TOUCH_END,function(event)
         {
-            if(this.wheelState !== 0)
-            {
-                 return;
+            if(Global.gold >=500){
+                Global.UserChange(2,1,"转盘花费",-500,(res)=>{
+                    if(res.state ==1){
+                        Global.gold+= -500;
+                        cc.game.emit('UserChang');
+                    }
+                });
+                Global.RunZhuanPan((res)=>{
+                    if(this.wheelState !== 0)
+                    {
+                         return;
+                    }
+                    this.decAngle = 5*360;  // 减速旋转两圈
+                    this.wheelState = 1;
+                    this.curSpeed = 0;
+                    this.spinTime = 0;
+                    this.targetID = res.result;
+                });
+            }else{
+                //提示金币不足
+                this.ShowTip();
             }
-            this.decAngle = 2*360;  // 减速旋转两圈
-            this.wheelState = 1;
-            this.curSpeed = 0;
-            this.spinTime = 0;
+            
             // var act = cc.rotateTo(10, 360*10);
             // this.wheelSp.node.runAction(act.easing(cc.easeSineInOut()));
         }.bind(this));
     },
-
+    ShowTip(){
+        let tip = cc.instantiate(this.tipPrefab);
+        if (tip) {
+            tip.position = cc.v2(0,0);
+            this.node.addChild(tip);
+            let src = tip.getComponent(require("TipShow"));
+            if (src) {
+                src.label.string = "金币不足";
+            }
+        }
+    },
     start:function()
     {
         // cc.log('....start');
@@ -166,6 +195,7 @@ cc.Class({
                 this.wheelSp.node.rotation = this.finalAngle;
                 //转盘停止跳出提示框
                 var pre = cc.instantiate(this.prefab);
+                pre.getComponent("RewardPrefab").init(3,this.targetID);
                 cc.find("Canvas").addChild(pre);
                 
                 if(this.springback)
