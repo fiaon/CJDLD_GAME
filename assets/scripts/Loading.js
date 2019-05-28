@@ -106,7 +106,6 @@ cc.Class({
     },
     onTouchBtn(){
         Global.GetUesrInfo();
-        Global.GetSeaonLvl();
     }
 
 });

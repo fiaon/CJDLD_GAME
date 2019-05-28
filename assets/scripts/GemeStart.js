@@ -13,6 +13,8 @@ cc.Class({
 
     properties: {
         rankPrefab:cc.Prefab,
+        heroname:cc.Label,
+        heroImg:cc.Sprite,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -20,6 +22,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
+        let self = this;
         if(Global.is_Again){
             cc.find("Canvas/DOYouLikeView").active =true;
             Global.is_Again = false;
@@ -65,7 +68,21 @@ cc.Class({
                 }
             }
         });
-        
+        Global.GetAllHeros((res)=>{
+            if(res.state ==1){
+                if(res.result.length!=0){
+                    for(let i=0;i<res.result.length;i++){
+                        if(res.result[i].id == Global.defhid){
+                            this.heroname.string = res.result[i].name;
+                            let url = "hero/hero_"+Global.defhid;
+                            cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+                                self.heroImg.spriteFrame = spriteFrame;
+                            });
+                        }
+                    }
+                }
+            }
+        });
     },
 
     // update (dt) {},

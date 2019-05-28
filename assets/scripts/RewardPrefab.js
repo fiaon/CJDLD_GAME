@@ -75,6 +75,7 @@ cc.Class({
                     });
                 }
             });
+            Global.is_sign = true;
         }
         this.node.destroy();
     },

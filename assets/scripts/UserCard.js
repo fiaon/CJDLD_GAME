@@ -38,10 +38,10 @@ cc.Class({
             }
         });
         this.username.string = Global.name;
-        let url = Global.userlvl+'.png';
-        cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
-            self.duan.spriteFrame = spriteFrame;
-        });
+        // let url = Global.userlvl+'.png';
+        // cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+        //     self.duan.spriteFrame = spriteFrame;
+        // });
         this.duantext.string = Global.duntext;
         this.playcount.string = Global.playcount+"次";
         this.maxkill.string =Global.bestkill+"杀";

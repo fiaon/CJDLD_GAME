@@ -19,9 +19,10 @@ window.Global = {
     score:null,         //积分
     heroid:null,        //专属英雄id
     SeaonLvl:null,      //段位信息
-    duntext:null,       //当前段位
+    duntext:null,       //当前段位信息
     defhid:null,        //当前英雄
     userkey:null,       //玩家ID
+    is_sign:false,      //今天是否签到
 
     prefab_icon: null,
     prefab_gongxi: null,
@@ -120,18 +121,19 @@ window.Global = {
             this.heroid = res.result.heroid;
             this.defhid = res.result.defhid;
             this.userkey = res.result.userkey;
-            cc.director.loadScene("GameStart.fire");
+            Global.GetSeaonLvl((res)=>{
+                Global.SeaonLvl = res.result.list;
+                cc.director.loadScene("GameStart.fire");
+            });
         });
     },
     //获取段位信息
-    GetSeaonLvl(){
-        this.Post("gun/GetSeaonLvl",null,(res)=>{
-            this.SeaonLvl = res.result;
-        });
+    GetSeaonLvl(callback){
+        this.Post("gun/GetSeaonLvl",null,callback);
     },
     //获取所有英雄信息
-    GetAllHeros(){
-        this.Post("gun/GetAllHeros");
+    GetAllHeros(callback){
+        this.Post("gun/GetAllHeros",null,callback);
     },
     //获取玩家身上的英雄信息
     GetUserHeros(callback){
@@ -191,12 +193,12 @@ window.Global = {
         this.Post("gun/BuySkill",data,callback);
     },
     //修改当前英雄
-    SetDefaultHeros(heroid){
+    SetDefaultHeros(heroid,callback){
         let data = {
             sessionId:this.sessionId,
             hid:heroid,
         }
-        this.Post("gun/SetDefaultHeros",data);
+        this.Post("gun/SetDefaultHeros",data,callback);
     },
     //获取签到信息
     GetUserSignInfo(callback){

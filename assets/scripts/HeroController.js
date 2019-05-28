@@ -16,9 +16,6 @@ cc.Class({
             default:[],
             type:cc.Node,
         },
-        costBtn:cc.Button,
-        videoBtn:cc.Button,
-        tip:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -27,7 +24,6 @@ cc.Class({
 
     start () {
         let self = this;
-        Global.GetAllHeros();
         Global.GetUserHeros((res)=>{
             if(res.result.length!=0){
                 for(let i=0;i<res.result.length;i++){
@@ -52,6 +48,9 @@ cc.Class({
         });
     },
     BuyHero(){
+
+    },
+    BackScene(){
 
     },
     // update (dt) {},

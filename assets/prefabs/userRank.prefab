@@ -39,7 +39,7 @@
       }
     ],
     "_active": true,
-    "_level": 4,
+    "_level": 2,
     "_components": [
       {
         "__id__": 54
@@ -68,8 +68,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -6,
-      "y": -107,
+      "x": -4,
+      "y": -104,
       "z": 0
     },
     "_scale": {
@@ -1583,7 +1583,9 @@
       "__id__": 41
     },
     "_enabled": true,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "88bb74e8-f81c-4b3d-b2f9-827f7cdf2d78"
+    },
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,

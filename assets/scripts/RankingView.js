@@ -47,7 +47,7 @@ cc.Class({
             });
         }
     },
-    groupFriendButtonFunc: function (event) {
+    groupFriendButtonFunc() {
         if (CC_WECHATGAME) {
             window.wx.shareAppMessage({
                 success: (res) => {

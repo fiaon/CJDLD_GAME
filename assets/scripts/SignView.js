@@ -26,6 +26,11 @@ cc.Class({
 
     start () {
         this.curday = 0;
+        this.GetUserSignInfo();
+        // this.ReceiveBtn.interactable = false;
+    },
+    //刷新签到页面信息
+    GetUserSignInfo(){
         Global.GetUserSignInfo((res)=>{
             if(res.state == 1){
                 if(res.result.istoday!=0||res.result.isvideo!=0){
@@ -43,7 +48,6 @@ cc.Class({
                 }
             }
         });
-        // this.ReceiveBtn.interactable = false;
     },
     //领取奖励
     Receive(){
@@ -55,7 +59,12 @@ cc.Class({
             number:parseInt(arr[1]),
         }
         receive.getComponent("RewardPrefab").init(2,data);
-        cc.find("Canvas").addChild(receive);
+        this.node.addChild(receive);
     },
-    // update (dt) {},
+    update (dt) {
+        if(!Global.is_sign){
+            return;
+        }
+        this.GetUserSignInfo();
+    },
 });

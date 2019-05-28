@@ -21,7 +21,7 @@
       }
     ],
     "_active": true,
-    "_level": 3,
+    "_level": 1,
     "_components": [
       {
         "__id__": 34
@@ -446,7 +446,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 20,
+      "width": 40,
       "height": 15
     },
     "_anchorPoint": {
@@ -456,7 +456,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 23.5,
+      "x": 27.6,
       "y": 0,
       "z": 0
     },
@@ -1266,6 +1266,10 @@
     },
     "completeNum": null,
     "taskNum": null,
+    "goldnum": {
+      "__id__": 11
+    },
+    "diamond": null,
     "_id": ""
   },
   {

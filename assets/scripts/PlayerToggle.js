@@ -20,6 +20,9 @@ cc.Class({
             default:[],
             type:cc.Node,
         },
+        costBtn:cc.Button,
+        videoBtn:cc.Button,
+        tip:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -43,16 +46,56 @@ cc.Class({
             this.view[0].active =true;
             this.view[1].active =false;
             this.view[2].active =false;
+            this.GetAllHeros(2);
+            this.SetDefaultHeros(1);
         }else if(this.toggle[1].getComponent(cc.Toggle).isChecked){
             this.view[0].active =false;
             this.view[1].active =true;
             this.view[2].active =false;
+            this.GetAllHeros(1);
+            this.SetDefaultHeros(2);
         }else if(this.toggle[2].getComponent(cc.Toggle).isChecked){
             this.view[0].active =false;
             this.view[1].active =false;
             this.view[2].active =true;
+            this.GetAllHeros(0);
+            this.SetDefaultHeros(3);
         }
      },
-
+     SetDefaultHeros(id){
+        Global.SetDefaultHeros(id);
+     },
+     GetAllHeros(number){
+        Global.GetAllHeros((res)=>{
+            if(res.state ==1){
+                if(res.result.length!=0){
+                    if(res.result[number].type == 1){
+                        this.costBtn.node.active = true;
+                        this.videoBtn.node.active = true;
+                        this.tip.active = false;
+                    }else{
+                        this.costBtn.node.active = false;
+                        this.videoBtn.node.active = false;
+                        this.tip.active = false;
+                    }
+                }
+            }
+        });
+     },
+     BuyHero(id){
+        if(Global.diamond>3500){
+            Global.UserChange(1,1,"签到",-3500,(res)=>{
+                if(res.state ==1){
+                    Global.diamond+= -3500;
+                    cc.game.emit('UserChang');
+                    Global.BuyHeros(id,(res)=>{
+                        
+                    });
+                }
+            });
+        }else{
+            this.tip.active = true;
+        }
+     }
     // update (dt) {},
 });

@@ -16,6 +16,8 @@ cc.Class({
         taskName:cc.Label,
         completeNum:cc.Label,
         taskNum:cc.Label,
+        goldnum:cc.Label,
+        diamond:cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -30,10 +32,14 @@ cc.Class({
             this.taskName.string = data.Name +"（  /  ）";
             this.completeNum.string = data.CompleteNum.toString();
             this.taskNum.string = data.TaskNum.toString();
+            this.goldnum.string = "x"+data.GiveValue;
+            this.diamond.string = "x"+data.GiveValue/10;
+
         }else{
             // var imgurl = "https://img.zaohegame.com/"+data.Icon;
             this.createImage(data.Icon);
             this.taskName.string = data.Name;
+            this.goldnum.string = "x"+data.GiveValue;
         }
     },
     createImage(avatarUrl) {
