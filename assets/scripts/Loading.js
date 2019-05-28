@@ -36,8 +36,8 @@ cc.Class({
     // onLoad () {},
     onLoad () {
         this._urls = [
-            {url:'http://127.0.0.1（这里填你的服务器ip)/test.php?url=http://127.0.0.1（这里填你的服务器ip)/image1.png', type:'png'},
-            {url:'http://127.0.0.1（这里填你的服务器ip)/test.php?url=http://127.0.0.1（这里填你的服务器ip)/image2.png', type:'png'},
+            {url:'https://img.zaohegame.com/staticfile/wx039e71b55cba9869/res/import/02/02a3930d2.62cc7.json', type:'.json'},
+            {url:'https://img.zaohegame.com/staticfile/wx039e71b55cba9869/res/raw-assets/b3/b3617b1d-4b8b-45c7-aeaa-f69772f04a56.6ba19.png', type:'png'},
             
         ];
  

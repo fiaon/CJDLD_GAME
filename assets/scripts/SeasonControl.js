@@ -16,6 +16,9 @@ cc.Class({
         time:cc.Label,
         content:cc.Node,
         text:cc.RichText,
+        recordView:cc.Node,
+        recordcontent:cc.Node,
+        recordPrefab:cc.Prefab,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -39,6 +42,18 @@ cc.Class({
                         let score = res.result.list[i].maxscore - Global.score;
                         this.text.string = "还差<size=15><color=#EEE83E>"+score+"</c></size>积分可获得更高奖励";
                     }
+                }
+            }
+        });
+    },
+    OpenRecordView(){
+        this.recordView.active = true;
+        Global.GetUserSeaon((res)=>{
+            if(res.result.length>0){
+                for(let i=0;l<res.result.length;i++){
+                    var record = cc.instantiate(this.recordPrefab);
+                    record.getComponent("SeasonRecordPrefab").init(res.result[i]);
+                    this.recordcontent.addChild(record);
                 }
             }
         });

@@ -233,15 +233,33 @@ window.Global = {
         }
         this.Post("game/GetZhuanPanLog",data,callback);
     },
+    //增加英雄试玩次数
+    SetTrialHeros(heroid,callback){
+        let data = {
+            sessionId:this.sessionId,
+            hid:heroid,
+        }
+        this.Post("gun/SetTrialHeros",data,callback);
+    },
+    //游戏结算
+    GameSettle(heroid,kill,rank,callback){
+        let data = {
+            sessionId:this.sessionId,
+            hid:heroid,
+            kill:kill,
+            rank:rank,
+        }
+        this.Post("gun/GameSettle",data,callback);
+    },
     //登陆
     Login(){
         wx.login({
             success(res) {
                 console.log("登录成功 == ", res);
-                self.code = res.code;
+                //window.self.code = res.code;
                 let parme = {
                     appid: Global.appid,
-                    code: self.code,
+                    code: res.code,
                     introuid: Global.Introuid,
                 };
                 // Global.Post(url, parme);

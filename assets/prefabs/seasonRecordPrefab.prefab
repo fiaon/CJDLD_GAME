@@ -37,9 +37,13 @@
     ],
     "_active": true,
     "_level": 1,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 32
+      }
+    ],
     "_prefab": {
-      "__id__": 32
+      "__id__": 33
     },
     "_opacity": 255,
     "_color": {
@@ -1095,6 +1099,34 @@
     },
     "fileId": "3fk56OA05B+aprmC1LSSC7",
     "sync": false
+  },
+  {
+    "__type__": "e357eQgnWtKEa0hk5FdnTwc",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "season": {
+      "__id__": 6
+    },
+    "dunimg": {
+      "__id__": 12
+    },
+    "duantext": {
+      "__id__": 10
+    },
+    "gold": {
+      "__id__": 16
+    },
+    "diamonds": {
+      "__id__": 22
+    },
+    "time": {
+      "__id__": 27
+    },
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

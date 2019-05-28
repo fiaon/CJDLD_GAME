@@ -62,9 +62,8 @@ cc.Class({
         this.node.addChild(receive);
     },
     update (dt) {
-        if(!Global.is_sign){
-            return;
+        if(Global.is_sign){
+            this.GetUserSignInfo();
         }
-        this.GetUserSignInfo();
     },
 });
