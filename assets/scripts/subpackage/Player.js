@@ -41,7 +41,6 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
-        speed:100,
         gameuuid:"-1",
     },
 
@@ -63,15 +62,19 @@ cc.Class({
         this.maxhp = 3;
         this.lv = 1;
         this.exp = 0;
+        this.xishu = 5;
+        this.expnum = 0;
         this.skillNum =0;
         this.damage = 0;
         this.killsnumber = 0;
-        this.isDun = false;//是否有护盾
-        this.is_chidu = false;//是否吃毒
-        this.isattack = false;//是否普攻
-        this.behit = false;//是否被攻击（被攻击是不能移动）
+        this.isDun = false;         //是否有护盾
+        this.is_chidu = false;      //是否吃毒
+        this.isattack = false;      //是否普攻
+        this.behit = false;         //是否被攻击（被攻击是不能移动）
         this.time = 3;
-        this.killername = null;//杀我的人
+        this.killername = null;     //杀我的人
+        this.speed=100;             //初始速度
+        this.addspeed = 100;        //加速度
 
         this.Herolv.string = this.lv;
         this.Heroexp.fillRange =0;
@@ -86,6 +89,17 @@ cc.Class({
         peopleNumber.getInstance().init();
         let p = peopleNumber.getInstance().people;
         cc.game.emit('change',p);
+        //获取英雄的速度和技能等级
+        Global.GetAllHeros((res)=>{
+            if(res.result.length!=0){
+                for(let i=0;i<res.result.length;i++){
+                    if(res.result[i].heroid == Global.defhid){
+                        this.speed += 15*res.result[i].skill1;
+                        this.Rocker.skill2_Cd -=  0.5*res.result[i].skill2;
+                    }
+                }
+            }
+        });
     },
 
      update (dt) {
@@ -136,41 +150,20 @@ cc.Class({
             if(other.node.group == "gem"){
                 //other.node.destroy();
                 this.NodePool.onGemKilled(other.node);
-                this.exp +=1;
+                this.expnum +=1;
+                this.exp = this.xishu*(this.lv*(this.lv+1)/2);
+                if(this.expnum>=this.exp&& this.lv<=12){
+                    this.lv +=1;
+                    this.expnum =0;
+                    if(this.curhp < this.maxhp){
+                        this.curhp +=1;
+                        this.Herohp.progress = this.curhp/this.maxhp;
+                    }
+                    this.HeroLvUp();
+                }
                 this.Herolv.string = this.lv;
-                if(this.Herolv.string <=5){
-                    this.Heroexp.fillRange = this.exp /(-18);
-                }else if(this.Herolv.string <=10){
-                    this.Heroexp.fillRange = this.exp /(-36);
-                }else if(this.Herolv.string <=15){
-                    this.Heroexp.fillRange = this.exp /(-54);
-                }
-    
-                if(this.exp == 18 && this.lv<=5){
-                    this.lv +=1;
-                    this.exp =0;
-                    if(this.curhp < this.maxhp){
-                        this.curhp +=1;
-                        this.Herohp.progress = this.curhp/this.maxhp;
-                    }
-                    this.HeroLvUp();
-                }else if(this.exp == 36 && this.lv<=10){
-                    this.lv +=1;
-                    this.exp =0;
-                    if(this.curhp < this.maxhp){
-                        this.curhp +=1;
-                        this.Herohp.progress = this.curhp/this.maxhp;
-                    }
-                    this.HeroLvUp();
-                }else if(this.exp == 54 && this.lv<=15){
-                    this.lv +=1;
-                    this.exp =0;
-                    if(this.curhp < this.maxhp){
-                        this.curhp +=1;
-                        this.Herohp.progress = this.curhp/this.maxhp;
-                    }
-                    this.HeroLvUp();
-                }
+                this.Heroexp.fillRange = this.expnum /this.exp*-1;
+                
             }else if(other.node.group == "item"){
                 //other.node.destroy();
                 this.NodePool.onItemKilled(other.node);
@@ -185,16 +178,16 @@ cc.Class({
                     }
                 }else if(other.node.name == "item_xiePrefab"){
     
-                    this.speed = 200;
+                    this.speed += this.addspeed;
                     this.scheduleOnce(function() {
-                        this.speed = 100;
+                        this.speed -= this.addspeed;;
                     }, 3);
                 }
             }
         }else if(self.tag ==1 && other.tag ==0&&this.Rocker.is_Cd){
             if(other.node.group == "enemy"){
                 if(other.getComponent("EnemyManager").trigger.behit && this.isattack){
-                    other.getComponent("EnemyManager").EnemyDamage();
+                    other.getComponent("EnemyManager").EnemyDamage(1);
                     other.getComponent("EnemyManager").killername = this.Heroname.string;
                 }
             }
@@ -249,6 +242,7 @@ cc.Class({
     HeroLvUp(){
         this.lvUp.active = true;
         this.Herolv.string = this.lv;
+        this.Rocker.skillCd -=0.2;
         this.lvUp.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
             this.lvUp.opacity = 255;
             this.lvUp.active = false;

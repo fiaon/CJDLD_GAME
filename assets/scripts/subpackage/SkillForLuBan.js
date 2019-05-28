@@ -30,9 +30,11 @@ cc.Class({
         this.dirVec = comVec.rotate(-radian);
         let posx = this.node.x +this.dirVec.x*300;
         let posy = this.node.y +this.dirVec.y*300;
-        cc.tween(this.node)
-        .to(1,{position:cc.v2(posx,posy)})
-        .start();
+        if(this.col){
+            cc.tween(this.node)
+            .to(1,{position:cc.v2(posx,posy)})
+            .start();
+        }
         this.schedule(function(){
             this.node.getComponent(cc.Animation).play('skill_boom');
         },0,0,1);
@@ -65,7 +67,7 @@ cc.Class({
         if(other.node.group == "enemy"&&this.col&&other.getComponent("EnemyManager").trigger.behit){
             this.col = false;
             this.node.getComponent(cc.Animation).play('skill_boom');
-            other.getComponent("EnemyManager").EnemyDamage();
+            other.getComponent("EnemyManager").EnemyDamage(1);
             other.getComponent("EnemyManager").killername = this.player.Heroname.string;
             other.getComponent("EnemyManager").killsuuid = this.player.gameuuid;
         }

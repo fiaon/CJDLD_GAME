@@ -155,7 +155,7 @@ cc.Class({
             if(this.time>0){
                 this.time -=dt;
              }else{
-                 this.EnemyDamage();
+                 this.EnemyDamage(1);
                  this.time =3;
              }
         }
@@ -228,7 +228,7 @@ cc.Class({
                     }
                 }else if(other.node.group == "enemy"){
                     if(other.getComponent("EnemyManager").trigger.behit&&this.isattack){
-                        other.getComponent("EnemyManager").EnemyDamage();
+                        other.getComponent("EnemyManager").EnemyDamage(1);
                         other.getComponent("EnemyManager").killername = this.enemyname.string;
                         this.killsuuid = other.getComponent("EnemyManager").gameuuid;
                     }
@@ -257,16 +257,16 @@ cc.Class({
         }
     },
     //受伤
-    EnemyDamage(){
+    EnemyDamage(hurt){
         if(this.isDun){
             this.player.getChildByName("dun").active = false;
             this.isDun = false;
         }else{
             if(this.is_chidu){
-                this.curhp -=1;
+                this.curhp -=hurt;
                 this.enemyhp.progress = this.curhp/this.maxhp;
             }else{
-                this.curhp -=1;
+                this.curhp -=hurt;
                 this.enemyhp.progress = this.curhp/this.maxhp;
                 //实现闪烁效果。播放眩晕动画
                 this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;

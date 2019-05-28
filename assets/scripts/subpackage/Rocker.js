@@ -56,17 +56,32 @@ cc.Class({
     // onLoad () {},
 
     start () {
+        let self = this;
         this.Max_r = 49;
-        this.skillCd = 1.5;
+        this.skillCd = 5;
         this.is_Cd = false;
         this.Rocker.x = 0;
         this.Rocker.y = 0;
         this.dir = cc.v2(0,0);
-        this.skill2cd = 3;
+        if(Global.defhid ==1){
+            this.skill2cd = 8;
+            cc.loader.loadRes('hero/skill_1', cc.SpriteFrame, function (err, spriteFrame) {
+                self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+            });
+        }else if(Global.default ==2){
+            this.skill2_Cd = 8;
+            cc.loader.loadRes('hero/skill_2', cc.SpriteFrame, function (err, spriteFrame) {
+                self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+            });
+        }else if(Global.default ==3){
+            this.skill2_Cd = 12;
+            cc.loader.loadRes('hero/skill_3', cc.SpriteFrame, function (err, spriteFrame) {
+                self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+            });
+        }
         this.skill2_Cd = false;
         this.skill_bullet = cc.find("Canvas/skill_bullet");
         this.map =  cc.find("Canvas/bg001");
-        //console.log(this.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame.name);
 
         this.Rocker.on(cc.Node.EventType.TOUCH_START,function(e){
             var w_pos = e.getLocation();
