@@ -30,7 +30,7 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        this.heroid = 1;
     },
     onCheck(){
         if(this.toggle[0].getComponent(cc.Toggle).isChecked){
@@ -48,22 +48,29 @@ cc.Class({
             this.view[2].active =false;
             this.GetAllHeros(2);
             this.SetDefaultHeros(1);
+            this.heroid = 1;
         }else if(this.toggle[1].getComponent(cc.Toggle).isChecked){
             this.view[0].active =false;
             this.view[1].active =true;
             this.view[2].active =false;
             this.GetAllHeros(1);
             this.SetDefaultHeros(2);
+            this.heroid = 2;
         }else if(this.toggle[2].getComponent(cc.Toggle).isChecked){
             this.view[0].active =false;
             this.view[1].active =false;
             this.view[2].active =true;
             this.GetAllHeros(0);
             this.SetDefaultHeros(3);
+            this.heroid = 3;
         }
      },
      SetDefaultHeros(id){
-        Global.SetDefaultHeros(id);
+        Global.SetDefaultHeros(id,(res)=>{
+            if(res.state == 1){
+                Global.defhid = id;
+            }
+        });
      },
      GetAllHeros(number){
         Global.GetAllHeros((res)=>{
@@ -82,20 +89,23 @@ cc.Class({
             }
         });
      },
-     BuyHero(id){
-        if(Global.diamond>3500){
-            Global.UserChange(1,1,"签到",-3500,(res)=>{
-                if(res.state ==1){
-                    Global.diamond+= -3500;
-                    cc.game.emit('UserChang');
-                    Global.BuyHeros(id,(res)=>{
+     BuyHero(){
+        // if(Global.diamond>3500){
+        //     Global.UserChange(1,1,"购买英雄",-3500,(res)=>{
+        //         if(res.state ==1){
+        //             Global.diamond+= -3500;
+        //             cc.game.emit('UserChang');
+        //             Global.BuyHeros(id,(res)=>{
                         
-                    });
-                }
-            });
-        }else{
-            this.tip.active = true;
-        }
-     }
+        //             });
+        //         }
+        //     });
+        // }else{
+        //     this.tip.active = true;
+        // }
+        Global.BuyHeros(this.heroid,(res)=>{
+            this.SetDefaultHeros(this.heroid);
+        });
+     },
     // update (dt) {},
 });

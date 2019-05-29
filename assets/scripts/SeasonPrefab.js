@@ -10,7 +10,6 @@
 
 cc.Class({
     extends: cc.Component,
-    name:"SeasonPrefab",
     properties: {
         bg:cc.Sprite,
         gold:cc.Label,

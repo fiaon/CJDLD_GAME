@@ -34,7 +34,6 @@ cc.Class({
                         cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
                             cc.find("Canvas/Skill/bg/skill4/skillImg/img").getComponent(cc.Sprite).spriteFrame = spriteFrame;
                         });
-                        
                     }
                 }
             }

@@ -55,7 +55,7 @@ cc.Class({
     start () {
         //开启碰撞检测
         cc.director.getCollisionManager().enabled = true;
-        
+        let self = this;
 
         //定义玩家信息
         this.curhp = 3;
@@ -96,6 +96,10 @@ cc.Class({
                     if(res.result[i].heroid == Global.defhid){
                         this.speed += 15*res.result[i].skill1;
                         this.Rocker.skill2_Cd -=  0.5*res.result[i].skill2;
+                        let herourl = 'hero/hero_'+ Global.defhid;
+                        cc.loader.loadRes(herourl, cc.SpriteFrame, function (err, spriteFrame) {
+                            self.player.getChildByName("heroImg").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+                        });
                     }
                 }
             }

@@ -42,14 +42,12 @@ cc.Class({
             cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
                 self.Background[0].spriteFrame = spriteFrame;
             });
-            //self.Background[0].spriteFrame = new cc.SpriteFrame(cc.url.raw('off.png'));
         }else{
             this.toggle[0].getComponent(cc.Toggle).isChecked = false;
             let url = 'on.png';
             cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
                 self.Background[0].spriteFrame = spriteFrame;
             });
-            //self.Background[0].spriteFrame = new cc.SpriteFrame(cc.url.raw('on.png'));
         }
         if(this.sound == "1"){
             this.toggle[1].getComponent(cc.Toggle).isChecked = true;
@@ -76,6 +74,7 @@ cc.Class({
             });
             //self.Background[0].spriteFrame = new cc.SpriteFrame(cc.url.raw('off.png'));
             this.music =  cc.sys.localStorage.setItem("music","1");
+            cc.find("MusicBGM").getComponent(cc.AudioSource).play();
         }else{
             let url = 'on.png';
             cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
@@ -83,6 +82,7 @@ cc.Class({
             });
             //self.Background[0].spriteFrame = new cc.SpriteFrame(cc.url.raw('on.png'));
             this.music =  cc.sys.localStorage.setItem("music","0");
+            cc.find("MusicBGM").getComponent(cc.AudioSource).stop();
         }
     },
     onCheckSound(){

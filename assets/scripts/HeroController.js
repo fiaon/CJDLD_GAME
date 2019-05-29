@@ -47,9 +47,7 @@ cc.Class({
             }
         });
     },
-    BuyHero(){
-
-    },
+    
     BackScene(){
 
     },
