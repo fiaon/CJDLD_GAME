@@ -21,7 +21,7 @@
       }
     ],
     "_active": true,
-    "_level": 2,
+    "_level": 1,
     "_components": [
       {
         "__id__": 46
@@ -396,7 +396,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
+      "width": 180,
       "height": 15
     },
     "_anchorPoint": {

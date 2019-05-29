@@ -7,7 +7,6 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-var HttpMsg = require("HttpMsg");
 cc.Class({
     extends: cc.Component,
 
@@ -35,77 +34,76 @@ cc.Class({
 
     // onLoad () {},
     onLoad () {
-        this._urls = [
-            {url:'https://img.zaohegame.com/staticfile/wx039e71b55cba9869/res/import/02/02a3930d2.62cc7.json', type:'.json'},
-            {url:'https://img.zaohegame.com/staticfile/wx039e71b55cba9869/res/raw-assets/b3/b3617b1d-4b8b-45c7-aeaa-f69772f04a56.6ba19.png', type:'png'},
-            
-        ];
- 
         this.resource = null;
         this.progressBar.progress = 0;
  
         
-        this._clearAll();
         Global.Login();
-        //cc.loader.load(this._urls, this._progressCallback.bind(this), this._completeCallback.bind(this));
+        this.loadRemoteAssets();
     },
  
     start () {
-        this.progressBar.node.active = false;
-        this.loadtext.node.active =false;
-        this.text.node.active =false;
-        this.startBtn.node.active =true;
-        this.enabled = false;
+        // this.progressBar.node.active = false;
+        // this.loadtext.node.active =false;
+        // this.text.node.active =false;
+        // this.startBtn.node.active =true;
+        // this.enabled = false;
     },
  
-    _clearAll: function() {
-        for(var i = 0; i < this._urls.length; ++i) {
-            var url = this._urls[i];
-            cc.loader.release(url);
-        }
-    },
  
-    _progressCallback: function(completeCount, totalCount, res) {
-        //加载进度回调
-        console.log('第 ' + completeCount + '加载完成！');
-        this.progress = completeCount / totalCount;
-        this.resource = res;
-        this.completeCount = completeCount;
-        this.totalCount = totalCount;
-        
-    },
- 
-    _completeCallback: function(err, texture) {
-        //加载完成回调
-        
-    },
- 
-    update (dt) {
-        if(!this.resource){
-            return ;
-        }
-        var progress = this.progressBar.progress;
-        if(progress >= 1){
-            console.log('加载完成')
-            //加载完成
-            this.progressBar.node.active = false;
-            this.loadtext.node.active =false;
-            this.text.node.active =false;
-            this.startBtn.node.active =true;
-            this.enabled = false;
-            return ;
-        }
- 
-        if(progress < this.progress){
-            progress += dt;
-        }
-        var number_jindu = parseInt(progress * 100);
-        this.loadtext.string = number_jindu-1+'%';
-        this.progressBar.progress = progress;
- 
-    },
+    // update (dt) {},
     onTouchBtn(){
         Global.GetUesrInfo();
-    }
+    },
+    /**
+    * 加载远程资源
+    * wx.env.USER_DATA_PATH： 这个是小游戏在手机上的临时目录
+    **/
+    loadRemoteAssets () {
+        const self = this
+        const fs = wx.getFileSystemManager()  // 获取微信小游戏sdk中的 文件系统
+        // 然后
+        const downloadTask = wx.downloadFile({
+            url: 'https://img.zaohegame.com/staticfile/wx039e71b55cba9869/res/raw-assets.zip',  // 我们上传到服务器的资源文件压缩包地址
+            header: {
+                'content-type': 'application/json'
+            },
+            filePath: '',
+            success: function (res){    // 资源下载成功以后，我们将文件解压到小游戏的运行目录
+                console.log('资源下载成功', res)
+                let zip_res = res.tempFilePath
+                fs.unzip({
+                    zipFilePath: zip_res,
+                    targetPath: wx.env.USER_DATA_PATH + '/res/',
+                    success: function (result) {
+                        console.log('解压缩成功---', result)
+                        wx.setStorageSync('downloaded', true)
+                        // self.MainScene.init()       // 解压成功以后再让主场景初始化数据
+                        // setTimeout(() => {
+                        //     self.hideLoading()
+                        // }, 700)
+                        self.progressBar.node.active = false;
+                        self.loadtext.node.active =false;
+                        self.text.node.active =false;
+                        self.startBtn.node.active =true;
+                        self.enabled = false;
+                    }
+                })
+            },
+            fail: function(err){
+                console.error('资源下载失败', err)
+            },
+            complete: function (res) {
+                console.log('资源下载 complete')
+
+            }
+        })
+        if (downloadTask) {     // 资源下载的时候，在界面上展示下载的进度，让用户能感知游戏进程
+            downloadTask.onProgressUpdate(function(res){
+                self.progressBar.progress = res.progress / 100
+                self.loadtext.string = res.progress + '%'
+            })
+        }
+    },
 
 });

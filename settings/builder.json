@@ -39,7 +39,7 @@
   "title": "CJDLD_GAME",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "https://img.zaohegame.com/staticfile/wx039e71b55cba9869",
+    "REMOTE_SERVER_ROOT": "",
     "appid": "wx039e71b55cba9869",
     "orientation": "landscape",
     "subContext": "WXR"
