@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.7667852838333412,
-      "y": 0.7667852838333412,
+      "x": 0.9440234184265137,
+      "y": 0.9440234184265137,
       "z": 1
     },
     "_quat": {
@@ -56,7 +56,7 @@
       "w": 1
     },
     "groupIndex": 0,
-    "autoReleaseAssets": true,
+    "autoReleaseAssets": false,
     "_id": "9e0f3af9-4465-4869-8f41-39aa07bc4ebc"
   },
   {
@@ -98,8 +98,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 320,
-      "y": 180,
+      "x": 973.5,
+      "y": 547.5,
       "z": 0
     },
     "_scale": {
@@ -120,7 +120,7 @@
     "_skewX": 0,
     "_skewY": 0,
     "groupIndex": 0,
-    "_id": "80zmyFH51J4LamUUDsLKrO"
+    "_id": "050SPtPmNIQadJUzjkT6oe"
   },
   {
     "__type__": "cc.AudioSource",
@@ -136,9 +136,9 @@
     "_volume": 1,
     "_mute": false,
     "_loop": true,
-    "playOnLoad": true,
+    "playOnLoad": false,
     "preload": false,
-    "_id": "aazyBsWYRP+5/UFHrERhtW"
+    "_id": "0eYAcDFSZGg4o7hH7SZoxx"
   },
   {
     "__type__": "4fad5OJWBpL3JAxv2tHsjrT",
@@ -151,7 +151,7 @@
     "audioPlayer": {
       "__id__": 3
     },
-    "_id": "a8uWQGIOlCKYD7vXK+ldQ1"
+    "_id": "91gmABvm1GwqUN1Ietnhxm"
   },
   {
     "__type__": "cc.Node",
@@ -6702,7 +6702,7 @@
     "component": "",
     "_componentId": "2f143GFuOFPg6qbBYDJ4Sj0",
     "handler": "onOpen",
-    "customEventData": "GameDetails"
+    "customEventData": "PVPDetails"
   },
   {
     "__type__": "cc.Node",
@@ -7234,7 +7234,7 @@
     "component": "",
     "_componentId": "2f143GFuOFPg6qbBYDJ4Sj0",
     "handler": "onOpen",
-    "customEventData": "PVPDetails"
+    "customEventData": "GameDetails"
   },
   {
     "__type__": "cc.Node",
@@ -19289,9 +19289,6 @@
         "__id__": 474
       }
     ],
-    "costBtn": null,
-    "videoBtn": null,
-    "tip": null,
     "_id": "b8a/a0eopKJ52ZRWCjrBi4"
   },
   {

@@ -12,10 +12,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        timeDown:{
-            default:null,
-            type:cc.Label,
-        },
+        costBtn:cc.Node,
+        videoBtn:cc.Node,
+        tip:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -23,27 +22,24 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.time = 5;
-        this.timeDown.string = this.time +"s";
-        this.schedule(this.doCountdownTime,1);
+
     },
-    doCountdownTime(){
-        //每秒更新显示信息
-        if (this.time > 0 ) {
-            this.time -= 1;
-            this.timeDown.string = this.time+"s";
-            this.countDownShow(this.time);
-        }
-    },
-    countDownShow(temp){
-        if(temp <= 0){
-            //倒计时结束
-            this.node.active = false;
-            this.unschedule(this.doCountdownTime);
-            cc.find("Canvas/GameController").active= true;
-            cc.find("Canvas/EnemyController").active= true;
-            cc.find("Canvas/mask").active= true;
-        }
+    init:function(heroid){
+        let self = this;
+        Global.GetUserHeros((res)=>{
+            if(res.state ==1){
+                if(res.result.length>=0){
+                    for(let i=0;i<res.result.length;i++){
+                        if(res.result[i].heroid == heroid){
+                            self.costBtn.active = false;
+                            self.videoBtn.active = false;
+                            self.tip.active = false;
+                        }
+                    }
+                }
+            }
+        });
+         
     },
     // update (dt) {},
 });

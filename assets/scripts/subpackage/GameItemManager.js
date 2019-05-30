@@ -12,10 +12,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        map:{
-            default:null,
-            type:cc.Node,
-        },
         gemPrefab:{
             default:[],
             type:cc.Prefab,
@@ -23,15 +19,18 @@ cc.Class({
         ItemPrefab:{
             default:[],
             type:cc.Prefab,
-        }
+        },
+        maps:{
+            default:[],
+            type:cc.Node,
+        },
     },
-
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.GemPool = new cc.NodePool();
         this.ItemPool = new cc.NodePool();
-        for(var i=0;i<200;i++){
+        for(var i=0;i<720;i++){
             var str = Math.round(Math.random()*4);
             var item =  cc.instantiate(this.gemPrefab[str]);
             this.GemPool.put(item);
@@ -44,18 +43,19 @@ cc.Class({
     },
 
     start () {
-        for(var i=0;i<200;i++){
-            this.CreateGem();
-        }
-        for(var i=0;i<40;i++){
-            this.CreateItem();
+        // for(var i=0;i<200;i++){
+        //     this.CreateGem();
+        // }
+        // for(var i=0;i<40;i++){
+        //     this.CreateItem();
+        // }
+        for(let i=0;i<this.maps.length;i++){
+            this.maps[i].getComponent("MapsCreatItem").init();
         }
     },
-    CreateGem(){
-        var x = Math.random()*(this.map.width/2 - (this.map.width/-2)) + (this.map.width/-2);
-        var y = Math.random()*(this.map.height/2 - (this.map.height/-2)) + (this.map.height/-2);
-        // var str = Math.round(Math.random()*4);
-        // var item =  cc.instantiate(this.gemPrefab[str]);
+    CreateGem(width,height,node){
+        var x = Math.random()*(width/2 - (width/-2)) + (width/-2);
+        var y = Math.random()*(height/2 - (height/-2)) + (height/-2);
         let item = null;
         if (this.GemPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
             item = this.GemPool.get();
@@ -64,14 +64,11 @@ cc.Class({
         }
         item.x = x;
         item.y = y;
-        item.parent = this.node;
-        //this.node.addChild(item);
+        item.parent = node;
     },
-    CreateItem(){
-        var x = Math.random()*(this.map.width/2 - (this.map.width/-2)) + (this.map.width/-2);
-        var y = Math.random()*(this.map.height/2 - (this.map.height/-2)) + (this.map.height/-2);
-        // var str = Math.round(Math.random()*2);
-        // var item =  cc.instantiate(this.ItemPrefab[str]);
+    CreateItem(width,height,node){
+        var x = Math.random()*(width/2 - (width/-2)) + (width/-2);
+        var y = Math.random()*(height/2 - (height/-2)) + (height/-2);
         let item = null;
         if (this.ItemPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
             item = this.ItemPool.get();
@@ -80,8 +77,7 @@ cc.Class({
         }
         item.x = x;
         item.y = y;
-        item.parent = this.node;
-        //this.node.addChild(item);
+        item.parent = node;
     },
     onGemKilled: function (gem) {
         // gem 应该是一个 cc.Node
@@ -92,16 +88,16 @@ cc.Class({
     },
     update (dt) {
         //当宝石给吃了50个的时候在创建一些宝石
-        if(this.GemPool.size() >50){
-            for(var i=0;i<this.GemPool.size();i++){
-                this.CreateGem();
-            }
-        }
-        if(this.ItemPool.size() >15){
-            for(var i=0;i<this.ItemPool.size();i++){
-                this.CreateItem();
-            }
-        }
+        // if(this.GemPool.size() >50){
+        //     for(var i=0;i<this.GemPool.size();i++){
+        //         this.CreateGem();
+        //     }
+        // }
+        // if(this.ItemPool.size() >15){
+        //     for(var i=0;i<this.ItemPool.size();i++){
+        //         this.CreateItem();
+        //     }
+        // }
         if(Global.dienumber == Global.enemynumber&&Global.is_end ==false){
             cc.find("Canvas/GameOverView").active = true;
             Global.is_end = true;

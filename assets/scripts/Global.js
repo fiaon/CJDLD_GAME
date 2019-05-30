@@ -23,6 +23,8 @@ window.Global = {
     defhid:null,        //当前英雄
     userkey:null,       //玩家ID
     is_sign:false,      //今天是否签到
+    ticket:null,        //游戏入场消耗根据段位设置。结算页面需要用到
+
 
     prefab_icon: null,
     prefab_gongxi: null,

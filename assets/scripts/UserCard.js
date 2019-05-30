@@ -21,6 +21,7 @@ cc.Class({
         win:cc.Label,
         heroimg:cc.Sprite,
         idText:cc.Label,
+        tip_prefab:cc.Prefab,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -58,6 +59,23 @@ cc.Class({
         }
         this.idText.string = "ID:"+Global.userkey;
     },
-
+    copyTBL:function(e){
+        var self=this;
+        wx.setClipboardData({
+            data: self.idText.string,
+            success: function(res) {
+            // self.setData({copyTip:true}),
+                let tip = cc.instantiate(self.tip_prefab);
+                if (tip) {
+                    self.node.addChild(tip);
+                    let src = tip.getComponent(require("TipShow"));
+                    if (src) {
+                        src.label.string = "复制成功";
+                    }
+                }
+            }
+      });
+    
+    }
     // update (dt) {},
 });

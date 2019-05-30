@@ -29,7 +29,7 @@ cc.Class({
 
     start () {
         //出现提示
-        this.is_suodu= false;
+        this.is_suodu= true;
         this.time=0;
         this.speed = 0;
         this.scheduleOnce(function() {
@@ -42,10 +42,11 @@ cc.Class({
                 }
             }
             this.time = 20;
-            this.speed = 80;
+            this.speed = 100;
         }, 10);
         this.scheduleOnce(function() {
             this.is_suodu= true;
+            console.log("一次缩毒");
         }, 20);
         this.scheduleOnce(function() {
             let tip = cc.instantiate(this.tip_prefab);
@@ -57,10 +58,11 @@ cc.Class({
                 }
             }
             this.time = 20;
-            this.speed = 40;
+            this.speed = 80;
         }, 80);
         this.scheduleOnce(function() {
             this.is_suodu= true;
+            console.log("2次缩毒");
         }, 90);
         this.scheduleOnce(function() {
             let tip = cc.instantiate(this.tip_prefab);
@@ -72,17 +74,21 @@ cc.Class({
                 }
             }
             this.time = 15;
-            this.speed = 40;
+            this.speed = 100;
         }, 150);
         this.scheduleOnce(function() {
             this.is_suodu= true;
+            console.log("最后一次缩毒");
         }, 160);
     },
 
      update (dt) {
          if(this.node.width<=0){
-            cc.find("Canvas/GameOverView").active = true;
-            Global.is_end = true;
+            this.scheduleOnce(function() {
+                cc.find("Canvas/GameOverView").active = true;
+                Global.is_end = true;
+                this.node.destroy();
+            }, 2);
             return
          }
          if(!this.is_suodu){

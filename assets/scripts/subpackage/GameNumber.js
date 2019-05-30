@@ -27,11 +27,10 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.player = cc.find("Canvas/player").getComponent("Player");
         //注册监听事件
         cc.game.on('change',function (people){
              this.people.string = people.toString();
-             this.dienumber.string = this.player.killsnumber;
+             this.dienumber.string = Global.dienumber.toString();
             },this);
     },
     // update (dt) {},

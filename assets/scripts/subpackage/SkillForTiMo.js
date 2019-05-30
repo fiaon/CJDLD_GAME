@@ -33,6 +33,7 @@ cc.Class({
             this.node.getComponent(cc.Animation).play('skill_Mogu');
             other.getComponent("EnemyManager").EnemyDamage(2);
             other.getComponent("EnemyManager").killername = this.player.Heroname.string;
+            damage +=2;//造成伤害+1
             console.log("敌人踩到蘑菇");
         }
     },

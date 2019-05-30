@@ -53,7 +53,7 @@
       "w": 1
     },
     "groupIndex": 0,
-    "autoReleaseAssets": true,
+    "autoReleaseAssets": false,
     "_id": "6bf2fe6d-49b3-4c64-89e7-16ac74c9253e"
   },
   {
@@ -5498,9 +5498,6 @@
         "__id__": 9
       }
     ],
-    "costBtn": null,
-    "videoBtn": null,
-    "tip": null,
     "_id": "7aQ+aUOkxKWojh2VY0D6yw"
   },
   {

@@ -70,6 +70,7 @@ cc.Class({
             other.getComponent("EnemyManager").EnemyDamage(1);
             other.getComponent("EnemyManager").killername = this.player.Heroname.string;
             other.getComponent("EnemyManager").killsuuid = this.player.gameuuid;
+            this.player.damage +=1;//造成伤害+1
         }
     },
 });

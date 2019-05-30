@@ -97,7 +97,6 @@ cc.Class({
         // cc.game.on('ChiDU',function (event){
         //     this.is_chidu = event;
         //     },this);
-        
     },
     
     update (dt) {
@@ -293,9 +292,13 @@ cc.Class({
             img.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
                 img.destroy();
             },this)));
-            this.enemyPool.onEnemyKilled(this.node);
+            this.node.stopAllActions();
+            this.node.opacity =0;
+            this.scheduleOnce(function() {
+                this.enemyPool.onEnemyKilled(this.node);
+                this.DropItem();
+            }, 1);
             //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
-            this.DropItem();
            
             peopleNumber.getInstance().changeNumber();
             let text = "";
@@ -306,7 +309,7 @@ cc.Class({
             if(this.killername != null){
                 this.ShowKill_2(this.killername,this.enemyname.string);
                 if(Global.dienumber == 1){
-                    text = " 拿到了一血";
+                    text = " 拿到第一滴血";
                     this.ShowKill(text);
                 }
                 if(this.killername == this.hero.Heroname.string){
@@ -318,8 +321,6 @@ cc.Class({
                         this.KillsText(others.killsnumber);
                     }
                 }
-                    
-                
             }else{
                 this.ShowKill_3(this.enemyname.string);
             }
@@ -341,10 +342,10 @@ cc.Class({
                 this.ShowKill(text);
                 break;
                 case 6:
-                text = " 已经接近神了";
+                text = " 已经势不可挡了";
                 this.ShowKill(text);
                 break;
-                case 7:
+                case 10:
                 text = " 已经超神了";
                 this.ShowKill(text);
                 break;
@@ -384,7 +385,7 @@ cc.Class({
     },
     //掉落装备
     DropItem(){
-        var gemnum = Math.round(Math.random()*2) +1;
+        var gemnum = Math.round(Math.random()*10) +10;
         for(var i=0;i<gemnum;i++){
             this.CreateGem();
         }
@@ -426,7 +427,7 @@ cc.Class({
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);
         cc.tween(item)
-        .to(1, { position: cc.v2(this.node.x+dirVec.x*80,this.node.y+dirVec.y*80) })
+        .to(1, { position: cc.v2(item.x+dirVec.x*80,item.y+dirVec.y*80)})
         .start()
     },
 });

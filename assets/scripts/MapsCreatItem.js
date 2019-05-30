@@ -12,10 +12,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        timeDown:{
+        GameItem:{
             default:null,
-            type:cc.Label,
-        },
+            type:cc.Node,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -23,27 +23,27 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        this.time = 5;
-        this.timeDown.string = this.time +"s";
-        this.schedule(this.doCountdownTime,1);
+        
+        
     },
-    doCountdownTime(){
-        //每秒更新显示信息
-        if (this.time > 0 ) {
-            this.time -= 1;
-            this.timeDown.string = this.time+"s";
-            this.countDownShow(this.time);
+    init:function(){
+        this.CreateItem();
+    },
+    //生成宝珠
+    CreateItem(){
+        this.ran = Math.round(Math.random()*30)+30;
+        for(let j=0;j<this.ran;j++){
+            this.GameItem.getComponent("GameItemManager").CreateGem(this.node.width,this.node.height,this.node);
         }
     },
-    countDownShow(temp){
-        if(temp <= 0){
-            //倒计时结束
-            this.node.active = false;
-            this.unschedule(this.doCountdownTime);
-            cc.find("Canvas/GameController").active= true;
-            cc.find("Canvas/EnemyController").active= true;
-            cc.find("Canvas/mask").active= true;
+    update (dt) {
+        //当个区域宝珠少于一半数创建
+        if(this.node.childrenCount<(this.ran/2)){
+            let num = this.node.children.length;
+            for(let i=0;i<num;i++){
+                this.GameItem.getComponent("GameItemManager").onGemKilled(this.node.children[0]);
+            }
+            this.CreateItem();
         }
     },
-    // update (dt) {},
 });

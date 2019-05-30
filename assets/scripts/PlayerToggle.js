@@ -20,9 +20,6 @@ cc.Class({
             default:[],
             type:cc.Node,
         },
-        costBtn:cc.Button,
-        videoBtn:cc.Button,
-        tip:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -46,23 +43,23 @@ cc.Class({
             this.view[0].active =true;
             this.view[1].active =false;
             this.view[2].active =false;
-            this.GetAllHeros(2);
             this.SetDefaultHeros(1);
             this.heroid = 1;
+            this.view[0].getComponent("HeroCarPre").init(this.heroid);
         }else if(this.toggle[1].getComponent(cc.Toggle).isChecked){
             this.view[0].active =false;
             this.view[1].active =true;
             this.view[2].active =false;
-            this.GetAllHeros(1);
             this.SetDefaultHeros(2);
             this.heroid = 2;
+            this.view[1].getComponent("HeroCarPre").init(this.heroid);
         }else if(this.toggle[2].getComponent(cc.Toggle).isChecked){
             this.view[0].active =false;
             this.view[1].active =false;
             this.view[2].active =true;
-            this.GetAllHeros(0);
             this.SetDefaultHeros(3);
             this.heroid = 3;
+            this.view[2].getComponent("HeroCarPre").init(this.heroid);
         }
      },
      SetDefaultHeros(id){
@@ -72,23 +69,7 @@ cc.Class({
             }
         });
      },
-     GetAllHeros(number){
-        Global.GetAllHeros((res)=>{
-            if(res.state ==1){
-                if(res.result.length!=0){
-                    if(res.result[number].type == 1){
-                        this.costBtn.node.active = true;
-                        this.videoBtn.node.active = true;
-                        this.tip.active = false;
-                    }else{
-                        this.costBtn.node.active = false;
-                        this.videoBtn.node.active = false;
-                        this.tip.active = false;
-                    }
-                }
-            }
-        });
-     },
+     
      BuyHero(){
         // if(Global.diamond>3500){
         //     Global.UserChange(1,1,"购买英雄",-3500,(res)=>{
@@ -104,7 +85,9 @@ cc.Class({
         //     this.tip.active = true;
         // }
         Global.BuyHeros(this.heroid,(res)=>{
-            this.SetDefaultHeros(this.heroid);
+            if(res.state ==1){
+                this.SetDefaultHeros(this.heroid);
+            }
         });
      },
     // update (dt) {},

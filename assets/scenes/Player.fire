@@ -5429,11 +5429,11 @@
   {
     "__type__": "cc.ClickEvent",
     "target": {
-      "__id__": 2
+      "__id__": 91
     },
     "component": "",
-    "_componentId": "2f143GFuOFPg6qbBYDJ4Sj0",
-    "handler": "ShowTip",
+    "_componentId": "925ac6X7olE+pC9QiHq4RM2",
+    "handler": "copyTBL",
     "customEventData": ""
   },
   {
@@ -6114,6 +6114,9 @@
     },
     "idText": {
       "__id__": 122
+    },
+    "tip_prefab": {
+      "__uuid__": "a2682a04-6f26-4cbe-bef4-0a91cc2b7951"
     },
     "_id": "998JU+jFxAv7scybDA+Rot"
   },

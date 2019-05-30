@@ -100,7 +100,6 @@ cc.Class({
     },
     //平A技能（往前撞击）
     playerAttack(otherpos){
-        this.behit = false;
         this.enemy.getComponent("EnemyManager").isattack = true;
         this.pos = otherpos.sub(this.enemy.position);
         var len = this.pos.mag();
@@ -120,7 +119,6 @@ cc.Class({
         this.cd = true;
         this.scheduleOnce(function() {
             this.cd = false;
-            this.behit = true;
             this.enemy.getComponent("EnemyManager").isattack = false;
         }, 1);
         cc.tween(this.enemy)

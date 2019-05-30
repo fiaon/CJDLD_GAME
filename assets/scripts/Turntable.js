@@ -81,13 +81,13 @@ cc.Class({
         
         this.spinBtn.node.on(cc.Node.EventType.TOUCH_END,function(event)
         {
-            if(Global.gold >=500){
-                Global.UserChange(2,1,"转盘花费",-500,(res)=>{
-                    if(res.state ==1){
-                        Global.gold+= -500;
-                        cc.game.emit('UserChang');
-                    }
-                });
+            // if(Global.gold >=500){
+            //     Global.UserChange(2,1,"转盘花费",-500,(res)=>{
+            //         if(res.state ==1){
+            //             Global.gold+= -500;
+            //             cc.game.emit('UserChang');
+            //         }
+            //     });
                 Global.RunZhuanPan((res)=>{
                     if(this.wheelState !== 0)
                     {
@@ -99,10 +99,10 @@ cc.Class({
                     this.spinTime = 0;
                     this.targetID = res.result;
                 });
-            }else{
-                //提示金币不足
-                this.ShowTip();
-            }
+            // }else{
+            //     //提示金币不足
+            //     this.ShowTip();
+            // }
             
             // var act = cc.rotateTo(10, 360*10);
             // this.wheelSp.node.runAction(act.easing(cc.easeSineInOut()));

@@ -24,6 +24,17 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
+        duanimg:cc.Sprite,
+        duantext:cc.Label,
+        starImg:{
+            default:[],
+            type:cc.Sprite,
+        },
+        jifenBar:cc.ProgressBar,
+        jifenText:cc.Label,
+        addScore:cc.Label,
+        goldNum:cc.Label,
+        diamonds:cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,14 +42,89 @@ cc.Class({
     // onLoad () {},
     
     start () {
+        let self = this;
         this.time = 10;
         this.number =0;
         this.timeDown.string = this.time;
         this.goldnumber.string = this.number;
-
         cc.find("Canvas/mask").active= false;
-        
         //赋值结算页面的信息
+        let url = Global.userlvl+'.png';
+        cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
+            self.duanimg.spriteFrame = spriteFrame;
+        });
+        this.duantext.string = Global.duntext;
+        //设置星星
+        switch(Global.userlvl){
+            case 1:
+               this.ComputeStar(100);
+                break;
+            case 2:
+                this.ComputeStar(150);
+                break;
+            case 3:
+                this.ComputeStar(200);
+                break;
+            case 4:
+                this.ComputeStar(350);
+                break;
+            case 5:
+                this.ComputeStar(500);
+                break;
+            case 6:
+                this.ComputeStar(700);
+                break;
+            case 7:
+                this.ComputeStar(1000);
+                break;
+            case 8:
+                this.ComputeStar(1500);
+                break;
+            default:
+                break;
+        }
+        var gold = 0;
+        var diamonds = 0;
+        if(36-Global.dienumber>3){
+            this.addScore.string = "-25";
+            gold = Global.ticket*0.2*0.5;
+            diamonds =  Global.ticket*0.01;
+        }else{
+            this.addScore.string = "+50";
+            gold = Global.ticket*0.8*0.5;
+            diamonds =  Global.ticket*0.1;
+
+        }
+        this.goldNum.string = "x"+gold;
+        this.diamonds.starImg = "x"+diamonds;
+        
+    },
+    //计算星星段位不同每颗星星的积分不同
+    ComputeStar(jifen){
+        for(let i =0;i<Global.SeaonLvl.length;i++){
+            if(Global.userlvl == Global.SeaonLvl[i].id){
+                var score = (Global.score -Global.SeaonLvl[i].minscore +1)/ jifen;
+                this.ChangeStarImg(Math.floor(score))
+                var curscore =  0;
+                if(Global.userlvl==1){
+                    curscore = (Global.score -Global.SeaonLvl[i].minscore +1)%jifen;
+                }else{
+                    curscore = (Global.score -Global.SeaonLvl[i].minscore +1)%jifen;
+                }
+                this.jifenBar.progress = curscore / jifen;
+                this.jifenText.string = curscore +"/"+jifen;
+
+            }
+        }
+    },
+    ChangeStarImg(num){
+        let self = this;
+        let starImgurl = "duan_star";
+        for(let i=0;i<num;i++){
+            cc.loader.loadRes(starImgurl, cc.SpriteFrame, function (err, spriteFrame) {
+                self.starImg[i].spriteFrame = spriteFrame;
+            });
+        }
 
     },
     //倒计时
@@ -91,6 +177,9 @@ cc.Class({
         // 倒计时
         this.schedule(this.doCountdownTime,1);
     },
-
+    //测试 再来一局
+    Again(){
+        cc.director.loadScene("Game.fire");
+    }
     // update (dt) {},
 });

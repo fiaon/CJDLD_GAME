@@ -47,9 +47,12 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.director.getPhysicsManager().enabled = true;
-        var draw = cc.PhysicsManager.DrawBits;
-        cc.director.getPhysicsManager().debugDrawFlags = draw.e_shapeBit|draw.e_jointBit;
+        //开启物理
+        // cc.director.getPhysicsManager().enabled = true;
+        // var draw = cc.PhysicsManager.DrawBits;
+        // cc.director.getPhysicsManager().debugDrawFlags = draw.e_shapeBit|draw.e_jointBit;
+        // this.rigidBody = this.node.getComponent(cc.RigidBody);
+        // this.rigidBody.applyLinearImpulse(cc.v2(1000,1000), this.rigidBody.getWorldPosition(), true);
     },
 
     start () {
@@ -71,6 +74,7 @@ cc.Class({
         this.is_chidu = false;      //是否吃毒
         this.isattack = false;      //是否普攻
         this.behit = false;         //是否被攻击（被攻击是不能移动）
+        this.wudi = false;          //是否无敌
         this.time = 3;
         this.killername = null;     //杀我的人
         this.speed=100;             //初始速度
@@ -89,21 +93,21 @@ cc.Class({
         peopleNumber.getInstance().init();
         let p = peopleNumber.getInstance().people;
         cc.game.emit('change',p);
-        //获取英雄的速度和技能等级
-        Global.GetAllHeros((res)=>{
-            if(res.result.length!=0){
-                for(let i=0;i<res.result.length;i++){
-                    if(res.result[i].heroid == Global.defhid){
-                        this.speed += 15*res.result[i].skill1;
-                        this.Rocker.skill2_Cd -=  0.5*res.result[i].skill2;
-                        let herourl = 'hero/hero_'+ Global.defhid;
-                        cc.loader.loadRes(herourl, cc.SpriteFrame, function (err, spriteFrame) {
-                            self.player.getChildByName("heroImg").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
-                        });
-                    }
-                }
-            }
-        });
+        // let herourl = 'hero/hero_'+ Global.defhid;
+        // cc.loader.loadRes(herourl, cc.SpriteFrame, function (err, spriteFrame) {
+        //     self.player.getChildByName("heroImg").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+        // });
+        ////获取英雄的速度和技能等级
+        // Global.GetUserHeros((res)=>{
+        //     if(res.result.length!=0){
+        //         for(let i=0;i<res.result.length;i++){
+        //             if(res.result[i].heroid == Global.defhid){
+        //                 this.speed += 15*res.result[i].skill1;
+        //                 this.Rocker.skill2cd -=  0.5*res.result[i].skill2;
+        //             }
+        //         }
+        //     }
+        // });
     },
 
      update (dt) {
@@ -192,6 +196,7 @@ cc.Class({
             if(other.node.group == "enemy"){
                 if(other.getComponent("EnemyManager").trigger.behit && this.isattack){
                     other.getComponent("EnemyManager").EnemyDamage(1);
+                    this.damage +=1;//造成伤害+1
                     other.getComponent("EnemyManager").killername = this.Heroname.string;
                 }
             }
@@ -220,27 +225,38 @@ cc.Class({
     },
     //受伤
     HeroDamage(){
-        if(this.isDun){
-            this.player.getChildByName("dun").active = false;
-            this.isDun = false;
-        }else{
-            if(this.is_chidu){
-                this.curhp -=1;
-                this.Herohp.progress = this.curhp/this.maxhp;
+        if(!this.wudi){
+            if(this.isDun){
+                this.player.getChildByName("dun").active = false;
+                this.isDun = false;
             }else{
-                this.curhp -=1;
-                this.Herohp.progress = this.curhp/this.maxhp;
-                //实现闪烁效果。播放眩晕动画
-                this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
-                //闪烁
-                this.node.runAction(cc.blink(3, 3));
-                //被击中状态不能进行移动等操作（机器人也不能动）
-                this.behit = true;
-                this.scheduleOnce(function() {
-                    this.behit = false;
-                }, 3);
-            }   
-            this.HeroDead();
+                if(this.is_chidu){
+                    this.curhp -=1;
+                    this.Herohp.progress = this.curhp/this.maxhp;
+                }else{
+                    this.curhp -=1;
+                    this.Herohp.progress = this.curhp/this.maxhp;
+                    //实现闪烁效果。播放眩晕动画
+                    this.player.getChildByName("yun").getComponent(cc.Animation).play('yun').repeatCount =10;
+                    //闪烁
+                    this.node.runAction(cc.blink(3, 3));
+                    //被击中状态不能进行移动等操作（机器人也不能动）
+                    this.behit = true;
+                    //晕2秒不能移动
+                    this.scheduleOnce(function() {
+                        this.behit = false;
+                        this.wudi = true;
+                        this.player.opacity = 0;
+                    }, 2);
+                    //晕玩之后无敌3秒
+                    this.scheduleOnce(function() {
+                        this.wudi = false;
+                        this.player.opacity = 255;
+                    }, 5);
+                }   
+                this.HeroDead();
+            }
+
         }
     },
     HeroLvUp(){

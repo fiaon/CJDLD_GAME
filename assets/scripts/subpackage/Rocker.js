@@ -64,17 +64,20 @@ cc.Class({
         this.Rocker.y = 0;
         this.dir = cc.v2(0,0);
         if(Global.defhid ==1){
+            console.log("1111111111111111111111111111111111111111111111111111");
             this.skill2cd = 8;
             cc.loader.loadRes('hero/skill_1', cc.SpriteFrame, function (err, spriteFrame) {
                 self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
             });
-        }else if(Global.default ==2){
-            this.skill2_Cd = 8;
+        }else if(Global.defhid ==2){
+            console.log("22222222222222222222222222222222222222222222222222222222");
+            this.skill2cd = 8;
             cc.loader.loadRes('hero/skill_2', cc.SpriteFrame, function (err, spriteFrame) {
                 self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
             });
-        }else if(Global.default ==3){
-            this.skill2_Cd = 12;
+        }else if(Global.defhid ==3){
+            console.log("333333333333333333333333333333333333333333333");
+            this.skill2cd = 12;
             cc.loader.loadRes('hero/skill_3', cc.SpriteFrame, function (err, spriteFrame) {
                 self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
             });
@@ -122,7 +125,7 @@ cc.Class({
             this.dir = cc.v2(0, 0);
         },this);
         this.skill1.on(cc.Node.EventType.TOUCH_START,function(e){
-            if(!this.is_Cd){
+            if(!this.is_Cd && !this.player.getComponent("Player").behit){
                 this.attack.getComponent(cc.Animation).play('attack');
                 this.playerAttack();
                 this.is_Cd = true;  
@@ -136,10 +139,10 @@ cc.Class({
                     this.SkillForLuBan();
                     break;
                 case "skill_2":
-                    this.SkillForDuiZhang();
+                    this.SkillForTiMo();
                 break;
                 case "skill_3":
-                    this.SkillForTiMo();
+                    this.SkillForDuiZhang();
                 break;
                 default:
                 break;

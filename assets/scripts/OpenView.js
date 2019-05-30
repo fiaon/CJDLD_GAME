@@ -57,7 +57,15 @@ cc.Class({
                 cc.director.loadScene(customEventData+".fire");
             });
         }else{
-            cc.director.loadScene(customEventData+".fire");
+            
+            cc.director.loadScene(customEventData+".fire",function(){
+                var music = cc.sys.localStorage.getItem("music");
+                if(music == 1){
+                    cc.find("MusicBGM").getComponent(cc.AudioSource).play();
+                }else{
+                    cc.find("MusicBGM").getComponent(cc.AudioSource).stop();
+                }
+            });
         }
     },
     DestroyView:function(event, customEventData){

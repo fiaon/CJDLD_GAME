@@ -53,15 +53,15 @@ cc.Class({
             cc.loader.loadRes('NO3.png', cc.SpriteFrame, function (err, spriteFrame) {
                 self.rankImg.spriteFrame = spriteFrame;
             });
-        }else if(rank <9){
-            this.rankImg.active = false;
+        }else if(rank <9 && rank>2){
+            self.rankImg.node.active = false;
             let rankurl = 'number_'+(rank +1)+'.png';
             cc.loader.loadRes(rankurl, cc.SpriteFrame, function (err, spriteFrame) {
                 self.ranknumber_1.spriteFrame = spriteFrame;
             });
         }else{
-            this.rankImg.active = false;
-            this.ranknumber_2.active = true;
+            self.rankImg.node.active = false;
+            self.ranknumber_2.node.active = true;
             let n = rank+1;
             let n_1 = parseInt(n/10);
             let n_2 = n%10;

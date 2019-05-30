@@ -16,6 +16,10 @@ cc.Class({
             default:[],
             type:cc.Node,
         },
+        heroname:{
+            default:[],
+            type:cc.Label,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,6 +35,7 @@ cc.Class({
                         cc.loader.loadRes('have.png', cc.SpriteFrame, function (err, spriteFrame) {
                             self.heroPrefab[res.result[i].heroid-1].getChildByName("type").getComponent(cc.Sprite).spriteFrame = spriteFrame;
                         });
+                        
                     }else{
                         if(res.result[i].trialscount>0){
                             cc.loader.loadRes('surplus.png', cc.SpriteFrame, function (err, spriteFrame) {
@@ -43,6 +48,13 @@ cc.Class({
                             });
                         }
                     }
+                }
+            }
+        });
+        Global.GetAllHeros((res)=>{
+            if(res.result.length!=0){
+                for(let i=0;i<res.result.length;i++){
+                    this.heroname[i].string = res.result[i].name;
                 }
             }
         });

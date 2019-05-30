@@ -44,7 +44,6 @@ cc.Class({
                 cc.loader.loadRes(url, cc.SpriteFrame, function (err, spriteFrame) {
                     cc.find("Canvas/Player/Lv").getComponent(cc.Sprite).spriteFrame = spriteFrame;
                 });
-                
             }
         }
         Global.GetAllRank((res)=>{

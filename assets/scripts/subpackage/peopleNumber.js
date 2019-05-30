@@ -19,7 +19,7 @@ var peopleNumber = cc.Class({
         this.people = Global.enemynumber+1;
     },
 
-    changeNumber(name){
+    changeNumber(){
         this.people -= 1;
         cc.game.emit('change',this.people);
     },

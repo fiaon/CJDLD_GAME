@@ -61,15 +61,15 @@ cc.Class({
                 cc.loader.loadRes('NO3.png', cc.SpriteFrame, function (err, spriteFrame) {
                     self.rankImg.spriteFrame = spriteFrame;
                 });
-            }else if(data.sort <10){
-                this.rankImg.active = false;
+            }else if(data.sort <10&&data.sort>3){
+                this.rankImg.node.active = false;
                 let rankurl = 'number_'+data.sort+'.png';
                 cc.loader.loadRes(rankurl, cc.SpriteFrame, function (err, spriteFrame) {
                     self.ranknumber.spriteFrame = spriteFrame;
                 });
             }else{
-                this.rankImg.active = false;
-                this.ranknumber_2.active = true;
+                this.rankImg.node.active = false;
+                this.ranknumber_2.node.active = true;
                 let n_1 = parseInt(data.sort/10);
                 let n_2 = data.sort%10;
                 let rankurl = 'number_'+n_1+'.png';
