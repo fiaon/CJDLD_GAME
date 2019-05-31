@@ -27,7 +27,7 @@
       }
     ],
     "_active": true,
-    "_level": 2,
+    "_level": 1,
     "_components": [
       {
         "__id__": 77
@@ -2305,8 +2305,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 51,
-      "height": 40
+      "width": 205.34,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2321,8 +2321,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -2367,7 +2367,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 101,
+      "width": 392.23,
       "height": 40
     },
     "_anchorPoint": {
@@ -2377,7 +2377,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 86,
+      "x": 326.9,
       "y": 0,
       "z": 0
     },
@@ -2412,7 +2412,7 @@
     "_useOriginalSize": false,
     "_string": "zuishuaiyouxikefu ",
     "_N$string": "zuishuaiyouxikefu ",
-    "_fontSize": 12,
+    "_fontSize": 48,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -2448,8 +2448,8 @@
     "_useOriginalSize": false,
     "_string": "客服微信:",
     "_N$string": "客服微信:",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

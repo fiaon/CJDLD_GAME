@@ -82,7 +82,7 @@ cc.Class({
         this.Herolv.string = this.lv;
         this.Heroexp.fillRange =0;
         this.Herohp.progress = this.curhp/this.maxhp;
-        //this.Heroname.string = Global.name;
+        this.Heroname.string = Global.name;
 
         this.rigidbody = this.node.getComponent(cc.RigidBody);
         this.player = this.node.getChildByName("playerImg");
@@ -92,21 +92,21 @@ cc.Class({
         peopleNumber.getInstance().init();
         let p = peopleNumber.getInstance().people;
         cc.game.emit('change',p);
-        // let herourl = 'hero/hero_'+ Global.defhid;
-        // cc.loader.loadRes(herourl, cc.SpriteFrame, function (err, spriteFrame) {
-        //     self.player.getChildByName("heroImg").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
-        // });
-        ////获取英雄的速度和技能等级
-        // Global.GetUserHeros((res)=>{
-        //     if(res.result.length!=0){
-        //         for(let i=0;i<res.result.length;i++){
-        //             if(res.result[i].heroid == Global.defhid){
-        //                 this.speed += 15*res.result[i].skill1;
-        //                 this.Rocker.skill2cd -=  0.5*res.result[i].skill2;
-        //             }
-        //         }
-        //     }
-        // });
+        let herourl = 'hero/hero_'+ Global.defhid;
+        cc.loader.loadRes(herourl, cc.SpriteFrame, function (err, spriteFrame) {
+            self.player.getChildByName("heroImg").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+        });
+        //获取英雄的速度和技能等级
+        Global.GetUserHeros((res)=>{
+            if(res.result.length!=0){
+                for(let i=0;i<res.result.length;i++){
+                    if(res.result[i].heroid == Global.defhid){
+                        this.speed += 15*res.result[i].skill1;
+                        this.Rocker.skill2cd -=  0.36*res.result[i].skill2;
+                    }
+                }
+            }
+        });
     },
 
      update (dt) {
@@ -261,7 +261,7 @@ cc.Class({
     HeroLvUp(){
         this.lvUp.active = true;
         this.Herolv.string = this.lv;
-        this.Rocker.skillCd -=0.2;
+        this.Rocker.skillCd -=0.18;
         this.lvUp.runAction(cc.sequence(cc.delayTime(0.5), cc.fadeOut(1.0), cc.callFunc(()=>{
             this.lvUp.opacity = 255;
             this.lvUp.active = false;

@@ -58,26 +58,26 @@ cc.Class({
     start () {
         let self = this;
         this.Max_r = 49;
-        this.skillCd = 5;
+        this.skillCd = 4;
         this.is_Cd = false;
         this.Rocker.x = 0;
         this.Rocker.y = 0;
         this.dir = cc.v2(0,0);
         if(Global.defhid ==1){
-            console.log("1111111111111111111111111111111111111111111111111111");
-            this.skill2cd = 8;
+            
+            this.skill2cd = 6;
             cc.loader.loadRes('hero/skill_1', cc.SpriteFrame, function (err, spriteFrame) {
                 self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
             });
         }else if(Global.defhid ==2){
-            console.log("22222222222222222222222222222222222222222222222222222222");
-            this.skill2cd = 8;
+           
+            this.skill2cd = 6;
             cc.loader.loadRes('hero/skill_2', cc.SpriteFrame, function (err, spriteFrame) {
                 self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
             });
         }else if(Global.defhid ==3){
-            console.log("333333333333333333333333333333333333333333333");
-            this.skill2cd = 12;
+           
+            this.skill2cd = 8;
             cc.loader.loadRes('hero/skill_3', cc.SpriteFrame, function (err, spriteFrame) {
                 self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
             });
