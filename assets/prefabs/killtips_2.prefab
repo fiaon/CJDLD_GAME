@@ -27,7 +27,7 @@
       }
     ],
     "_active": true,
-    "_level": 4,
+    "_level": 1,
     "_components": [
       {
         "__id__": 11
@@ -310,8 +310,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 168,
-      "height": 50
+      "width": 672,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -326,8 +326,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -356,10 +356,10 @@
     "_isSystemFontUsed": true,
     "_N$string": "",
     "_N$horizontalAlign": 0,
-    "_N$fontSize": 12,
+    "_N$fontSize": 48,
     "_N$font": null,
-    "_N$maxWidth": 168,
-    "_N$lineHeight": 50,
+    "_N$maxWidth": 672,
+    "_N$lineHeight": 60,
     "_N$imageAtlas": null,
     "_N$handleTouchEvent": true,
     "_id": ""

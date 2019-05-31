@@ -243,8 +243,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 20,
-      "height": 40
+      "width": 77.39,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -259,8 +259,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -288,8 +288,8 @@
     "_useOriginalSize": false,
     "_string": "x60",
     "_N$string": "x60",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -446,8 +446,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 20,
-      "height": 40
+      "width": 77.39,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -462,8 +462,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -491,8 +491,8 @@
     "_useOriginalSize": false,
     "_string": "x60",
     "_N$string": "x60",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -897,8 +897,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 52,
-      "height": 50
+      "width": 195.75,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -913,8 +913,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -959,8 +959,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 52,
-      "height": 50
+      "width": 195.75,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -969,8 +969,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -26,
-      "y": -25,
+      "x": -97.875,
+      "y": -30,
       "z": 0
     },
     "_scale": {
@@ -1004,8 +1004,8 @@
     "_useOriginalSize": true,
     "_string": "最强王者",
     "_N$string": "最强王者",
-    "_fontSize": 12,
-    "_lineHeight": 50,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1026,7 +1026,7 @@
     "asset": {
       "__uuid__": "e8c59809-2d42-48a4-a788-5996250fb90e"
     },
-    "fileId": "32GQCShphFQop2WPKfgLFc",
+    "fileId": "367gnlL01GmJlnf2XvnzbV",
     "sync": false
   },
   {
@@ -1041,10 +1041,10 @@
     "_isSystemFontUsed": true,
     "_N$string": "<b>最强王者</b>",
     "_N$horizontalAlign": 0,
-    "_N$fontSize": 12,
+    "_N$fontSize": 48,
     "_N$font": null,
     "_N$maxWidth": 0,
-    "_N$lineHeight": 50,
+    "_N$lineHeight": 60,
     "_N$imageAtlas": null,
     "_N$handleTouchEvent": true,
     "_id": ""

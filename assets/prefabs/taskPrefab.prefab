@@ -396,8 +396,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 180,
-      "height": 15
+      "width": 1000,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -412,8 +412,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -458,8 +458,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 7,
-      "height": 40
+      "width": 26.7,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -468,7 +468,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 33.1,
+      "x": 131.4,
       "y": 0,
       "z": 0
     },
@@ -503,8 +503,8 @@
     "_useOriginalSize": false,
     "_string": "0",
     "_N$string": "0",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -556,8 +556,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 7,
-      "height": 40
+      "width": 26.7,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -566,7 +566,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 45.5,
+      "x": 183.9,
       "y": 0,
       "z": 0
     },
@@ -601,8 +601,8 @@
     "_useOriginalSize": false,
     "_string": "1",
     "_N$string": "1",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -635,10 +635,10 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "邀请1位新玩家（  /  ）",
-    "_N$string": "邀请1位新玩家（  /  ）",
-    "_fontSize": 12,
-    "_lineHeight": 15,
+    "_string": "邀请1位新玩家（   /   ）",
+    "_N$string": "邀请1位新玩家（   /   ）",
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -756,8 +756,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 15
+      "width": 160,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -772,8 +772,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -801,8 +801,8 @@
     "_useOriginalSize": false,
     "_string": "x200",
     "_N$string": "x200",
-    "_fontSize": 12,
-    "_lineHeight": 15,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -959,8 +959,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 15
+      "width": 160,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -975,8 +975,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -1004,8 +1004,8 @@
     "_useOriginalSize": false,
     "_string": "x30",
     "_N$string": "x30",
-    "_fontSize": 12,
-    "_lineHeight": 15,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

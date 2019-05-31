@@ -8,6 +8,11 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 var peopleNumber = require("peopleNumber");
+var EnemyLevel = cc.Enum({
+    lv_simple:1,
+    lv_medium:2,
+    lv_difficulty:3,
+});
 
 cc.Class({
     extends: cc.Component,
@@ -74,6 +79,7 @@ cc.Class({
         this.lv = 1;
         this.exp = 0;
         this.skillNum =0;
+        this.speed=100,
         this.isDun = false;//是否有护盾
         this.is_chidu = false;//是否吃毒
         this.isattack = false;
@@ -81,6 +87,7 @@ cc.Class({
         this.killername = null;//杀我的人
         this.killsnumber = 0;//杀敌数
         this.killsuuid = null;
+         
 
         this.enemylv.string = this.lv;
         this.enemyexp.fillRange =0;
@@ -94,16 +101,28 @@ cc.Class({
     },
 
     start () {
-        // cc.game.on('ChiDU',function (event){
-        //     this.is_chidu = event;
-        //     },this);
+        
+    },
+    init(number){
+        //机器人难度
+        this.level = number;
+        switch(EnemyLevel[number]){
+            case "lv_simple":
+                break;
+            case "lv_medium":
+                break;
+            case "lv_difficulty":
+                break;
+            default:
+                break;
+        }
     },
     
     update (dt) {
         if(!this.trigger.is_trigger && this.trigger.dir!= null &&this.trigger.behit){
             if(this.ismove){
-                var vx = this.trigger.dir.x * this.trigger.speed;
-                var vy = this.trigger.dir.y * this.trigger.speed;
+                var vx = this.trigger.dir.x * this.speed;
+                var vy = this.trigger.dir.y * this.speed;
 
                 var sx = vx * dt;
                 var sy = vy * dt;
@@ -125,8 +144,8 @@ cc.Class({
                     this.ismove = false;
                 }
             }else{
-                var vx = this.trigger.dir.x * this.trigger.speed;
-                var vy = this.trigger.dir.y * this.trigger.speed;
+                var vx = this.trigger.dir.x * this.speed;
+                var vy = this.trigger.dir.y * this.speed;
 
                 var sx = vx * dt;
                 var sy = vy * dt;
@@ -213,9 +232,9 @@ cc.Class({
                     }
                 }else if(other.node.name == "item_xiePrefab"){
     
-                    this.trigger.speed = 200;
+                    this.speed = 200;
                     this.scheduleOnce(function() {
-                        this.trigger.speed = 100;
+                        this.speed = 100;
                     }, 3);
                 }
             }else if(self.tag ==0 && other.tag ==0&&this.trigger.cd){

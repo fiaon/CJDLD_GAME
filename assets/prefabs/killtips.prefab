@@ -206,8 +206,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 31,
-      "height": 40
+      "width": 117.45,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -222,8 +222,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -251,8 +251,8 @@
     "_useOriginalSize": false,
     "_string": "Label",
     "_N$string": "Label",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

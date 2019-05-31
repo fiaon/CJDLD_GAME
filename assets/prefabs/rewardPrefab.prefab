@@ -111,8 +111,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 7,
-      "height": 40
+      "width": 28.92,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -127,8 +127,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -156,8 +156,8 @@
     "_useOriginalSize": false,
     "_string": "1",
     "_N$string": "1",
-    "_fontSize": 13,
-    "_lineHeight": 40,
+    "_fontSize": 52,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -313,8 +313,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 23,
-      "height": 40
+      "width": 85.84,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -329,8 +329,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -356,10 +356,10 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "x60",
-    "_N$string": "x60",
-    "_fontSize": 13,
-    "_lineHeight": 40,
+    "_string": "x50",
+    "_N$string": "x50",
+    "_fontSize": 52,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -413,7 +413,7 @@
         "__id__": 13
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 5,
     "_components": [
       {

@@ -51,7 +51,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -21,
-      "y": -73,
+      "y": -21,
       "z": 0
     },
     "_scale": {
@@ -282,8 +282,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 15
+      "width": 480,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -298,8 +298,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -327,8 +327,8 @@
     "_useOriginalSize": false,
     "_string": "倩女幽魂",
     "_N$string": "倩女幽魂",
-    "_fontSize": 12,
-    "_lineHeight": 15,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -446,8 +446,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 15
+      "width": 160,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -462,8 +462,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -491,8 +491,8 @@
     "_useOriginalSize": false,
     "_string": "x30",
     "_N$string": "x30",
-    "_fontSize": 12,
-    "_lineHeight": 15,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1141,8 +1141,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 127,
-      "height": 40
+      "width": 506.7,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1157,8 +1157,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -1186,8 +1186,8 @@
     "_useOriginalSize": true,
     "_string": "试玩1分钟返回即可领取",
     "_N$string": "试玩1分钟返回即可领取",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

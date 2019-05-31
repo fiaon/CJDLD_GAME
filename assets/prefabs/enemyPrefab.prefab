@@ -192,7 +192,6 @@
     "enemy": {
       "__id__": 1
     },
-    "speed": 100,
     "is_trigger": false,
     "_id": ""
   },
@@ -1943,8 +1942,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -1972,8 +1971,8 @@
     "_useOriginalSize": false,
     "_string": "1",
     "_N$string": "1",
-    "_fontSize": 15,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -2091,8 +2090,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -2120,8 +2119,8 @@
     "_useOriginalSize": false,
     "_string": "机器人",
     "_N$string": "机器人",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

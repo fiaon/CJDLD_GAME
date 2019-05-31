@@ -36,6 +36,8 @@ cc.Class({
             this.GameItem.getComponent("GameItemManager").CreateGem(this.node.width,this.node.height,this.node);
         }
     },
+    //生成道具
+    
     update (dt) {
         //当个区域宝珠少于一半数创建
         if(this.node.childrenCount<(this.ran/2)){

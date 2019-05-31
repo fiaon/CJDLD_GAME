@@ -16,7 +16,6 @@ cc.Class({
             default:null,
             type:cc.Node,
         },
-        speed:100,
         is_trigger:false,
     },
 
@@ -36,8 +35,8 @@ cc.Class({
 
     update (dt) {
         if(this.is_trigger && !Global.is_end && this.behit){
-            var vx = this.dir.x * this.speed;
-            var vy = this.dir.y * this.speed;
+            var vx = this.dir.x * this.enemy.getComponent("EnemyManager").speed;
+            var vy = this.dir.y * this.enemy.getComponent("EnemyManager").speed;
 
             var sx = vx * dt;
             var sy = vy * dt;

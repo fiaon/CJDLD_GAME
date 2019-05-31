@@ -179,7 +179,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ff6bb422-532b-49ac-a87f-25bd7fa78b99"
     },
     "fileId": "82L8+6o95N4ZDRnjzKgBov",
     "sync": false
@@ -212,8 +212,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 40
+      "width": 288,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -228,8 +228,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -257,8 +257,8 @@
     "_useOriginalSize": false,
     "_string": "名字名字名字",
     "_N$string": "名字名字名字",
-    "_fontSize": 10,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -277,7 +277,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ff6bb422-532b-49ac-a87f-25bd7fa78b99"
     },
     "fileId": "8ehFs2h0RKOqxtjF35ppD2",
     "sync": false
@@ -314,8 +314,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 52,
-      "height": 27
+      "width": 51,
+      "height": 28
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -356,7 +356,7 @@
       "__id__": 8
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 6,
     "_components": [
       {
@@ -444,7 +444,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ff6bb422-532b-49ac-a87f-25bd7fa78b99"
     },
     "fileId": "665tiGyIlCLJavaulXBA7G",
     "sync": false
@@ -458,7 +458,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "0044bd9b-9322-42c3-99c4-d4d00203d34a"
+      "__uuid__": "d77b226c-588b-4f2b-b761-5678de43b716"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -483,7 +483,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ff6bb422-532b-49ac-a87f-25bd7fa78b99"
     },
     "fileId": "32JQFGQiZL34dgP5d3pryL",
     "sync": false
@@ -594,7 +594,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "ff6bb422-532b-49ac-a87f-25bd7fa78b99"
     },
     "fileId": "9dEEoGjrRErKdq0fDnFhQN",
     "sync": false

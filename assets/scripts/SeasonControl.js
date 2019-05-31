@@ -40,7 +40,7 @@ cc.Class({
                     this.content.addChild(season);
                     if(res.result.list[i].id == Global.userlvl){
                         let score = res.result.list[i].maxscore - Global.score;
-                        this.text.string = "还差<size=15><color=#EEE83E>"+score+"</c></size>积分可获得更高奖励";
+                        this.text.string = "还差<size=60><color=#EEE83E>"+score+"</c></size>积分可获得更高奖励";
                     }
                 }
             }

@@ -39,7 +39,7 @@
       }
     ],
     "_active": true,
-    "_level": 4,
+    "_level": 1,
     "_components": [
       {
         "__id__": 54
@@ -796,8 +796,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 72,
-      "height": 40
+      "width": 288,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -812,8 +812,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -841,8 +841,8 @@
     "_useOriginalSize": false,
     "_string": "名称名称名称",
     "_N$string": "名称名称名称",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -942,8 +942,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 54,
-      "height": 40
+      "width": 218.67,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -958,8 +958,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -1004,8 +1004,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 14,
-      "height": 40
+      "width": 53.39,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1014,7 +1014,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 35.5,
+      "x": 148.7,
       "y": 0,
       "z": 0
     },
@@ -1049,8 +1049,8 @@
     "_useOriginalSize": false,
     "_string": "66",
     "_N$string": "66",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1085,8 +1085,8 @@
     "_useOriginalSize": false,
     "_string": "最高击杀 :",
     "_N$string": "最高击杀 :",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1142,8 +1142,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 40
+      "width": 122.67,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1158,8 +1158,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -1204,8 +1204,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 14,
-      "height": 40
+      "width": 53.39,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1214,7 +1214,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 27.6,
+      "x": 99.5,
       "y": 0,
       "z": 0
     },
@@ -1249,8 +1249,8 @@
     "_useOriginalSize": false,
     "_string": "66",
     "_N$string": "66",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1285,8 +1285,8 @@
     "_useOriginalSize": false,
     "_string": "积分 :",
     "_N$string": "积分 :",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1404,8 +1404,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 72,
-      "height": 40
+      "width": 288,
+      "height": 60
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1420,8 +1420,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.25,
+      "y": 0.25,
       "z": 1
     },
     "_rotationX": 0,
@@ -1449,8 +1449,8 @@
     "_useOriginalSize": false,
     "_string": "最帅乱斗王者",
     "_N$string": "最帅乱斗王者",
-    "_fontSize": 12,
-    "_lineHeight": 40,
+    "_fontSize": 48,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

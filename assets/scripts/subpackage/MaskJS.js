@@ -83,11 +83,13 @@ cc.Class({
     },
 
      update (dt) {
+         if(Global.is_end){
+             return;
+         }
          if(this.node.width<=0){
+            Global.is_end = true;
             this.scheduleOnce(function() {
                 cc.find("Canvas/GameOverView").active = true;
-                Global.is_end = true;
-                this.node.destroy();
             }, 2);
             return
          }
