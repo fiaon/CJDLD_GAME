@@ -35,6 +35,7 @@ cc.Class({
         addScore:cc.Label,
         goldNum:cc.Label,
         diamonds:cc.Label,
+        content:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -42,6 +43,7 @@ cc.Class({
     // onLoad () {},
     
     start () {
+        this.content.active = false;
         let self = this;
         this.time = 10;
         this.number =0;

@@ -16,6 +16,10 @@ cc.Class({
             default:null,
             type:cc.Prefab,
         },
+        mapdianPrefab:{
+            default:null,
+            type:cc.Prefab,
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -56,6 +60,9 @@ cc.Class({
         enemy.name = enemy.getComponent("EnemyManager").gameuuid;
         //cc.sys.localStorage.setItem(i.toString(),"0");
         enemy.parent = this.node; // 将生成的敌人加入节点树
+        let mapdian = cc.instantiate(this.mapdianPrefab);
+        mapdian.getComponent("MapDianControl").init(enemy);
+        mapdian.parent = cc.find("Canvas/MapDianCol");
     },
     // update (dt) {},
 

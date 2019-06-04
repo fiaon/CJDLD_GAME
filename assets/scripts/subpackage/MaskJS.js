@@ -99,8 +99,7 @@ cc.Class({
          if(this.time>=0){
             this.node.width -= dt*this.speed;
             this.node.height -= dt*this.speed;
-            this.node.getComponent(cc.BoxCollider).size.width = this.node.width;
-            this.node.getComponent(cc.BoxCollider).size.height = this.node.height;
+            this.node.getComponent(cc.CircleCollider).radius = this.node.width/2;
             this.time -=dt;
          }else{
             this.is_suodu = false;

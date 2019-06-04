@@ -27,6 +27,9 @@ cc.Class({
         this.cd = false;
         this.map =  cc.find("Canvas/bg001");
         this.gameuuid = this.enemy.getComponent("EnemyManager").gameuuid;
+        var manager = cc.director.getCollisionManager();
+        manager.enabledDebugDraw = true;
+        this.isGO = true;
     },
 
     start () {
@@ -61,26 +64,50 @@ cc.Class({
         }
     },
     ComputeDir(otherpos){
-    
-        this.pos = otherpos.sub(this.enemy.position);
-        var len = this.pos.mag();
+        this.isGO = false;
+        //cc.v2(0,0)因为otherpos是通过机器人节点转换的原来是传入this.enemy.position
+        var pos = otherpos.sub(cc.v2(0,0));
+        var len = pos.mag();
         if(len !=0 ){
-            this.dir.x = this.pos.x / len;
-            this.dir.y = this.pos.y / len;
+            this.dir.x = pos.x / len;
+            this.dir.y = pos.y / len;
             this.is_trigger =true;
         }
-
     },
+    // lookAtObj(target){
+    //     //计算出朝向
+    //     var dx = target.x - this.node.x;
+    //     var dy = target.y - this.node.y;
+    //     var dir = cc.v2(dx,dy);
     
+    //     //根据朝向计算出夹角弧度
+    //     var angle = dir.signAngle(cc.v2(1,0));
+    
+    //     //将弧度转换为欧拉角
+    //     var degree = angle / Math.PI * 180;
+    
+    //     //赋值给节点
+    //     this.node.rotation = degree;
+    // },
+    //道具的节点坐标转换成机器人下的坐标(直接转换世界坐标位置不对)
+    convetOtherNodeSpaceAR(node, targetNode) {
+        if (!node || !targetNode) {
+            return null;
+        }
+        //先转成世界坐标
+        let worldPoint = node.convertToWorldSpaceAR(cc.v2(0, 0));
+        return targetNode.convertToNodeSpaceAR(worldPoint);
+    },
+
     onCollisionEnter: function (other, self) {
         //判断碰撞的类型
-        if(this.behit){
+        if(this.behit&&this.isGO){
             if(other.node.group == "player"){
                 this.playerAttack(other.node.position);
             }else if(other.node.group == "enemy" && other.getComponent("EnemyManager").gameuuid != this.gameuuid){
                 this.playerAttack(other.node.position);
             }else if(other.node.group == "gem"){
-                this.ComputeDir(other.node.position);
+                this.ComputeDir(this.convetOtherNodeSpaceAR(other.node,this.enemy));
             }else if(other.node.group == "item"){
                 this.ComputeDir(other.node.position);
             }
@@ -88,22 +115,27 @@ cc.Class({
         
     },
     onCollisionStay: function (other, self) {
-        
-        
-        if(other.node.group == "gem"&&this.behit){
-            this.ComputeDir(other.node.position);
-        }else if(other.node.group == "item"&&this.behit){
-            this.ComputeDir(other.node.position);
-        }
-        
+        if(this.isGO){
+            if(other.node.group == "gem"&&this.behit){
+                // console.log("Stayposition: "+this.convetOtherNodeSpaceAR(other.node,this.enemy));
+                // console.log("本地坐标: "+other.node.position);
+                // console.log("Stay本地转世界坐标: "+other.node.convertToWorldSpaceAR(cc.v2(0, 0)));
+                this.ComputeDir(this.convetOtherNodeSpaceAR(other.node,this.enemy));
+            }else if(other.node.group == "item"&&this.behit){
+                this.ComputeDir(other.node.position);
+            }
+        }   
+    },
+    onCollisionExit: function (other, self) {
+        this.isGO = true;
     },
     //平A技能（往前撞击）
     playerAttack(otherpos){
         this.enemy.getComponent("EnemyManager").isattack = true;
-        this.pos = otherpos.sub(this.enemy.position);
-        var len = this.pos.mag();
-        this.dir.x = this.pos.x / len;
-        this.dir.y = this.pos.y / len;
+        var pos = otherpos.sub(this.enemy.position);
+        var len =  pos.mag();
+        this.dir.x =  pos.x / len;
+        this.dir.y =  pos.y / len;
         //方向计算
         var r = Math.atan2(this.dir.y,this.dir.x);
         var degree = r * 180/(Math.PI);
@@ -116,8 +148,10 @@ cc.Class({
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);
         this.cd = true;
+        this.behit = false;
         this.scheduleOnce(function() {
             this.cd = false;
+            this.behit = true;
             this.enemy.getComponent("EnemyManager").isattack = false;
         }, 1);
         cc.tween(this.enemy)

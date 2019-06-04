@@ -70,7 +70,7 @@ cc.Class({
     onLoad () {
         //开启碰撞检测
         cc.director.getCollisionManager().enabled = true;
-        cc.director.getPhysicsManager().enabled = true;
+        //cc.director.getPhysicsManager().enabled = true;
         this.ismove = false;
 
         //定义玩家信息
@@ -119,7 +119,16 @@ cc.Class({
     },
     
     update (dt) {
-        if(!this.trigger.is_trigger && this.trigger.dir!= null &&this.trigger.behit){
+        if(!this.trigger.is_trigger &&this.trigger.behit){
+            //当刚开始没有道具的时候让机器人动起来
+            if(this.trigger.dir.x == 0&&this.trigger.dir.y==0){
+                this.pos = this.hero.node.position.sub(this.node.position);
+                var len = this.pos.mag();
+                if(len !=0 ){
+                    this.trigger.dir.x = this.pos.x / len;
+                    this.trigger.dir.y = this.pos.y / len;
+                }
+            }
             if(this.ismove){
                 var vx = this.trigger.dir.x * this.speed;
                 var vy = this.trigger.dir.y * this.speed;
@@ -184,6 +193,8 @@ cc.Class({
             if(other.node.group == "gem"){
                 //other.node.destroy();
                 this.NodePool.onGemKilled(other.node);
+                //吃掉道具之后让他可以继续追踪道具
+                this.trigger.isGO = true;
                 this.exp +=1;
                 this.enemylv.string = this.lv;
                 if(this.enemylv.string <=5){
@@ -255,10 +266,10 @@ cc.Class({
         }
         
     },
-    onCollisionExit: function (other, self) {
+    // onCollisionExit: function (other, self) {
         
-        this.trigger.is_trigger = false;
-    },
+    //     this.trigger.is_trigger = false;
+    // },
     enemylvUp(){
         this.lvUp.active = true;
         this.enemylv.string = this.lv;
