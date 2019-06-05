@@ -22,43 +22,45 @@ cc.Class({
     start () {
         this.time = 1;
         this.col = true;
+        this.speed = 400;
         // 将角度转换为弧度
         this.player =  cc.find("Canvas/player").getComponent("Player");
         this.node.rotation = this.player.player.rotation +90;
         let radian  = cc.misc.degreesToRadians(this.player.player.rotation);
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         this.dirVec = comVec.rotate(-radian);
-        let posx = this.node.x +this.dirVec.x*300;
-        let posy = this.node.y +this.dirVec.y*300;
-        if(this.col){
-            cc.tween(this.node)
-            .to(1,{position:cc.v2(posx,posy)})
-            .start();
-        }
+        // let posx = this.node.x +this.dirVec.x*500;
+        // let posy = this.node.y +this.dirVec.y*500;
+        
+        // cc.tween(this.node)
+        // .to(1,{position:cc.v2(posx,posy)})
+        // .start();
+        
         this.schedule(function(){
             this.node.getComponent(cc.Animation).play('skill_boom');
-        },0,0,1);
+        },0,0,this.time);
     },
 
     update (dt) {
-        // if(this.col){
-        //     if(this.time>0){
-        //         this.time-=dt;
-        //         this.node.x += this.dirVec.x*dt*300;
-        //         this.node.y += this.dirVec.y*dt*300;
-        //     }else{
-        //         this.time =0;
-        //         this.node.getComponent(cc.Animation).play('skill_boom');
-        //     }
-        //     var top = this.player.map.height / 2;
-        //     var bottom = -top;
-        //     var left = - this.player.map.width / 2;
-        //     var right = -left;
-        //     var outScreen = this.node.x < left || this.node.x > right || this.node.y < bottom || this.node.y > top;
-        //     if (outScreen) {
-        //         this.node.destroy();
-        //     }
-        // }
+        if(this.col){
+            if(this.time>0){
+                this.time-=dt;
+                this.node.x += this.dirVec.x*dt*this.speed ;
+                this.node.y += this.dirVec.y*dt*this.speed ;
+            }else{
+                this.time =0;
+                this.col = false;
+                //this.node.getComponent(cc.Animation).play('skill_boom');
+            }
+            var top = this.player.map.height / 2;
+            var bottom = -top;
+            var left = - this.player.map.width / 2;
+            var right = -left;
+            var outScreen = this.node.x < left || this.node.x > right || this.node.y < bottom || this.node.y > top;
+            if (outScreen) {
+                this.node.destroy();
+            }
+        }
     },
     onBoomDestroy(){
         this.node.destroy();

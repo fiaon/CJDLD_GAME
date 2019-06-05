@@ -63,25 +63,26 @@ cc.Class({
         this.Rocker.x = 0;
         this.Rocker.y = 0;
         this.dir = cc.v2(0,0);
-        if(Global.defhid ==1){
+        this.skill2cd = 4;
+        // if(Global.defhid ==1){
             
-            this.skill2cd = 6;
-            cc.loader.loadRes('hero/skill_1', cc.SpriteFrame, function (err, spriteFrame) {
-                self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
-            });
-        }else if(Global.defhid ==2){
+        //     this.skill2cd = 6;
+        //     cc.loader.loadRes('hero/skill_1', cc.SpriteFrame, function (err, spriteFrame) {
+        //         self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+        //     });
+        // }else if(Global.defhid ==2){
            
-            this.skill2cd = 6;
-            cc.loader.loadRes('hero/skill_2', cc.SpriteFrame, function (err, spriteFrame) {
-                self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
-            });
-        }else if(Global.defhid ==3){
+        //     this.skill2cd = 6;
+        //     cc.loader.loadRes('hero/skill_2', cc.SpriteFrame, function (err, spriteFrame) {
+        //         self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+        //     });
+        // }else if(Global.defhid ==3){
            
-            this.skill2cd = 8;
-            cc.loader.loadRes('hero/skill_3', cc.SpriteFrame, function (err, spriteFrame) {
-                self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
-            });
-        }
+        //     this.skill2cd = 8;
+        //     cc.loader.loadRes('hero/skill_3', cc.SpriteFrame, function (err, spriteFrame) {
+        //         self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
+        //     });
+        // }
         this.skill2_Cd = false;
         this.skill_bullet = cc.find("Canvas/skill_bullet");
         this.map =  cc.find("Canvas/bg001");

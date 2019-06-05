@@ -22,13 +22,13 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        // var manager = cc.director.getCollisionManager();
+        // manager.enabledDebugDraw = true;
         this.dir = cc.v2(0,0);
         this.behit = true;
         this.cd = false;
         this.map =  cc.find("Canvas/bg001");
         this.gameuuid = this.enemy.getComponent("EnemyManager").gameuuid;
-        var manager = cc.director.getCollisionManager();
-        manager.enabledDebugDraw = true;
         this.isGO = true;
     },
 
