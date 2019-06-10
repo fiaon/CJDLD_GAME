@@ -45,6 +45,16 @@ cc.Class({
     start () {
         this.content.active = false;
         let self = this;
+        var kill = cc.find("Canvas/player").getComponent("Player").killsnumber;
+        var rank = Global.enemynumber-Global.dienumber+1;
+        //结算请求.会返回获得的金币钻石和积分
+        Global.GameSettle(Global.defhid,kill,rank,(res)=>{
+            if(res.state ==1){
+                self.goldNum.string = "x"+res.result.Gold;
+                self.diamonds.string = "x"+res.result.Diamonds;
+            }
+            
+        });
         this.time = 10;
         this.number =0;
         this.timeDown.string = this.time;
@@ -85,20 +95,13 @@ cc.Class({
             default:
                 break;
         }
-        var gold = 0;
-        var diamonds = 0;
         if(36-Global.dienumber>3){
             this.addScore.string = "-25";
-            gold = Global.ticket*0.2*0.5;
-            diamonds =  Global.ticket*0.01;
+            
         }else{
             this.addScore.string = "+50";
-            gold = Global.ticket*0.8*0.5;
-            diamonds =  Global.ticket*0.1;
-
         }
-        this.goldNum.string = "x"+gold;
-        this.diamonds.starImg = "x"+diamonds;
+        
         
     },
     //计算星星段位不同每颗星星的积分不同
@@ -109,7 +112,7 @@ cc.Class({
                 this.ChangeStarImg(Math.floor(score))
                 var curscore =  0;
                 if(Global.userlvl==1){
-                    curscore = (Global.score -Global.SeaonLvl[i].minscore +1)%jifen;
+                    curscore = (Global.score -Global.SeaonLvl[i].minscore)%jifen;
                 }else{
                     curscore = (Global.score -Global.SeaonLvl[i].minscore +1)%jifen;
                 }
@@ -147,16 +150,11 @@ cc.Class({
             //关闭按钮点击
             cc.find("Canvas/GameOverView/smallgameView/bg/clickBtn").getComponent(cc.Button).interactable =false;
             var pre = cc.instantiate(this.RewardView);
-            cc.find("Bg/Video",pre).active = false;
-            cc.find("Bg/CloseBtn",pre).active = false;
-            cc.find("Bg/Number",pre).getComponent(cc.Label).string = "x" + this.goldnumber.string;
-            cc.find("Bg/ConfirmBtn",pre).y = -95;
-            cc.find("Bg/ConfirmBtn/textImg",pre).getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(cc.url.raw('resources/confirm.png'));
-            cc.find("Bg/ConfirmBtn/textImg",pre).width = 30;
-            cc.find("Bg/ConfirmBtn/textImg",pre).height = 15;
+            pre.getComponent("RewardPrefab").init(5,this.number);
             cc.find("Bg/ConfirmBtn",pre).on(cc.Node.EventType.TOUCH_START,function(e){
                 var name = pre.name;
                 cc.find("Canvas/"+name).destroy();
+                cc.find("Canvas/GameOverView").active =false;
                 cc.find("Canvas/GameOver_2View_danren").active = true;
             },this);
             pre.group = "GameUI";

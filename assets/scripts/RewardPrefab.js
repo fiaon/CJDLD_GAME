@@ -29,7 +29,7 @@ cc.Class({
     init:function(type,data){
         this.type = type;
         let self = this;
-        // 类型 1:英雄  2:签到  3:转盘  4:视频结束
+        // 类型 1:英雄  2:签到  3:转盘  4:视频结束 5：游戏结束的点击金币
         if(this.type == 2){
             if(data.curday>0&&data.curday <5){
                 var imgurl = "coin";
@@ -56,6 +56,18 @@ cc.Class({
             this.text.active = false;
             this.btn.node.active = false;
             this.UserChange(data);
+        }else if(this.type == 5){
+            this.signNum = data;
+            this.number.string = "x"+data;
+            this.btn.getChildByName("textImg").active = false;
+            this.btn.getChildByName("confirm").active = true;
+             //增加金币
+             Global.UserChange(2,1,"签到",this.signNum,(res)=>{
+                if(res.state ==1){
+                    Global.gold+= this.signNum;
+                    cc.game.emit('UserChang');
+                }
+            });
         }
     },
     OnClose(){

@@ -22,10 +22,11 @@ cc.Class({
     start () {
 
     },
-    init:function(target){
+    init:function(target,naem){
         this.target = target;
+        this.node.name = naem;
     },
     update (dt) {
         this.node.position = this.target.position;
-    },
+    }
 });

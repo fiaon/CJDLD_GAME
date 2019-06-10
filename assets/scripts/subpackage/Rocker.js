@@ -66,7 +66,7 @@ cc.Class({
         this.skill2cd = 4;
         // if(Global.defhid ==1){
             
-        //     this.skill2cd = 6;
+        //     this.skill2cd = 4;
         //     cc.loader.loadRes('hero/skill_1', cc.SpriteFrame, function (err, spriteFrame) {
         //         self.skill2.getChildByName("tubiao").getComponent(cc.Sprite).spriteFrame =  spriteFrame;
         //     });

@@ -61,7 +61,7 @@ cc.Class({
         //cc.sys.localStorage.setItem(i.toString(),"0");
         enemy.parent = this.node; // 将生成的敌人加入节点树
         let mapdian = cc.instantiate(this.mapdianPrefab);
-        mapdian.getComponent("MapDianControl").init(enemy);
+        mapdian.getComponent("MapDianControl").init(enemy,enemy.name);
         mapdian.parent = cc.find("Canvas/MapDianCol");
     },
     // update (dt) {},

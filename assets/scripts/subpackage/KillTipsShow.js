@@ -27,15 +27,21 @@ cc.Class({
     },
     Show(name_1,name_2){
         this.Richlabel.string = "<color=#00ff00>"+name_1+"</c>"+"击杀了"+"<color=#FF0000>"+name_2+"</color>";
-        this.node.runAction(cc.sequence(cc.delayTime(2.0), cc.fadeOut(1.0), cc.callFunc(()=>{
+        // this.node.runAction(cc.sequence(cc.delayTime(2.0), cc.fadeOut(1.0), cc.callFunc(()=>{
+        //     this.node.destroy();
+        // },this)));
+        this.scheduleOnce(function() {
             this.node.destroy();
-        },this)));
+        }, 1);
     },
     Show_2(name_1){
         this.Richlabel.string = "<color=#00ff00>"+name_1+"</c>"+"<color=#FF0000>被淹死了</color>";
-        this.node.runAction(cc.sequence(cc.delayTime(2.0), cc.fadeOut(1.0), cc.callFunc(()=>{
+        // this.node.runAction(cc.sequence(cc.delayTime(2.0), cc.fadeOut(1.0), cc.callFunc(()=>{
+        //     this.node.destroy();
+        // },this)));
+        this.scheduleOnce(function() {
             this.node.destroy();
-        },this)));
+        }, 1);
     },
     // update (dt) {},
 });

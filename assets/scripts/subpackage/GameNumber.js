@@ -20,6 +20,10 @@ cc.Class({
             default:null,
             type:cc.Label,
         },
+        userKill:{
+            default:null,
+            type:cc.Label,
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,6 +35,7 @@ cc.Class({
         cc.game.on('change',function (people){
              this.people.string = people.toString();
              this.dienumber.string = Global.dienumber.toString();
+             this.userKill.string = cc.find("Canvas/player").getComponent("Player").killsnumber;
             },this);
     },
     // update (dt) {},

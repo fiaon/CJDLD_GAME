@@ -119,6 +119,9 @@ cc.Class({
     },
     
     update (dt) {
+        if(Global.is_end){
+            return
+        }
         if(!this.trigger.is_trigger &&this.trigger.behit){
             //当刚开始没有道具的时候让机器人动起来
             if(this.trigger.dir.x == 0&&this.trigger.dir.y==0){
@@ -328,9 +331,9 @@ cc.Class({
                 this.enemyPool.onEnemyKilled(this.node);
                 this.DropItem();
             }, 1);
-            //随机概率掉装备 (小动画先生成几个然后随机往几个方向移动)
+            cc.find("Canvas/MapDianCol/"+this.gameuuid).destroy();
            
-            peopleNumber.getInstance().changeNumber();
+            
             let text = "";
             let others = null;
             if(this.killsuuid && this.killsuuid>0&&cc.find("Canvas/EnemyController/"+this.killsuuid)){
@@ -354,6 +357,7 @@ cc.Class({
             }else{
                 this.ShowKill_3(this.enemyname.string);
             }
+            peopleNumber.getInstance().changeNumber();
         }
     },
     KillsText(number){
