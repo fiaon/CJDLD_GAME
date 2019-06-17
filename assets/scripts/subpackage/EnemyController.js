@@ -59,10 +59,12 @@ cc.Class({
         enemy.getComponent("EnemyManager").gameuuid = i.toString();
         enemy.name = enemy.getComponent("EnemyManager").gameuuid;
         //cc.sys.localStorage.setItem(i.toString(),"0");
-        enemy.parent = this.node; // 将生成的敌人加入节点树
+        //enemy.parent = this.node; // 将生成的敌人加入节点树
+        this.node.addChild(enemy);
         let mapdian = cc.instantiate(this.mapdianPrefab);
         mapdian.getComponent("MapDianControl").init(enemy,enemy.name);
-        mapdian.parent = cc.find("Canvas/MapDianCol");
+        //mapdian.parent = cc.find("Canvas/MapDianCol");
+        cc.find("Canvas/MapDianCol").addChild(mapdian);
     },
     // update (dt) {},
 

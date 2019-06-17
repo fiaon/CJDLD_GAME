@@ -34,7 +34,7 @@ cc.Class({
             });
         } 
         this.tex = new cc.Texture2D();
-        
+        this.isBag = true;
     },
     submitScoreButtonFunc(){
         if (CC_WECHATGAME) {
@@ -73,6 +73,11 @@ cc.Class({
         }
         var openDataContext = wx.getOpenDataContext();
         var sharedCanvas = openDataContext.canvas;
+        if (sharedCanvas&&this.isBag) {
+            this.isBag = false;
+            sharedCanvas.width = cc.game.canvas.width * 2;
+            sharedCanvas.height = cc.game.canvas.height * 2;
+        }
         this.tex.initWithElement(sharedCanvas);
         this.tex.handleLoadedTexture();
         this.display.spriteFrame = new cc.SpriteFrame(this.tex);

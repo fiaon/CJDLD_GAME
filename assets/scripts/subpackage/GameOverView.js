@@ -145,7 +145,7 @@ cc.Class({
     countDownShow(temp){
         if(temp <= 0){
             //倒计时结束
-            this.node.active = false;
+            //this.node.active = false;
             this.unschedule(this.doCountdownTime);
             //关闭按钮点击
             cc.find("Canvas/GameOverView/smallgameView/bg/clickBtn").getComponent(cc.Button).interactable =false;

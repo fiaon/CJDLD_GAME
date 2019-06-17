@@ -58,9 +58,10 @@ cc.Class({
             this.UserChange(data);
         }else if(this.type == 5){
             this.signNum = data;
+            this.text.active = false;
             this.number.string = "x"+data;
-            this.btn.getChildByName("textImg").active = false;
-            this.btn.getChildByName("confirm").active = true;
+            this.btn.node.getChildByName("textImg").active = false;
+            this.btn.node.getChildByName("confirm").active = true;
              //增加金币
              Global.UserChange(2,1,"签到",this.signNum,(res)=>{
                 if(res.state ==1){

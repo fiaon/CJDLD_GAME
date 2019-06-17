@@ -20,22 +20,21 @@ cc.Class({
             default:[],
             type:cc.Prefab,
         },
-        maps:{
-            default:[],
+        map:{
+            default:null,
             type:cc.Node,
         },
     },
-    // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.GemPool = new cc.NodePool();
         this.ItemPool = new cc.NodePool();
-        for(var i=0;i<720;i++){
+        for(var i=0;i<100;i++){
             var str = Math.round(Math.random()*4);
             var item =  cc.instantiate(this.gemPrefab[str]);
             this.GemPool.put(item);
         }
-        for(var i=0;i<40;i++){
+        for(var i=0;i<100;i++){
             var str = Math.round(Math.random()*2);
             var item =  cc.instantiate(this.ItemPrefab[str]);
             this.ItemPool.put(item);
@@ -43,16 +42,30 @@ cc.Class({
     },
 
     start () {
-        // for(var i=0;i<200;i++){
+        // for(var i=0;i<300;i++){
         //     this.CreateGem();
         // }
         // for(var i=0;i<40;i++){
         //     this.CreateItem();
         // }
-        for(let i=0;i<this.maps.length;i++){
-            this.maps[i].getComponent("MapsCreatItem").init();
-        }
+        
     },
+    // CreateGem(){
+    //     var x = Math.random()*(this.map.width/2 - (this.map.width/-2)) + (this.map.width/-2);
+    //     var y = Math.random()*(this.map.height/2 - (this.map.height/-2)) + (this.map.height/-2);
+    //     // var str = Math.round(Math.random()*4);
+    //     // var item =  cc.instantiate(this.gemPrefab[str]);
+    //     let item = null;
+    //     if (this.GemPool.size() > 0) { // 通过 size 接口判断对象池中是否有空闲的对象
+    //         item = this.GemPool.get();
+    //     } else { // 如果没有空闲对象，也就是对象池中备用对象不够时，我们就用 cc.instantiate 重新创建
+    //         item = cc.instantiate(this.gemPrefab[Math.round(Math.random()*4)]);
+    //     }
+    //     item.x = x;
+    //     item.y = y;
+    //     //item.parent = this.node;
+    //     this.node.addChild(item);
+    // },
     CreateGem(width,height,node){
         var x = Math.random()*(width/2 - (width/-2)) + (width/-2);
         var y = Math.random()*(height/2 - (height/-2)) + (height/-2);
@@ -64,7 +77,8 @@ cc.Class({
         }
         item.x = x;
         item.y = y;
-        item.parent = node;
+        //item.parent = node;
+        node.addChild(item);
     },
     CreateItem(width,height,node){
         var x = Math.random()*(width/2 - (width/-2)) + (width/-2);
@@ -77,7 +91,8 @@ cc.Class({
         }
         item.x = x;
         item.y = y;
-        item.parent = node;
+        //item.parent = node;
+        node.addChild(item);
     },
     onGemKilled: function (gem) {
         // gem 应该是一个 cc.Node
@@ -98,9 +113,12 @@ cc.Class({
         //         this.CreateItem();
         //     }
         // }
+        if(Global.is_end){
+            return;
+        }
         if(Global.dienumber == Global.enemynumber&&Global.is_end ==false){
-            cc.find("Canvas/GameOverView").active = true;
             Global.is_end = true;
+            cc.find("Canvas/GameOverView").active = true;
         }
     },
 });

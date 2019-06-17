@@ -23,6 +23,7 @@ cc.Class({
 
     start () {
         let self = this;
+        Global.Getinfo();
         if(Global.is_Again){
             cc.find("Canvas/DOYouLikeView").active =true;
             Global.is_Again = false;

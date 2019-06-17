@@ -203,10 +203,10 @@ cc.Class({
         
     },
     HeroDead(){
-        if(this.curhp <=0){
+        if(this.curhp <=0&&Global.is_end ==false){
             //跳出结算界面
-            cc.find("Canvas/GameOverView").active = true;
             Global.is_end = true;
+            cc.find("Canvas/GameOverView").active = true;
         }
     },
     //攻击

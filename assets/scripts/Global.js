@@ -8,6 +8,7 @@ window.Global = {
     enemynumber:35,     //机器人数量
     dienumber:0,        //死亡数
     name:null,          //昵称
+    sex:null,           //性别
     avatarUrl:null,     //头像url
     gold:null,          //金币
     diamond:null,       //钻石
@@ -289,6 +290,7 @@ window.Global = {
                                 //此时可进行登录操作
                                 Global.name = res.userInfo.nickName; //用户昵称
                                 Global.avatarUrl = res.userInfo.avatarUrl; //用户头像图片 url
+                                Global.sex = res.userInfo.gender;   //用户性别
                             }
                         });
                     }else {
@@ -316,6 +318,7 @@ window.Global = {
                                 //此时可进行登录操作
                                 Global.name = res.userInfo.nickName; //用户昵称
                                 Global.avatarUrl = res.userInfo.avatarUrl; //用户头像图片 url
+                                Global.sex = res.userInfo.gender;   //用户性别
                                 button.destroy();
                             }else {
                                 console.log("用户拒绝授权:", res);
@@ -381,17 +384,16 @@ window.Global = {
 
     Getinfo() {
         var self = this;
-        this.Get("https://wx.zaohegame.com/game/shareimg?appid=wxfa819a83fa221978", (obj) => {
+        this.Get("https://wx.zaohegame.com/game/shareimg?appid=wx039e71b55cba9869", (obj) => {
             if (obj.state == 1) {
                 this.shareimg = obj.result;
-                console.log(self.shareimg)
             }
         });
     },
 
     GetJumpInfo(callback) {
         var self = this;
-        this.Get("https://wx.zaohegame.com/game/jumpapp?appid=wxfa819a83fa221978", (obj) => {
+        this.Get("https://wx.zaohegame.com/game/jumpapp?appid=wx039e71b55cba9869", (obj) => {
             if (obj.state == 1) {
                 this.jumpappObject = obj.result;
                 var self = this;

@@ -331,7 +331,9 @@ cc.Class({
                 this.enemyPool.onEnemyKilled(this.node);
                 this.DropItem();
             }, 1);
-            cc.find("Canvas/MapDianCol/"+this.gameuuid).destroy();
+            if(cc.find("Canvas/MapDianCol/"+this.gameuuid)){
+                cc.find("Canvas/MapDianCol/"+this.gameuuid).destroy();
+            }
            
             
             let text = "";
@@ -347,11 +349,11 @@ cc.Class({
                 }
                 if(this.killername == this.hero.Heroname.string){
                     this.hero.killsnumber +=1;
-                    this.KillsText(this.hero.killsnumber);
+                    this.KillsText(parseInt(this.hero.killsnumber));
                 }else{
                     if(others &&this.killsuuid == others.gameuuid){
                         others.killsnumber += 1;
-                        this.KillsText(others.killsnumber);
+                        this.KillsText(parseInt(others.killsnumber));
                     }
                 }
             }else{

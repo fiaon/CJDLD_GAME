@@ -20,32 +20,39 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        this.GameitemMan = this.GameItem.getComponent("GameItemManager");
+    },
 
     start () {
-        
-        
-    },
-    init:function(){
-        this.CreateItem();
+        this.CreateGem();
     },
     //生成宝珠
-    CreateItem(){
-        this.ran = Math.round(Math.random()*30)+30;
-        for(let j=0;j<this.ran;j++){
-            this.GameItem.getComponent("GameItemManager").CreateGem(this.node.width,this.node.height,this.node);
+    CreateGem(){
+        var ran = Math.round(Math.random()*30)+30;
+        for(let j=0;j<ran;j++){
+            this.GameitemMan.CreateGem(this.node.width,this.node.height,this.node);
         }
     },
     //生成道具
-    
-    update (dt) {
+    CreateItem(){
+        var ran = Math.round(Math.random()*5)+10;
+        for(let j=0;j<ran;j++){
+            this.GameitemMan.CreateItem(this.node.width,this.node.height,this.node);
+        }
+    },
+    //补充宝珠
+    AddItem(){
         //当个区域宝珠少于一半数创建
         if(this.node.childrenCount<(this.ran/2)){
             let num = this.node.children.length;
+            //回收该区域剩下的宝珠
             for(let i=0;i<num;i++){
-                this.GameItem.getComponent("GameItemManager").onGemKilled(this.node.children[0]);
+                this.GameitemMan.onGemKilled(this.node.children[0]);
             }
-            this.CreateItem();
+            //创建宝珠
+            this.CreateGem();
         }
     },
+    //update (dt) {},
 });

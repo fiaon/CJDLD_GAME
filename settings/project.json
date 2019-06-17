@@ -143,13 +143,13 @@
     "skill",
     "Mask"
   ],
-  "last-module-event-record-time": 1559556218287,
+  "last-module-event-record-time": 1560737438767,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,
     "width": 960
   },
+  "start-scene": "current",
   "use-customize-simulator": true,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }
