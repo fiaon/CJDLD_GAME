@@ -155,40 +155,41 @@ cc.Class({
         //判断碰撞的类型
         if(self.tag == 0 ){
             if(other.node.group == "gem"){
-                //other.node.destroy();
-                this.NodePool.onGemKilled(other.node);
-                this.expnum +=1;
-                this.exp = this.xishu*(this.lv*(this.lv+1)/2);
-                if(this.expnum>=this.exp&& this.lv<=12){
-                    this.lv +=1;
-                    this.expnum =0;
-                    if(this.curhp < this.maxhp){
-                        this.curhp +=1;
-                        this.Herohp.progress = this.curhp/this.maxhp;
-                    }
-                    this.HeroLvUp();
-                }
-                this.Herolv.string = this.lv;
-                this.Heroexp.fillRange = this.expnum /this.exp*-1;
                 
-            }else if(other.node.group == "item"){
-                //other.node.destroy();
-                this.NodePool.onItemKilled(other.node);
+                // 道具-----------------------------------------------------------
                 if(other.node.name == "item_dunPrefab"){
+                    this.NodePool.onItemKilled(other.node);
                     this.AddDun();
                 }else if(other.node.name == "item_hpPrefab"){
-    
+                    this.NodePool.onItemKilled(other.node);
                     if(this.curhp < this.maxhp){
                         this.curhp +=1;
                         this.Herohp.progress = this.curhp/this.maxhp;
                         this.player.getChildByName("addHp").getComponent(cc.Animation).play('AddHp');
                     }
                 }else if(other.node.name == "item_xiePrefab"){
-    
+                    this.NodePool.onItemKilled(other.node);
                     this.speed += this.addspeed;
                     this.scheduleOnce(function() {
                         this.speed -= this.addspeed;;
                     }, 3);
+                }else{
+                // 宝珠------------------------------------------------------------ 
+                    //other.node.destroy();
+                    this.NodePool.onGemKilled(other.node);
+                    this.expnum +=1;
+                    this.exp = this.xishu*(this.lv*(this.lv+1)/2);
+                    if(this.expnum>=this.exp&& this.lv<=12){
+                        this.lv +=1;
+                        this.expnum =0;
+                        if(this.curhp < this.maxhp){
+                            this.curhp +=1;
+                            this.Herohp.progress = this.curhp/this.maxhp;
+                        }
+                        this.HeroLvUp();
+                    }
+                    this.Herolv.string = this.lv;
+                    this.Heroexp.fillRange = this.expnum /this.exp*-1;
                 }
             }
         }else if(self.tag ==1 && other.tag ==0&&this.Rocker.is_Cd){

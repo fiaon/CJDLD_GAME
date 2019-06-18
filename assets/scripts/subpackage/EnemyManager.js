@@ -77,6 +77,7 @@ cc.Class({
         this.curhp = 3;
         this.maxhp = 3;
         this.lv = 1;
+        this.expnum = 0;
         this.exp = 0;
         this.skillNum =0;
         this.speed=100,
@@ -194,63 +195,46 @@ cc.Class({
         //判断碰撞的类型
         if(self.tag == 0 ){
             if(other.node.group == "gem"){
-                //other.node.destroy();
-                this.NodePool.onGemKilled(other.node);
-                //吃掉道具之后让他可以继续追踪道具
-                this.trigger.isGO = true;
-                this.exp +=1;
-                this.enemylv.string = this.lv;
-                if(this.enemylv.string <=5){
-                    this.enemyexp.fillRange = this.exp /(-18);
-                }else if(this.enemylv.string <=10){
-                    this.enemyexp.fillRange = this.exp /(-36);
-                }else if(this.enemylv.string <=15){
-                    this.enemyexp.fillRange = this.exp /(-54);
-                }
-    
-                if(this.exp == 18 && this.lv<=5){
-                    this.lv +=1;
-                    this.exp =0;
-                    if(this.curhp < this.maxhp){
-                        this.curhp +=1;
-                        this.enemyhp.progress = this.curhp/this.maxhp;
-                    }
-                    this.enemylvUp();
-                }else if(this.exp == 36 && this.lv<=10){
-                    this.lv +=1;
-                    this.exp =0;
-                    if(this.curhp < this.maxhp){
-                        this.curhp +=1;
-                        this.enemyhp.progress = this.curhp/this.maxhp;
-                    }
-                    this.enemylvUp();
-                }else if(this.exp == 54 && this.lv<=15){
-                    this.lv +=1;
-                    this.exp =0;
-                    if(this.curhp < this.maxhp){
-                        this.curhp +=1;
-                        this.enemyhp.progress = this.curhp/this.maxhp;
-                    }
-                    this.enemylvUp();
-                }
-            }else if(other.node.group == "item"){
-                //other.node.destroy();
-                this.NodePool.onItemKilled(other.node);
+
+                // 道具------------------------------------------------------------
                 if(other.node.name == "item_dunPrefab"){
+                    this.NodePool.onItemKilled(other.node);
                     this.AddDun();
                 }else if(other.node.name == "item_hpPrefab"){
+                    this.NodePool.onItemKilled(other.node);
                     if(this.curhp < this.maxhp){
                         this.curhp +=1;
                         this.enemyhp.progress = this.curhp/this.maxhp;
                         this.player.getChildByName("addHp").getComponent(cc.Animation).play('AddHp');
                     }
                 }else if(other.node.name == "item_xiePrefab"){
-    
+                    this.NodePool.onItemKilled(other.node);
                     this.speed = 200;
                     this.scheduleOnce(function() {
                         this.speed = 100;
                     }, 3);
+                }else{
+                // 宝珠-----------------------------------------------------------    
+                    // 都改成道具类型（不同Group会增加drawcall）
+                    //other.node.destroy();
+                    this.NodePool.onGemKilled(other.node);
+                    //吃掉道具之后让他可以继续追踪道具
+                    this.trigger.isGO = true;
+                    this.expnum +=1;
+                    this.exp = this.xishu*(this.lv*(this.lv+1)/2);
+                    if(this.expnum>=this.exp&& this.lv<=12){
+                        this.lv +=1;
+                        this.expnum =0;
+                        if(this.curhp < this.maxhp){
+                            this.curhp +=1;
+                            this.Herohp.progress = this.curhp/this.maxhp;
+                        }
+                        this.enemylvUp();
+                    }
+                    this.enemylv.string = this.lv;
+                    this.enemyexp.fillRange = this.expnum /this.exp*-1;
                 }
+                
             }else if(self.tag ==0 && other.tag ==0&&this.trigger.cd){
                 if(other.node.group == "player"){
                     //眩晕状态无敌。不会给重复攻击
@@ -329,6 +313,7 @@ cc.Class({
             this.node.opacity =0;
             this.scheduleOnce(function() {
                 this.enemyPool.onEnemyKilled(this.node);
+                //this.node.destroy();
                 this.DropItem();
             }, 1);
             if(cc.find("Canvas/MapDianCol/"+this.gameuuid)){
@@ -440,7 +425,8 @@ cc.Class({
             item = cc.instantiate(this.NodePool.gemPrefab[Math.round(Math.random()*4)]);
         }
         item.position = this.node.position;
-        item.parent = cc.find("Canvas/GameController");
+        //item.parent = cc.find("Canvas/GameController");
+        cc.find("Canvas/GameController").addChild(item);
         let radian  = cc.misc.degreesToRadians(Math.round(Math.random()*360));
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);
@@ -458,7 +444,8 @@ cc.Class({
             item = cc.instantiate(this.NodePool.ItemPrefab[Math.round(Math.random()*2)]);
         }
         item.position = this.node.position;
-        item.parent = cc.find("Canvas/GameController");
+        //item.parent = cc.find("Canvas/GameController");
+        cc.find("Canvas/GameController").addChild(item);
         let radian  = cc.misc.degreesToRadians(Math.round(Math.random()*360));
         let comVec = cc.v2(0, 1);// 一个向上的对比向量
         let dirVec = comVec.rotate(-radian);

@@ -17,7 +17,7 @@
     "_parent": null,
     "_children": [],
     "_active": true,
-    "_level": 1,
+    "_level": 2,
     "_components": [
       {
         "__id__": 2
@@ -49,8 +49,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 193,
-      "y": -1468.2,
+      "x": 175,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -96,7 +96,9 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_state": 0,
-    "_atlas": null,
+    "_atlas": {
+      "__uuid__": "83a7b2f3-3182-4cc4-93e2-5a6f2332610b"
+    },
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_id": ""

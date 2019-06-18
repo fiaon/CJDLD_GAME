@@ -108,8 +108,6 @@ cc.Class({
                 this.playerAttack(other.node.position);
             }else if(other.node.group == "gem"){
                 this.ComputeDir(this.convetOtherNodeSpaceAR(other.node,this.enemy));
-            }else if(other.node.group == "item"){
-                this.ComputeDir(other.node.position);
             }
         }
         
@@ -121,8 +119,6 @@ cc.Class({
                 // console.log("本地坐标: "+other.node.position);
                 // console.log("Stay本地转世界坐标: "+other.node.convertToWorldSpaceAR(cc.v2(0, 0)));
                 this.ComputeDir(this.convetOtherNodeSpaceAR(other.node,this.enemy));
-            }else if(other.node.group == "item"&&this.behit){
-                this.ComputeDir(other.node.position);
             }
         }   
     },

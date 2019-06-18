@@ -26,6 +26,7 @@ cc.Class({
 
     start () {
         this.CreateGem();
+        this.CreateItem();
     },
     //生成宝珠
     CreateGem(){

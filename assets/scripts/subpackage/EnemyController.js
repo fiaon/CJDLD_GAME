@@ -30,6 +30,10 @@ cc.Class({
             let enemy = cc.instantiate(this.enemyPrefab); // 创建节点
             this.enemyPool.put(enemy); // 通过 put 接口放入对象池
         }
+        if(Global.is_end){
+            Global.is_end = false;
+            Global.dienumber = 0;
+        }
     },
 
     start () {
@@ -37,10 +41,7 @@ cc.Class({
         for(let i = 0; i < Global.enemynumber; ++i){
             this.createEnemy(i);
         }
-        if(Global.is_end){
-            Global.is_end = false;
-            Global.dienumber = 0;
-        }
+
     },
     createEnemy: function (i) {
         let enemy = null;
